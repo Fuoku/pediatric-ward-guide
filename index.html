@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Pediatric Ward Survival Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        mint: { 50:'#f0fdf4', 100:'#dcfce7', 200:'#bbf7d0', 300:'#86efac', 400:'#4ade80', 500:'#22c55e' },
+        sky: { 50:'#f0f9ff', 100:'#e0f2fe', 200:'#bae6fd', 300:'#7dd3fc', 400:'#38bdf8', 500:'#0ea5e9' },
+        rose: { 50:'#fff1f2', 100:'#ffe4e6', 200:'#fecdd3', 300:'#fda4af', 400:'#fb7185' },
+        amber: { 50:'#fffbeb', 100:'#fef3c7', 200:'#fde68a', 300:'#fcd34d', 400:'#fbbf24' },
+        violet: { 50:'#f5f3ff', 100:'#ede9fe', 200:'#ddd6fe', 300:'#c4b5fd', 400:'#a78bfa' },
+      },
+      fontFamily: {
+        sans: ['Sarabun', 'sans-serif'],
+        heading: ['Prompt', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+  :root {
+    --clr-bg: #f8fafc;
+    --clr-card: #ffffff;
+    --clr-nav: #ffffff;
+    --clr-primary: #0ea5e9;
+    --clr-primary-dark: #0284c7;
+    --clr-text: #1e293b;
+    --clr-muted: #64748b;
+    --nav-h: 64px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--clr-bg);
+    color: var(--clr-text);
+    min-height: 100vh;
+    padding-bottom: calc(var(--nav-h) + 16px);
+  }
+
+/* ── Header ── */
+.app-header {
+background: linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%);
+padding: 18px 16px 14px;
+position: sticky; top: 0; z-index: 50;
+box-shadow: 0 4px 20px rgba(14,165,233,.25);
+}
+.app-header h1 {
+font-family: ‘Prompt’, sans-serif;
+font-size: 1.15rem; font-weight: 700; color: #fff;
+letter-spacing: -.3px;
+}
+.app-header p { font-size: .78rem; color: rgba(255,255,255,.85); margin-top: 1px; }
+
+/* Search bar */
+.search-wrap { position: relative; margin-top: 10px; }
+.search-wrap input {
+width: 100%; background: rgba(255,255,255,.22); border: 1.5px solid rgba(255,255,255,.35);
+border-radius: 12px; padding: 8px 12px 8px 36px;
+color: #fff; font-size: .88rem; font-family: ‘Sarabun’, sans-serif;
+backdrop-filter: blur(8px);
+}
+.search-wrap input::placeholder { color: rgba(255,255,255,.7); }
+.search-wrap input:focus { outline: none; border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.3); }
+.search-wrap .fa-magnifying-glass { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.8); font-size: .85rem; }
+
+/* ── Bottom Nav ── */
+.bottom-nav {
+position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+background: var(–clr-nav);
+box-shadow: 0 -4px 24px rgba(0,0,0,.08);
+display: flex; height: var(–nav-h);
+border-top: 1px solid #e2e8f0;
+}
+.nav-btn {
+flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+gap: 3px; background: none; border: none; cursor: pointer;
+font-family: ‘Sarabun’, sans-serif; font-size: .63rem; color: #94a3b8;
+transition: color .2s, transform .15s;
+padding: 0;
+}
+.nav-btn i { font-size: 1.15rem; transition: color .2s; }
+.nav-btn.active { color: var(–clr-primary); }
+.nav-btn.active i { color: var(–clr-primary); }
+.nav-btn:active { transform: scale(.93); }
+
+/* ── Sections ── */
+.section { display: none; padding: 14px 12px 8px; animation: fadeUp .28s ease; }
+.section.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── Cards ── */
+.card {
+background: var(–clr-card);
+border-radius: 18px;
+padding: 16px;
+margin-bottom: 14px;
+box-shadow: 0 2px 14px rgba(0,0,0,.055);
+border: 1px solid #f1f5f9;
+}
+.card-title {
+font-family: ‘Prompt’, sans-serif;
+font-size: .98rem; font-weight: 600; color: var(–clr-text);
+display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.card-title .icon-circle {
+width: 30px; height: 30px; border-radius: 10px;
+display: flex; align-items: center; justify-content: center;
+font-size: .82rem; flex-shrink: 0;
+}
+.badge {
+display: inline-block; font-size: .68rem; font-weight: 600;
+padding: 2px 8px; border-radius: 20px; margin-right: 4px;
+}
+.ref-text {
+font-size: .7rem; color: #94a3b8; margin-top: 12px; padding-top: 10px;
+border-top: 1px dashed #e2e8f0;
+display: flex; align-items: center; gap: 5px;
+}
+
+/* ── Vitals Table ── */
+.vitals-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+.vitals-table th {
+background: #f0f9ff; color: #0369a1; font-weight: 600;
+padding: 7px 6px; text-align: left; border-bottom: 2px solid #bae6fd;
+font-family: ‘Prompt’, sans-serif; font-size: .72rem;
+}
+.vitals-table td { padding: 6px 6px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+.vitals-table tr:last-child td { border-bottom: none; }
+.vitals-table tr:nth-child(even) td { background: #f8fafc; }
+
+/* ── Milestone Grid ── */
+.milestone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.milestone-card {
+background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+border-radius: 12px; padding: 10px; border: 1px solid #bbf7d0;
+}
+.milestone-card .age-label {
+font-family: ‘Prompt’, sans-serif; font-size: .72rem; font-weight: 700;
+color: #15803d; margin-bottom: 5px;
+background: #bbf7d0; display: inline-block; padding: 1px 8px; border-radius: 8px;
+}
+.milestone-card p { font-size: .72rem; color: #374151; line-height: 1.5; margin: 2px 0; }
+.milestone-card .domain { font-weight: 600; color: #166534; }
+
+/* ── Calc inputs ── */
+.calc-group { margin-bottom: 12px; }
+.calc-label { font-size: .8rem; font-weight: 600; color: #475569; margin-bottom: 5px; display: block; }
+.calc-input, .calc-select {
+width: 100%; padding: 10px 12px;
+border: 1.5px solid #e2e8f0; border-radius: 12px;
+font-family: ‘Sarabun’, sans-serif; font-size: .9rem; color: var(–clr-text);
+background: #f8fafc; transition: border-color .2s, box-shadow .2s;
+}
+.calc-input:focus, .calc-select:focus {
+outline: none; border-color: var(–clr-primary);
+box-shadow: 0 0 0 3px rgba(14,165,233,.12);
+background: #fff;
+}
+.calc-btn {
+width: 100%; padding: 12px;
+background: linear-gradient(135deg, #0ea5e9, #22c55e);
+color: #fff; font-family: ‘Prompt’, sans-serif; font-size: .9rem; font-weight: 600;
+border: none; border-radius: 14px; cursor: pointer;
+box-shadow: 0 4px 14px rgba(14,165,233,.3);
+transition: transform .15s, box-shadow .15s;
+}
+.calc-btn:active { transform: scale(.98); box-shadow: 0 2px 8px rgba(14,165,233,.2); }
+.result-box {
+margin-top: 14px; background: linear-gradient(135deg, #f0f9ff, #f0fdf4);
+border-radius: 14px; padding: 14px; border: 1.5px solid #bae6fd;
+display: none;
+}
+.result-box.show { display: block; animation: fadeUp .25s ease; }
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #e0f2fe; }
+.result-row:last-child { border-bottom: none; }
+.result-label { font-size: .78rem; color: #64748b; }
+.result-value { font-family: ‘Prompt’, sans-serif; font-size: .95rem; font-weight: 700; color: #0ea5e9; }
+
+/* ── Fluid type tags ── */
+.fluid-type {
+background: #f0f9ff; border: 1.5px solid #bae6fd;
+border-radius: 12px; padding: 10px 12px; margin-bottom: 8px;
+}
+.fluid-type .fluid-name {
+font-family: ‘Prompt’, sans-serif; font-size: .82rem; font-weight: 700; color: #0369a1;
+}
+.fluid-type p { font-size: .75rem; color: #475569; margin-top: 3px; line-height: 1.5; }
+
+/* ── Emergency ── */
+.emerg-item {
+display: flex; align-items: flex-start; gap: 10px;
+background: #fff1f2; border-radius: 12px; padding: 11px 12px;
+border: 1.5px solid #fecdd3; margin-bottom: 8px;
+}
+.emerg-item .emerg-icon {
+width: 32px; height: 32px; background: #fb7185; border-radius: 10px;
+display: flex; align-items: center; justify-content: center;
+color: #fff; font-size: .82rem; flex-shrink: 0;
+}
+.emerg-item .emerg-label { font-family: ‘Prompt’, sans-serif; font-size: .8rem; font-weight: 700; color: #be123c; }
+.emerg-item .emerg-val { font-size: .78rem; color: #9f1239; margin-top: 2px; }
+.emerg-result-box {
+margin-top: 14px; background: linear-gradient(135deg, #fff1f2, #fffbeb);
+border-radius: 14px; padding: 14px; border: 1.5px solid #fecdd3; display: none;
+}
+.emerg-result-box.show { display: block; animation: fadeUp .25s ease; }
+.emerg-result-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #fecdd3; }
+.emerg-result-row:last-child { border-bottom: none; }
+.emerg-result-label { font-size: .78rem; color: #64748b; }
+.emerg-result-value { font-family: ‘Prompt’, sans-serif; font-size: .92rem; font-weight: 700; color: #e11d48; }
+
+/* ── Accordions ── */
+.accordion { margin-bottom: 10px; border-radius: 14px; overflow: hidden; border: 1.5px solid #e2e8f0; }
+.accordion-header {
+width: 100%; background: #f8fafc; border: none; padding: 13px 14px;
+display: flex; align-items: center; justify-content: space-between;
+cursor: pointer; font-family: ‘Prompt’, sans-serif; font-size: .88rem;
+font-weight: 600; color: var(–clr-text); transition: background .2s;
+text-align: left;
+}
+.accordion-header:hover { background: #f1f5f9; }
+.accordion-header .acc-icon { font-size: .75rem; color: #94a3b8; transition: transform .25s; }
+.accordion-header.open .acc-icon { transform: rotate(180deg); }
+.accordion-body {
+max-height: 0; overflow: hidden;
+transition: max-height .35s cubic-bezier(0.4,0,0.2,1), padding .25s;
+background: #fff; padding: 0 14px;
+}
+.accordion-body.open { max-height: 600px; padding: 12px 14px; }
+.acc-content { font-size: .78rem; line-height: 1.7; color: #374151; }
+.acc-content ul { list-style: none; padding: 0; margin: 5px 0; }
+.acc-content ul li { padding: 3px 0; padding-left: 16px; position: relative; }
+.acc-content ul li::before { content: ‘•’; position: absolute; left: 0; color: var(–clr-primary); font-weight: 700; }
+.acc-content .warn-box {
+background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 10px;
+padding: 8px 10px; margin: 8px 0; font-size: .76rem;
+}
+.acc-content .danger-box {
+background: #fff1f2; border: 1.5px solid #fecdd3; border-radius: 10px;
+padding: 8px 10px; margin: 8px 0; font-size: .76rem;
+}
+.acc-content .info-box {
+background: #f0f9ff; border: 1.5px solid #bae6fd; border-radius: 10px;
+padding: 8px 10px; margin: 8px 0; font-size: .76rem;
+}
+.acc-content strong { color: #1e293b; }
+.acc-ref { font-size: .68rem; color: #94a3b8; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #e2e8f0; }
+
+/* search highlight */
+mark { background: #fde68a; border-radius: 2px; }
+
+/* Section title */
+.section-title {
+font-family: ‘Prompt’, sans-serif; font-size: 1.05rem; font-weight: 700;
+color: var(–clr-text); margin-bottom: 14px;
+display: flex; align-items: center; gap: 8px;
+}
+.section-title .stag {
+background: linear-gradient(135deg, #0ea5e9, #22c55e);
+color: #fff; font-size: .65rem; padding: 3px 8px;
+border-radius: 8px; font-weight: 600;
+}
+
+/* Drug result table */
+.drug-result-table { width: 100%; border-collapse: collapse; font-size: .78rem; margin-top: 8px; }
+.drug-result-table th { background: #f0fdf4; color: #166534; padding: 6px 8px; text-align: left; font-weight: 700; font-size: .73rem; border-bottom: 2px solid #bbf7d0; }
+.drug-result-table td { padding: 7px 8px; border-bottom: 1px solid #f1f5f9; }
+.drug-result-table tr:last-child td { border-bottom: none; }
+.drug-note { font-size: .73rem; color: #64748b; margin-top: 8px; background: #f8fafc; border-radius: 8px; padding: 8px; }
+
+/* Age group tabs */
+.age-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.age-tab {
+font-size: .72rem; padding: 5px 10px; border-radius: 20px;
+border: 1.5px solid #e2e8f0; background: #f8fafc;
+cursor: pointer; font-family: ‘Sarabun’, sans-serif; font-weight: 600;
+color: #64748b; transition: all .15s;
+}
+.age-tab.active { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+
+/* Pulse animation for emergency */
+@keyframes pulse-ring {
+0% { box-shadow: 0 0 0 0 rgba(251,113,133,.4); }
+70% { box-shadow: 0 0 0 10px rgba(251,113,133,0); }
+100% { box-shadow: 0 0 0 0 rgba(251,113,133,0); }
+}
+.pulse { animation: pulse-ring 2s infinite; }
+</style>
+
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+
+<header class="app-header">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1><i class="fa-solid fa-stethoscope mr-2"></i>Pediatric Ward Survival Guide</h1>
+      <p>คู่มือเวชปฏิบัติกุมารเวชศาสตร์ สำหรับนักศึกษาแพทย์ & Intern</p>
+    </div>
+    <div class="text-right">
+      <div style="font-size:.6rem;color:rgba(255,255,255,.7);">Version</div>
+      <div style="font-size:.75rem;color:#fff;font-weight:700;font-family:'Prompt',sans-serif;">2024</div>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="globalSearch" placeholder="ค้นหายา / โรค / หัวข้อ..." autocomplete="off">
+  </div>
+</header>
+
+<!-- ════ MAIN CONTENT ════ -->
+
+<main id="mainContent">
+
+  <!-- ══ SECTION 1: VITALS ══ -->
+
+  <section id="sec-vitals" class="section active">
+    <div class="section-title"><i class="fa-solid fa-heart-pulse" style="color:#0ea5e9"></i> Vitals & Development <span class="stag">Section 1</span></div>
+
+```
+<!-- Normal Vitals Card -->
+<div class="card" id="card-vitals">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-chart-line"></i></div>
+    ค่าปกติสัญญาณชีพ (Normal Vital Signs by Age)
+  </div>
+
+  <!-- Age Filter Tabs -->
+  <div class="age-tabs">
+    <button class="age-tab active" onclick="filterVitals('all')">ทั้งหมด</button>
+    <button class="age-tab" onclick="filterVitals('neonate')">Neonate</button>
+    <button class="age-tab" onclick="filterVitals('infant')">Infant</button>
+    <button class="age-tab" onclick="filterVitals('toddler')">Toddler</button>
+    <button class="age-tab" onclick="filterVitals('preschool')">Preschool</button>
+    <button class="age-tab" onclick="filterVitals('school')">School</button>
+    <button class="age-tab" onclick="filterVitals('adolescent')">Adolescent</button>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="vitals-table" id="vitalsTable">
+      <thead>
+        <tr>
+          <th>ช่วงอายุ</th>
+          <th>HR<br>(bpm)</th>
+          <th>RR<br>(/min)</th>
+          <th>SBP<br>(mmHg)</th>
+          <th>UO<br>(ml/kg/hr)</th>
+        </tr>
+      </thead>
+      <tbody id="vitalsTbody">
+        <tr data-group="neonate"><td><span class="badge" style="background:#e0f2fe;color:#0369a1">Neonate</span><br><span style="font-size:.68rem;color:#64748b">0–28 วัน</span></td><td>100–160</td><td>40–60</td><td>60–90</td><td>1–3</td></tr>
+        <tr data-group="infant"><td><span class="badge" style="background:#dcfce7;color:#166534">Infant</span><br><span style="font-size:.68rem;color:#64748b">1–12 เดือน</span></td><td>100–160</td><td>30–60</td><td>70–100</td><td>1–2</td></tr>
+        <tr data-group="toddler"><td><span class="badge" style="background:#fef3c7;color:#92400e">Toddler</span><br><span style="font-size:.68rem;color:#64748b">1–3 ปี</span></td><td>90–150</td><td>24–40</td><td>80–110</td><td>1–2</td></tr>
+        <tr data-group="preschool"><td><span class="badge" style="background:#ede9fe;color:#5b21b6">Preschool</span><br><span style="font-size:.68rem;color:#64748b">3–5 ปี</span></td><td>80–140</td><td>22–34</td><td>80–110</td><td>1–2</td></tr>
+        <tr data-group="school"><td><span class="badge" style="background:#fce7f3;color:#9d174d">School-age</span><br><span style="font-size:.68rem;color:#64748b">6–12 ปี</span></td><td>70–120</td><td>18–30</td><td>85–120</td><td>0.5–1</td></tr>
+        <tr data-group="adolescent"><td><span class="badge" style="background:#ffedd5;color:#9a3412">Adolescent</span><br><span style="font-size:.68rem;color:#64748b">12–18 ปี</span></td><td>60–100</td><td>12–20</td><td>90–130</td><td>0.5–1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SBP Formula note -->
+  <div style="margin-top:10px;background:#f0f9ff;border-radius:10px;padding:9px 11px;font-size:.74rem;color:#0369a1;border:1px solid #bae6fd;">
+    <i class="fa-solid fa-calculator mr-1"></i>
+    <strong>Normal SBP (≥1 yr):</strong> 90 + (2 × Age in years) mmHg &nbsp;|&nbsp;
+    <strong>Min SBP:</strong> 70 + (2 × Age) mmHg
+  </div>
+
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics, 21st Ed.</div>
+</div>
+
+<!-- Developmental Milestones -->
+<div class="card" id="card-milestones">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#dcfce7;color:#166534"><i class="fa-solid fa-child-reaching"></i></div>
+    พัฒนาการตามวัย (Developmental Milestones)
+  </div>
+  <div class="milestone-grid" id="milestoneGrid">
+    <div class="milestone-card">
+      <div class="age-label">2 เดือน</div>
+      <p><span class="domain">Gross:</span> ยกศีรษะได้ 45°</p>
+      <p><span class="domain">Fine:</span> มือกำอยู่</p>
+      <p><span class="domain">Lang:</span> ส่งเสียง cooing</p>
+      <p><span class="domain">Social:</span> ยิ้มตอบสนอง</p>
+    </div>
+    <div class="milestone-card">
+      <div class="age-label">4 เดือน</div>
+      <p><span class="domain">Gross:</span> พลิกตัว คว่ำ-หงาย</p>
+      <p><span class="domain">Fine:</span> จับของด้วยฝ่ามือ</p>
+      <p><span class="domain">Lang:</span> หัวเราะ คิดคิด</p>
+      <p><span class="domain">Social:</span> จำหน้าพ่อแม่</p>
+    </div>
+    <div class="milestone-card">
+      <div class="age-label">6 เดือน</div>
+      <p><span class="domain">Gross:</span> นั่งโดยประคอง</p>
+      <p><span class="domain">Fine:</span> จับของย้ายมือ</p>
+      <p><span class="domain">Lang:</span> babbling ba, ma</p>
+      <p><span class="domain">Social:</span> กลัวคนแปลกหน้า</p>
+    </div>
+    <div class="milestone-card">
+      <div class="age-label">9 เดือน</div>
+      <p><span class="domain">Gross:</span> นั่งเองได้, คลาน</p>
+      <p><span class="domain">Fine:</span> จับของด้วย pincer</p>
+      <p><span class="domain">Lang:</span> papa, mama (nonspec)</p>
+      <p><span class="domain">Social:</span> clap, wave bye-bye</p>
+    </div>
+    <div class="milestone-card">
+      <div class="age-label">12 เดือน</div>
+      <p><span class="domain">Gross:</span> เดินเกาะ/เดินเอง</p>
+      <p><span class="domain">Fine:</span> ใส่ของในถ้วย</p>
+      <p><span class="domain">Lang:</span> 1–3 คำมีความหมาย</p>
+      <p><span class="domain">Social:</span> เลียนแบบ</p>
+    </div>
+    <div class="milestone-card">
+      <div class="age-label">18 เดือน</div>
+      <p><span class="domain">Gross:</span> วิ่ง ขึ้นบันได</p>
+      <p><span class="domain">Fine:</span> เขียนเส้น, วาง block</p>
+      <p><span class="domain">Lang:</span> 10+ คำ</p>
+      <p><span class="domain">Social:</span> เล่นคนเดียว</p>
+    </div>
+    <div class="milestone-card" style="grid-column: span 2; background: linear-gradient(135deg,#f0f9ff,#e0f2fe); border-color:#bae6fd;">
+      <div class="age-label" style="background:#bae6fd;color:#0369a1;">24 เดือน</div>
+      <p><span class="domain" style="color:#0369a1;">Gross:</span> ขึ้น-ลงบันได, เตะบอล</p>
+      <p><span class="domain" style="color:#0369a1;">Fine:</span> วาง block 6 ชิ้น, พลิกหนังสือ</p>
+      <p><span class="domain" style="color:#0369a1;">Lang:</span> 2-word sentences, 50+ คำ</p>
+      <p><span class="domain" style="color:#0369a1;">Social:</span> เล่น parallel play, ใช้ช้อน</p>
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics, 21st Ed.</div>
+</div>
+```
+
+  </section>
+
+  <!-- ══ SECTION 2: FLUIDS ══ -->
+
+  <section id="sec-fluids" class="section">
+    <div class="section-title"><i class="fa-solid fa-droplet" style="color:#38bdf8"></i> IV Fluid Calculator <span class="stag">Section 2</span></div>
+
+```
+<div class="card">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-calculator"></i></div>
+    คำนวณสารน้ำ (Holliday-Segar Method)
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label"><i class="fa-solid fa-weight-scale mr-1"></i> น้ำหนักผู้ป่วย (kg)</label>
+    <input type="number" id="fluidWeight" class="calc-input" placeholder="เช่น 15" min="0.5" max="100" step="0.1">
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label"><i class="fa-solid fa-tint mr-1"></i> ประเภท Fluid Deficit</label>
+    <select id="fluidType" class="calc-select">
+      <option value="none">Maintenance เท่านั้น</option>
+      <option value="mild">Mild Dehydration (~5%)</option>
+      <option value="moderate">Moderate Dehydration (~10%)</option>
+      <option value="severe">Severe Dehydration (~15%)</option>
+    </select>
+  </div>
+
+  <button class="calc-btn" onclick="calcFluids()"><i class="fa-solid fa-flask mr-2"></i>คำนวณ</button>
+
+  <div class="result-box" id="fluidResult">
+    <div style="font-family:'Prompt',sans-serif;font-size:.82rem;font-weight:700;color:#0369a1;margin-bottom:8px;">
+      <i class="fa-solid fa-clipboard-list mr-1"></i> ผลการคำนวณ
+    </div>
+    <div class="result-row"><span class="result-label">Maintenance (ml/day)</span><span class="result-value" id="res-maint-day">–</span></div>
+    <div class="result-row"><span class="result-label">Maintenance (ml/hr)</span><span class="result-value" id="res-maint-hr">–</span></div>
+    <div class="result-row" id="row-deficit" style="display:none"><span class="result-label">Fluid Deficit (ml)</span><span class="result-value" id="res-deficit">–</span></div>
+    <div class="result-row" id="row-total" style="display:none"><span class="result-label">Total Fluid 24h (ml)</span><span class="result-value" id="res-total">–</span></div>
+    <div class="result-row" id="row-totalhr" style="display:none"><span class="result-label">Total Rate (ml/hr)</span><span class="result-value" id="res-total-hr">–</span></div>
+
+    <div style="margin-top:8px;padding:8px 10px;background:#fff;border-radius:10px;border:1px solid #bae6fd;font-size:.74rem;color:#0369a1;" id="fluidFormula"></div>
+  </div>
+
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed.</div>
+</div>
+
+<!-- Fluid Types Guide -->
+<div class="card" id="card-fluidtypes">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#f0fdf4;color:#166534"><i class="fa-solid fa-vials"></i></div>
+    ชนิด IV Fluid และข้อบ่งชี้
+  </div>
+
+  <div class="fluid-type">
+    <div class="fluid-name">5%D/NSS (5% Dextrose in NSS)</div>
+    <p>ใช้สำหรับ: Maintenance ใน adolescent, ผู้ป่วยที่ต้องการ isotonic solution, post-op care</p>
+    <p>Na: 154 mEq/L | Osmol: ~560 mOsm/L</p>
+  </div>
+  <div class="fluid-type">
+    <div class="fluid-name">5%D/N/2 (Half-strength NSS)</div>
+    <p>ใช้สำหรับ: Maintenance ใน infant–toddler, ป้องกัน hyponatremia ใน children</p>
+    <p>Na: 77 mEq/L | แนะนำตาม WHO/AAP guidelines</p>
+  </div>
+  <div class="fluid-type">
+    <div class="fluid-name">5%D/N/3 (1/3 NSS)</div>
+    <p>ใช้สำหรับ: Traditional maintenance (ปัจจุบันแนะนำน้อยลง เนื่องจาก hyponatremia risk)</p>
+    <p>Na: 51 mEq/L | ใช้ได้ใน specific cases</p>
+  </div>
+  <div class="fluid-type">
+    <div class="fluid-name">Lactated Ringer's (LRS) / NSS</div>
+    <p>ใช้สำหรับ: Bolus resuscitation, acute dehydration, dengue fluid challenge</p>
+    <p>LRS – Na: 130, K: 4, Ca: 3, Lactate: 28 mEq/L | NSS – Na: 154 mEq/L</p>
+  </div>
+  <div class="fluid-type" style="background:#fff1f2;border-color:#fecdd3;">
+    <div class="fluid-name" style="color:#be123c;"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Potassium Supplement</div>
+    <p>โดยทั่วไป: เติม KCl 20–40 mEq/L ใน maintenance fluid | Max IV rate: 0.3–0.5 mEq/kg/hr</p>
+    <p>ห้ามให้ IV push โดยเด็ดขาด | ตรวจ serum K ก่อนเสมอ</p>
+  </div>
+
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / AAP Clinical Guidelines</div>
+</div>
+```
+
+  </section>
+
+  <!-- ══ SECTION 3: DRUGS ══ -->
+
+  <section id="sec-drugs" class="section">
+    <div class="section-title"><i class="fa-solid fa-pills" style="color:#a78bfa"></i> Drug Dosing Calculator <span class="stag">Section 3</span></div>
+
+```
+<div class="card">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#ede9fe;color:#5b21b6"><i class="fa-solid fa-syringe"></i></div>
+    คำนวณขนาดยา (Pediatric Drug Dosing)
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label"><i class="fa-solid fa-weight-scale mr-1"></i> น้ำหนักผู้ป่วย (kg)</label>
+    <input type="number" id="drugWeight" class="calc-input" placeholder="เช่น 20" min="0.5" max="100" step="0.1">
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label"><i class="fa-solid fa-capsules mr-1"></i> เลือกยา</label>
+    <select id="drugSelect" class="calc-select">
+      <option value="">-- เลือกยา --</option>
+      <option value="paracetamol">Paracetamol</option>
+      <option value="ibuprofen">Ibuprofen</option>
+      <option value="amoxicillin">Amoxicillin</option>
+      <option value="augmentin">Augmentin (Amox-Clav)</option>
+      <option value="azithromycin">Azithromycin</option>
+      <option value="ceftriaxone">Ceftriaxone</option>
+      <option value="ondansetron">Ondansetron</option>
+      <option value="domperidone">Domperidone</option>
+      <option value="cetirizine">Cetirizine</option>
+    </select>
+  </div>
+
+  <button class="calc-btn" onclick="calcDrug()" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">
+    <i class="fa-solid fa-prescription-bottle-medical mr-2"></i>คำนวณขนาดยา
+  </button>
+
+  <div class="result-box" id="drugResult" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border-color:#c4b5fd;">
+    <div style="font-family:'Prompt',sans-serif;font-size:.82rem;font-weight:700;color:#5b21b6;margin-bottom:8px;">
+      <i class="fa-solid fa-clipboard-list mr-1"></i> ผลการคำนวณยา: <span id="drugResultName" style="color:#7c3aed;"></span>
+    </div>
+    <table class="drug-result-table">
+      <thead>
+        <tr><th>รายการ</th><th>ค่า</th></tr>
+      </thead>
+      <tbody id="drugResultTbody"></tbody>
+    </table>
+    <div class="drug-note" id="drugNote"></div>
+  </div>
+
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / Thai Pediatric Society Drug Manual</div>
+</div>
+
+<!-- Quick Drug Reference -->
+<div class="card" id="card-drugref">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#ede9fe;color:#5b21b6"><i class="fa-solid fa-list-check"></i></div>
+    Quick Drug Reference (สรุปย่อ)
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="vitals-table">
+      <thead><tr><th>ยา</th><th>Dose (mg/kg)</th><th>Frequency</th><th>Max</th></tr></thead>
+      <tbody>
+        <tr><td>Paracetamol</td><td>10–15 mg/kg</td><td>q4–6h</td><td>75 mg/kg/day; 4g/day</td></tr>
+        <tr><td>Ibuprofen</td><td>5–10 mg/kg</td><td>q6–8h</td><td>40 mg/kg/day; 2.4g/day</td></tr>
+        <tr><td>Amoxicillin</td><td>25–50 mg/kg/day</td><td>÷3</td><td>1.5 g/day (std)</td></tr>
+        <tr><td>Augmentin</td><td>25–45 mg/kg/day</td><td>÷2–3</td><td>Max Amox component</td></tr>
+        <tr><td>Azithromycin</td><td>10 mg/kg Day1; 5 mg/kg D2–5</td><td>OD</td><td>500 mg/day</td></tr>
+        <tr><td>Ceftriaxone</td><td>50–100 mg/kg/day</td><td>OD or ÷2</td><td>4 g/day</td></tr>
+        <tr><td>Ondansetron</td><td>0.15 mg/kg</td><td>q8h</td><td>4–8 mg/dose</td></tr>
+        <tr><td>Domperidone</td><td>0.2–0.4 mg/kg</td><td>TID–QID</td><td>2.4 mg/kg/day</td></tr>
+        <tr><td>Cetirizine</td><td>0.25 mg/kg/day</td><td>OD</td><td>10 mg/day</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / Thai Pediatric Society</div>
+</div>
+```
+
+  </section>
+
+  <!-- ══ SECTION 4: EMERGENCY ══ -->
+
+  <section id="sec-emerg" class="section">
+    <div class="section-title"><i class="fa-solid fa-triangle-exclamation" style="color:#fb7185"></i> Emergency & Resuscitation <span class="stag">Section 4</span></div>
+
+```
+<!-- CPR Quick Calculator -->
+<div class="card" style="border:2px solid #fecdd3;">
+  <div class="card-title">
+    <div class="icon-circle pulse" style="background:#fb7185;color:#fff"><i class="fa-solid fa-heart"></i></div>
+    <span style="color:#be123c;">PALS Quick Calculator (CPR / Emergency)</span>
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label" style="color:#be123c;"><i class="fa-solid fa-weight-scale mr-1"></i> น้ำหนักผู้ป่วย (kg)</label>
+    <input type="number" id="emergWeight" class="calc-input" placeholder="เช่น 20" min="0.5" max="100" step="0.1" style="border-color:#fecdd3;">
+  </div>
+
+  <div class="calc-group">
+    <label class="calc-label" style="color:#be123c;"><i class="fa-solid fa-calendar mr-1"></i> อายุผู้ป่วย (ปี)</label>
+    <input type="number" id="emergAge" class="calc-input" placeholder="เช่น 5" min="0" max="18" step="0.5" style="border-color:#fecdd3;">
+  </div>
+
+  <button class="calc-btn" onclick="calcEmerg()" style="background:linear-gradient(135deg,#e11d48,#fb7185);">
+    <i class="fa-solid fa-kit-medical mr-2"></i>คำนวณ Emergency Doses
+  </button>
+
+  <div class="emerg-result-box" id="emergResult">
+    <div style="font-family:'Prompt',sans-serif;font-size:.82rem;font-weight:700;color:#be123c;margin-bottom:10px;">
+      <i class="fa-solid fa-clipboard-list mr-1"></i> Emergency Quick Reference
+    </div>
+    <div id="emergItems"></div>
+  </div>
+
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS Guidelines 2020 / ACLS Update 2023</div>
+</div>
+
+<!-- CPR Steps -->
+<div class="card" id="card-cpr">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#fff1f2;color:#be123c"><i class="fa-solid fa-person-falling-burst"></i></div>
+    ขั้นตอน Pediatric CPR (BLS Summary)
+  </div>
+  <div style="font-size:.78rem;line-height:1.8;color:#374151;">
+    <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;background:#fff1f2;border-radius:10px;border-left:3px solid #fb7185;">
+      <span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:1rem;">1</span>
+      <div><strong>Check responsiveness</strong> – เรียก กระตุ้น ไม่ตอบสนอง → Call for help, AED, Emergency team</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;background:#fff1f2;border-radius:10px;border-left:3px solid #fb7185;">
+      <span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:1rem;">2</span>
+      <div><strong>Open airway</strong> – Head-tilt chin-lift (ไม่สงสัย C-spine injury) | jaw thrust ถ้าสงสัย</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;background:#fff1f2;border-radius:10px;border-left:3px solid #fb7185;">
+      <span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:1rem;">3</span>
+      <div><strong>Give 2 rescue breaths</strong> → ดู chest rise | ≤1 second/breath</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;background:#fff1f2;border-radius:10px;border-left:3px solid #fb7185;">
+      <span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:1rem;">4</span>
+      <div><strong>Compressions:Ventilation = 30:2</strong> (1 rescuer) | <strong>15:2</strong> (2 rescuers in children)<br>
+      อัตรา: 100–120/min | Depth: ≥1/3 AP diameter (Infant ≈1.5", Child ≈2")</div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:flex-start;padding:8px;background:#fff1f2;border-radius:10px;border-left:3px solid #fb7185;">
+      <span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:1rem;">5</span>
+      <div><strong>Reassess q2 min</strong> – Check pulse, rhythm | Defibrillate ถ้า shockable rhythm (VF/pVT)</div>
+    </div>
+
+    <div style="margin-top:10px;padding:9px;background:#fffbeb;border-radius:10px;border:1px solid #fde68a;font-size:.74rem;">
+      <strong><i class="fa-solid fa-triangle-exclamation mr-1 text-amber-500"></i> Shockable rhythms:</strong> VF, Pulseless VT &nbsp;|&nbsp;
+      <strong>Non-shockable:</strong> Asystole, PEA → Continue CPR + Epinephrine
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS Guidelines 2020</div>
+</div>
+
+<!-- ETT Reference -->
+<div class="card" id="card-ett">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#fef3c7;color:#92400e"><i class="fa-solid fa-lungs"></i></div>
+    Airway Management — ETT Reference
+  </div>
+  <div style="font-size:.78rem;color:#374151;line-height:1.7;">
+    <div style="background:#fffbeb;border-radius:10px;padding:10px 12px;border:1.5px solid #fde68a;margin-bottom:8px;">
+      <div style="font-family:'Prompt',sans-serif;font-weight:700;color:#92400e;">สูตร ETT Size (Uncuffed)</div>
+      <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin-top:4px;">ID (mm) = (Age/4) + 4</div>
+      <div style="font-size:.72rem;color:#64748b;">ใช้สำหรับเด็กอายุ 1–8 ปี</div>
+    </div>
+    <div style="background:#fffbeb;border-radius:10px;padding:10px 12px;border:1.5px solid #fde68a;margin-bottom:8px;">
+      <div style="font-family:'Prompt',sans-serif;font-weight:700;color:#92400e;">สูตร ETT Size (Cuffed) — Kilian</div>
+      <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin-top:4px;">ID (mm) = (Age/4) + 3</div>
+    </div>
+    <div style="background:#fffbeb;border-radius:10px;padding:10px 12px;border:1.5px solid #fde68a;">
+      <div style="font-family:'Prompt',sans-serif;font-weight:700;color:#92400e;">Depth ของ ETT (Oral intubation)</div>
+      <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin-top:4px;">Depth (cm) = (Age/2) + 12</div>
+      <div style="font-size:.72rem;color:#64748b;">หรือ: ID × 3 cm จาก gum line</div>
+    </div>
+    <div style="margin-top:8px;padding:8px;background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0;font-size:.74rem;">
+      <i class="fa-solid fa-lightbulb mr-1 text-green-600"></i>
+      <strong>Tip:</strong> เตรียม ETT ± 0.5 size เสมอ | Neonate: 2.5–3.5 mm (ตาม GA/BW)
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS Guidelines 2020 / Pediatric Advanced Life Support</div>
+</div>
+```
+
+  </section>
+
+  <!-- ══ SECTION 5: GUIDELINES ══ -->
+
+  <section id="sec-guide" class="section">
+    <div class="section-title"><i class="fa-solid fa-book-medical" style="color:#22c55e"></i> Thai CPGs & Guidelines <span class="stag">Section 5</span></div>
+
+```
+<!-- Dengue -->
+<div class="card" id="card-dengue">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#fff1f2;color:#be123c"><i class="fa-solid fa-mosquito"></i></div>
+    Dengue Infection — แนวทางการรักษา
+  </div>
+  <div class="accordion" id="acc-dengue-class">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      การจำแนก Dengue (Classification) <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <p><strong>1. Dengue Without Warning Signs</strong> – ไข้สูง 2–7 วัน, petechia, ปวดเมื่อย, ผล NS1 Ag หรือ IgM (+)</p>
+        <p style="margin-top:6px;"><strong>2. Dengue With Warning Signs</strong> – มีอาการใดอาการหนึ่งดังนี้:</p>
+        <ul>
+          <li>ปวดท้องรุนแรงหรือกดเจ็บ</li>
+          <li>อาเจียนซ้ำๆ</li>
+          <li>มีน้ำในช่องปอด/ท้อง</li>
+          <li>เลือดออก mucosal</li>
+          <li>ซึม/กระสับกระส่าย</li>
+          <li>Liver enlargement &gt;2 cm</li>
+          <li>Hematocrit เพิ่ม + platelet ลดอย่างรวดเร็ว</li>
+        </ul>
+        <p style="margin-top:6px;"><strong>3. Severe Dengue</strong> – Severe plasma leakage (Shock), Severe bleeding, Severe organ impairment</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      IV Fluid Monitoring — Dengue with Warning Signs <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <div class="info-box">
+          <strong><i class="fa-solid fa-droplet mr-1"></i> เริ่มต้น:</strong> ให้ IV fluid (NSS หรือ LRS) 5–7 ml/kg/hr × 1–2 ชั่วโมง
+        </div>
+        <p><strong>ประเมินซ้ำ</strong> q1–2h:</p>
+        <ul>
+          <li>ดีขึ้น → ลด rate เป็น 3–5 → 2–3 → 1.5 → maintenance</li>
+          <li>ไม่ดีขึ้น → ให้ซ้ำ 5–10 ml/kg/hr × 1h</li>
+          <li>Shock → Rescue: 10–20 ml/kg/hr (Crystalloid) + Colloid</li>
+        </ul>
+        <div class="warn-box">
+          <strong><i class="fa-solid fa-triangle-exclamation mr-1"></i> Warning:</strong>
+          ติดตาม Hct q4–6h | ระวัง fluid overload | ห้ามให้ Aspirin/NSAID
+        </div>
+        <p><strong>Critical Phase:</strong> วันที่ 3–5 ของไข้ — ระยะ plasma leakage สูงสุด</p>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: CPG Dengue, Ministry of Public Health Thailand 2022</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      Platelet Transfusion — เกณฑ์การให้ <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <ul>
+          <li>PLT &lt;10,000 + ไม่มีเลือดออก → ให้ prophylactic platelets</li>
+          <li>PLT &lt;20,000 + มีเลือดออก → ให้ therapeutic platelets</li>
+          <li>PLT 20,000–50,000 + invasive procedure → พิจารณาให้</li>
+        </ul>
+        <div class="danger-box">
+          <i class="fa-solid fa-circle-exclamation mr-1"></i>
+          <strong>ไม่แนะนำ routine platelet transfusion</strong> ในทุกรายที่ platelet ต่ำ — ให้เฉพาะเมื่อมีข้อบ่งชี้ชัดเจน
+        </div>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: CPG Dengue, Ministry of Public Health Thailand 2022</div>
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: CPG Dengue Hemorrhagic Fever, กรมการแพทย์ กระทรวงสาธารณสุข 2022</div>
+</div>
+
+<!-- Acute Asthma -->
+<div class="card" id="card-asthma">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#e0f2fe;color:#0369a1"><i class="fa-solid fa-lungs-virus"></i></div>
+    Acute Asthma Exacerbation — การประเมินและรักษา
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      Severity Assessment <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <div style="overflow-x:auto;">
+          <table class="vitals-table" style="font-size:.72rem;">
+            <thead><tr><th>อาการ</th><th>Mild</th><th>Moderate</th><th>Severe</th></tr></thead>
+            <tbody>
+              <tr><td>พูด</td><td>ประโยคยาว</td><td>ประโยคสั้น</td><td>คำเดียว</td></tr>
+              <tr><td>Position</td><td>นอนได้</td><td>นั่งพิง</td><td>นั่งตัวตรง</td></tr>
+              <tr><td>Agitation</td><td>ไม่มี</td><td>มี</td><td>มากหรือซึม</td></tr>
+              <tr><td>RR</td><td>ปกติ-เพิ่มน้อย</td><td>เพิ่มมาก</td><td>เพิ่มมากหรือหยุด</td></tr>
+              <tr><td>SpO2 (RA)</td><td>&gt;95%</td><td>91–95%</td><td>≤90%</td></tr>
+              <tr><td>Wheeze</td><td>Mild-moderate</td><td>Loud</td><td>Absent (silent chest)</td></tr>
+              <tr><td>PEFR</td><td>&gt;70%</td><td>40–70%</td><td>&lt;40%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: Thai Asthma Guideline / GINA 2023</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      Stepwise Management — การรักษาตามความรุนแรง <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <div style="background:#f0f9ff;border-radius:10px;padding:10px;border:1px solid #bae6fd;margin-bottom:8px;">
+          <strong style="color:#0369a1;">🟢 Mild:</strong><br>
+          <ul>
+            <li>Salbutamol MDI (pMDI) 2–4 puffs via spacer q20min × 3 in 1hr</li>
+            <li>Oxygen: target SpO2 ≥95%</li>
+            <li>Observe 1–4h → discharge ถ้าดีขึ้น</li>
+          </ul>
+        </div>
+        <div style="background:#fffbeb;border-radius:10px;padding:10px;border:1px solid #fde68a;margin-bottom:8px;">
+          <strong style="color:#92400e;">🟡 Moderate:</strong><br>
+          <ul>
+            <li>Salbutamol Nebulizer: 0.15 mg/kg/dose (min 2.5 mg) q20min × 3</li>
+            <li>+ Ipratropium bromide nebulization (0.25–0.5 mg) × 3 doses</li>
+            <li>Prednisolone oral: 1–2 mg/kg/day (max 40 mg) × 3–5 วัน</li>
+            <li>O2 supplement ให้ SpO2 ≥95%</li>
+          </ul>
+        </div>
+        <div style="background:#fff1f2;border-radius:10px;padding:10px;border:1px solid #fecdd3;">
+          <strong style="color:#be123c;">🔴 Severe / Life-threatening:</strong><br>
+          <ul>
+            <li>Continuous Salbutamol nebulization</li>
+            <li>IV Methylprednisolone 1–2 mg/kg q6h</li>
+            <li>IV Magnesium Sulfate 25–75 mg/kg (max 2g) over 20 min</li>
+            <li>Heliox, CPAP/BiPAP พิจารณา</li>
+            <li>เตรียม ICU admission, Intubation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: Thai Asthma Guideline 2022 / GINA 2023</div>
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Thai Asthma Guideline (สมาคมโรคระบบหายใจ) / GINA 2023</div>
+</div>
+
+<!-- AGE / Gastroenteritis -->
+<div class="card" id="card-age">
+  <div class="card-title">
+    <div class="icon-circle" style="background:#f0fdf4;color:#166534"><i class="fa-solid fa-bacteria"></i></div>
+    Acute Gastroenteritis (AGE) — การประเมินและรักษา
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      Dehydration Assessment (Severity) <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <div style="overflow-x:auto;">
+          <table class="vitals-table" style="font-size:.72rem;">
+            <thead><tr><th>อาการ/สัญญาณ</th><th>Mild (3–5%)</th><th>Moderate (6–9%)</th><th>Severe (≥10%)</th></tr></thead>
+            <tbody>
+              <tr><td>ระดับสติ</td><td>ปกติ</td><td>กระสับกระส่าย</td><td>ซึม ไม่รู้สึกตัว</td></tr>
+              <tr><td>ตา</td><td>ปกติ</td><td>ลึกเล็กน้อย</td><td>ลึกมาก</td></tr>
+              <tr><td>น้ำตา</td><td>มีน้ำตา</td><td>น้ำตาน้อย</td><td>ไม่มีน้ำตา</td></tr>
+              <tr><td>ปาก/ลิ้น</td><td>ชุ่มชื้น</td><td>แห้ง</td><td>แห้งมาก</td></tr>
+              <tr><td>Skin turgor</td><td>ดีด</td><td>ช้า &lt;2s</td><td>ช้ามาก ≥2s</td></tr>
+              <tr><td>Pulse</td><td>ปกติ</td><td>เร็ว เบา</td><td>เร็วมาก แทบจับไม่ได้</td></tr>
+              <tr><td>Capillary refill</td><td>&lt;2s</td><td>2–3s</td><td>&gt;3s</td></tr>
+              <tr><td>UO</td><td>ลดน้อยลง</td><td>น้อยมาก</td><td>ไม่มี (oliguria/anuria)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: WHO/UNICEF IMCI Guidelines</div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-header" onclick="toggleAcc(this)">
+      การรักษาตามระดับความรุนแรง (ORS / IV) <i class="fa-solid fa-chevron-down acc-icon"></i>
+    </button>
+    <div class="accordion-body">
+      <div class="acc-content">
+        <div style="background:#f0fdf4;border-radius:10px;padding:10px;border:1px solid #bbf7d0;margin-bottom:8px;">
+          <strong style="color:#15803d;">🟢 Mild Dehydration:</strong>
+          <ul>
+            <li>ORS 50 ml/kg ใน 4 ชั่วโมง + ทดแทน ongoing loss</li>
+            <li>แนะนำ low-osmolarity ORS (Na 75 mEq/L)</li>
+            <li>ให้ทีละน้อย แต่บ่อยครั้ง ทุก 5 นาที</li>
+            <li>Zinc supplement: 10–20 mg/day × 10–14 วัน</li>
+          </ul>
+        </div>
+        <div style="background:#fffbeb;border-radius:10px;padding:10px;border:1px solid #fde68a;margin-bottom:8px;">
+          <strong style="color:#92400e;">🟡 Moderate Dehydration:</strong>
+          <ul>
+            <li>ORS 100 ml/kg ใน 4 ชั่วโมง หรือ IV ถ้าอาเจียนมาก</li>
+            <li>IV NSS หรือ LRS 20 ml/kg bolus ถ้าไม่รับ oral</li>
+            <li>ประเมินซ้ำทุก 1–2 ชั่วโมง</li>
+          </ul>
+        </div>
+        <div style="background:#fff1f2;border-radius:10px;padding:10px;border:1px solid #fecdd3;">
+          <strong style="color:#be123c;">🔴 Severe Dehydration / Shock:</strong>
+          <ul>
+            <li>NSS หรือ LRS IV <strong>20 ml/kg over 15–20 min</strong> (bolus)</li>
+            <li>ประเมินซ้ำ → repeat bolus ถ้ายังมี shock</li>
+            <li>หลัง resuscitation → คำนวณ deficit + maintenance</li>
+            <li>ตรวจ electrolytes, BUN, Cr, glucose</li>
+          </ul>
+        </div>
+        <div class="warn-box">
+          <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+          <strong>ห้ามให้ Antidiarrheal agents</strong> ในเด็กอายุน้อยกว่า 2 ปี | Ondansetron ช่วยลดอาเจียน และเพิ่มโอกาส ORT สำเร็จ
+        </div>
+      </div>
+      <div class="acc-ref"><i class="fa-solid fa-book-open mr-1"></i>Ref: WHO/UNICEF IMCI 2022 / Thai Pediatric Society AGE Guideline</div>
+    </div>
+  </div>
+  <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: WHO/UNICEF IMCI Guidelines / Thai Pediatric Society</div>
+</div>
+```
+
+  </section>
+
+</main>
+
+<!-- ════ BOTTOM NAV ════ -->
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showSection('vitals', this)">
+    <i class="fa-solid fa-heart-pulse"></i>
+    <span>Vitals</span>
+  </button>
+  <button class="nav-btn" onclick="showSection('fluids', this)">
+    <i class="fa-solid fa-droplet"></i>
+    <span>Fluids</span>
+  </button>
+  <button class="nav-btn" onclick="showSection('drugs', this)">
+    <i class="fa-solid fa-pills"></i>
+    <span>Drugs</span>
+  </button>
+  <button class="nav-btn" onclick="showSection('emerg', this)">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>Emergency</span>
+  </button>
+  <button class="nav-btn" onclick="showSection('guide', this)">
+    <i class="fa-solid fa-book-medical"></i>
+    <span>CPGs</span>
+  </button>
+</nav>
+
+<!-- ════ SEARCH OVERLAY RESULTS ════ -->
+
+<div id="searchOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:200;background:rgba(0,0,0,.45);backdrop-filter:blur(3px);" onclick="closeSearch()"></div>
+<div id="searchPanel" style="display:none;position:fixed;top:0;left:0;right:0;z-index:201;max-height:70vh;overflow-y:auto;background:#fff;border-radius:0 0 20px 20px;padding:12px;box-shadow:0 10px 40px rgba(0,0,0,.2);">
+  <div style="font-family:'Prompt',sans-serif;font-size:.82rem;color:#64748b;margin-bottom:8px;">ผลการค้นหา:</div>
+  <div id="searchResults"></div>
+  <button onclick="closeSearch()" style="width:100%;padding:10px;background:#f1f5f9;border:none;border-radius:12px;font-family:'Sarabun',sans-serif;font-size:.85rem;color:#64748b;cursor:pointer;margin-top:8px;">ปิด</button>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// SECTION NAVIGATION
+// ════════════════════════════════════════
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ════════════════════════════════════════
+// ACCORDION
+// ════════════════════════════════════════
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  // Close all in same card
+  const card = btn.closest('.card');
+  if (card) {
+    card.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('open'));
+    card.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+  }
+  if (!isOpen) {
+    btn.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+// ════════════════════════════════════════
+// VITALS FILTER
+// ════════════════════════════════════════
+function filterVitals(group) {
+  document.querySelectorAll('.age-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  const rows = document.querySelectorAll('#vitalsTbody tr');
+  rows.forEach(r => {
+    if (group === 'all' || r.dataset.group === group) {
+      r.style.display = '';
+    } else {
+      r.style.display = 'none';
+    }
+  });
+}
+
+// ════════════════════════════════════════
+// FLUID CALCULATOR (Holliday-Segar)
+// ════════════════════════════════════════
+function calcFluids() {
+  const wt = parseFloat(document.getElementById('fluidWeight').value);
+  const dehy = document.getElementById('fluidType').value;
+  const resultBox = document.getElementById('fluidResult');
+
+  if (!wt || wt <= 0) {
+    alert('กรุณาใส่น้ำหนักผู้ป่วย');
+    return;
+  }
+
+  // Holliday-Segar
+  let maint = 0;
+  if (wt <= 10) maint = wt * 100;
+  else if (wt <= 20) maint = 1000 + (wt - 10) * 50;
+  else maint = 1500 + (wt - 20) * 20;
+
+  const maintHr = maint / 24;
+  let formula = '';
+  if (wt <= 10) formula = `${wt} kg × 100 ml/kg/day = ${maint} ml/day`;
+  else if (wt <= 20) formula = `1000 + (${wt}-10) × 50 = ${maint} ml/day`;
+  else formula = `1500 + (${wt}-20) × 20 = ${maint} ml/day`;
+
+  document.getElementById('res-maint-day').textContent = Math.round(maint) + ' ml';
+  document.getElementById('res-maint-hr').textContent = maintHr.toFixed(1) + ' ml/hr';
+
+  const deficitRow = document.getElementById('row-deficit');
+  const totalRow = document.getElementById('row-total');
+  const totalHrRow = document.getElementById('row-totalhr');
+
+  if (dehy !== 'none') {
+    let pct = dehy === 'mild' ? 0.05 : dehy === 'moderate' ? 0.10 : 0.15;
+    const deficit = wt * 1000 * pct;
+    const total = maint + deficit;
+    const totalHr = total / 24;
+    document.getElementById('res-deficit').textContent = Math.round(deficit) + ' ml';
+    document.getElementById('res-total').textContent = Math.round(total) + ' ml';
+    document.getElementById('res-total-hr').textContent = totalHr.toFixed(1) + ' ml/hr';
+    deficitRow.style.display = 'flex';
+    totalRow.style.display = 'flex';
+    totalHrRow.style.display = 'flex';
+  } else {
+    deficitRow.style.display = 'none';
+    totalRow.style.display = 'none';
+    totalHrRow.style.display = 'none';
+  }
+
+  document.getElementById('fluidFormula').innerHTML =
+    '<i class="fa-solid fa-function mr-1"></i><strong>สูตร:</strong> ' + formula;
+
+  resultBox.classList.add('show');
+}
+
+// ════════════════════════════════════════
+// DRUG DATABASE
+// ════════════════════════════════════════
+const drugs = {
+  paracetamol: {
+    name: 'Paracetamol (Acetaminophen)',
+    dosePerKg: 15,
+    freq: 'q4–6h',
+    freqPerDay: 4,
+    maxDosePerKg: 75,
+    maxDoseDay: 4000,
+    unit: 'mg',
+    preps: [
+      'Syrup: 120 mg/5 ml → ' ,
+      'Syrup 250 mg/5 ml (Forte)',
+      'Tablet 500 mg',
+      'Suppository 60 mg, 125 mg, 250 mg',
+    ],
+    prepCalc: true,
+    note: 'ให้ 10–15 mg/kg/dose | ห้ามเกิน 75 mg/kg/day หรือ 4 g/day | ระวังในผู้ป่วยตับ',
+    color: '#22c55e',
+  },
+  ibuprofen: {
+    name: 'Ibuprofen',
+    dosePerKg: 7.5,
+    freq: 'q6–8h',
+    freqPerDay: 3,
+    maxDosePerKg: 40,
+    maxDoseDay: 2400,
+    unit: 'mg',
+    preps: ['Syrup 100 mg/5 ml', 'Tablet 200 mg, 400 mg'],
+    note: 'ใช้ในเด็กอายุ ≥6 เดือน | ห้ามใน dengue, เลือดออก, renal impairment | ให้หลังอาหาร',
+    color: '#f59e0b',
+  },
+  amoxicillin: {
+    name: 'Amoxicillin',
+    dosePerKg: 40,
+    freq: 'TID (÷3)',
+    freqPerDay: 3,
+    maxDosePerKg: 90,
+    maxDoseDay: 3000,
+    unit: 'mg/day',
+    preps: ['Syrup 125 mg/5 ml', 'Syrup 250 mg/5 ml', 'Capsule 250 mg, 500 mg', 'Drop 50 mg/ml'],
+    note: 'Standard dose 40 mg/kg/day | High-dose 80–90 mg/kg/day (AOM, resistant pneumonia) | ÷3 doses/day',
+    color: '#0ea5e9',
+  },
+  augmentin: {
+    name: 'Augmentin (Amoxicillin/Clavulanate)',
+    dosePerKg: 45,
+    freq: 'BID–TID',
+    freqPerDay: 2,
+    maxDosePerKg: 90,
+    maxDoseDay: 3000,
+    unit: 'mg Amox/day',
+    preps: ['Syrup 228 mg/5 ml (ratio 4:1)', 'Tablet 625 mg', 'Tablet 1g (BD formulation)'],
+    note: 'คำนวณจาก Amoxicillin component | 45–90 mg/kg/day ÷2 | ใช้ใน AOM, skin/soft tissue, UTI, บิด, pneumonia (resistant)',
+    color: '#8b5cf6',
+  },
+  azithromycin: {
+    name: 'Azithromycin',
+    dosePerKg: 10,
+    freq: 'OD (Day1 10mg/kg; D2–5 5mg/kg)',
+    freqPerDay: 1,
+    maxDosePerKg: 10,
+    maxDoseDay: 500,
+    unit: 'mg Day1',
+    preps: ['Syrup 200 mg/5 ml', 'Tablet 250 mg, 500 mg'],
+    note: 'Day1: 10 mg/kg → Day2–5: 5 mg/kg OD | Max 500 mg/dose | ใช้ใน atypical pneumonia, pertussis, chlamydia, typhoid',
+    color: '#06b6d4',
+  },
+  ceftriaxone: {
+    name: 'Ceftriaxone',
+    dosePerKg: 75,
+    freq: 'OD หรือ ÷ q12h',
+    freqPerDay: 1,
+    maxDosePerKg: 100,
+    maxDoseDay: 4000,
+    unit: 'mg/day',
+    preps: ['IV/IM 1g vial', 'IV/IM 500 mg vial', 'IV/IM 250 mg vial'],
+    note: 'Meningitis: 100 mg/kg/day ÷q12h | Bacteremia, pneumonia: 50–75 mg/kg/day OD | Max 4g/day | ห้ามผสมกับ Ca-containing solutions ใน neonate',
+    color: '#ec4899',
+  },
+  ondansetron: {
+    name: 'Ondansetron',
+    dosePerKg: 0.15,
+    freq: 'q8h',
+    freqPerDay: 3,
+    maxDosePerKg: 0.45,
+    maxDoseDay: 24,
+    unit: 'mg/dose',
+    preps: ['Syrup 4 mg/5 ml', 'Tablet 4 mg, 8 mg', 'IV 2 mg/ml'],
+    note: 'ขนาด 0.15 mg/kg/dose | Max 4 mg/dose (<40 kg); 8 mg/dose (≥40 kg) | ระวัง QT prolongation | ช่วยให้ ORT สำเร็จใน AGE',
+    color: '#f97316',
+  },
+  domperidone: {
+    name: 'Domperidone',
+    dosePerKg: 0.25,
+    freq: 'TID–QID (ก่อนอาหาร 15–30 นาที)',
+    freqPerDay: 3,
+    maxDosePerKg: 2.4,
+    maxDoseDay: 30,
+    unit: 'mg/dose',
+    preps: ['Syrup 5 mg/5 ml', 'Tablet 10 mg', 'Suppository 30 mg'],
+    note: '0.2–0.4 mg/kg/dose TID-QID | Max 2.4 mg/kg/day หรือ 30 mg/day | ระวัง QT prolongation | ห้ามในเด็กน้ำหนัก <35 kg ตาม EMA (ประเมิน risk/benefit)',
+    color: '#84cc16',
+  },
+  cetirizine: {
+    name: 'Cetirizine',
+    dosePerKg: 0.25,
+    freq: 'OD (ก่อนนอน)',
+    freqPerDay: 1,
+    maxDosePerKg: 0.5,
+    maxDoseDay: 10,
+    unit: 'mg/day',
+    preps: ['Syrup 5 mg/5 ml', 'Tablet 10 mg'],
+    note: '0.25 mg/kg/day OD | เด็ก 2–5ปี: 2.5–5 mg/day | เด็ก ≥6ปี: 5–10 mg/day | Max 10 mg/day | ง่วงนอนน้อย (2nd gen)',
+    color: '#a78bfa',
+  },
+};
+
+function calcDrug() {
+  const wt = parseFloat(document.getElementById('drugWeight').value);
+  const drugKey = document.getElementById('drugSelect').value;
+  const resultBox = document.getElementById('drugResult');
+
+  if (!wt || wt <= 0) { alert('กรุณาใส่น้ำหนักผู้ป่วย'); return; }
+  if (!drugKey) { alert('กรุณาเลือกยา'); return; }
+
+  const d = drugs[drugKey];
+  const calcDose = wt * d.dosePerKg;
+  const cappedDose = Math.min(calcDose, d.maxDoseDay);
+  const perDose = d.unit === 'mg/day' || d.unit === 'mg Amox/day' ? cappedDose / d.freqPerDay : Math.min(calcDose, d.maxDoseDay / d.freqPerDay);
+  const perDay = d.unit === 'mg/dose' ? perDose * d.freqPerDay : cappedDose;
+
+  document.getElementById('drugResultName').textContent = d.name;
+
+  // Syrup volume calculations for common preparations
+  let syrupCalc = '';
+  if (drugKey === 'paracetamol') {
+    const vol120 = (perDose / 120) * 5;
+    const vol250 = (perDose / 250) * 5;
+    syrupCalc = `<br>📏 Syrup 120mg/5ml = <strong>${vol120.toFixed(1)} ml/dose</strong>` +
+                `<br>📏 Syrup 250mg/5ml = <strong>${vol250.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'ibuprofen') {
+    const vol100 = (perDose / 100) * 5;
+    syrupCalc = `<br>📏 Syrup 100mg/5ml = <strong>${vol100.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'amoxicillin') {
+    const vol125 = (perDose / 125) * 5;
+    const vol250 = (perDose / 250) * 5;
+    syrupCalc = `<br>📏 Syrup 125mg/5ml = <strong>${vol125.toFixed(1)} ml/dose</strong>` +
+                `<br>📏 Syrup 250mg/5ml = <strong>${vol250.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'augmentin') {
+    const vol228 = (perDose / 228) * 5;
+    syrupCalc = `<br>📏 Syrup 228mg/5ml = <strong>${vol228.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'azithromycin') {
+    const vol200 = (perDose / 200) * 5;
+    syrupCalc = `<br>📏 Syrup 200mg/5ml = <strong>${vol200.toFixed(1)} ml/dose (Day1)</strong>`;
+  } else if (drugKey === 'ondansetron') {
+    const vol4 = (perDose / 4) * 5;
+    syrupCalc = `<br>📏 Syrup 4mg/5ml = <strong>${vol4.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'domperidone') {
+    const vol5 = (perDose / 5) * 5;
+    syrupCalc = `<br>📏 Syrup 5mg/5ml = <strong>${vol5.toFixed(1)} ml/dose</strong>`;
+  } else if (drugKey === 'cetirizine') {
+    const volDay = (perDay / 5) * 5;
+    syrupCalc = `<br>📏 Syrup 5mg/5ml = <strong>${volDay.toFixed(1)} ml/day</strong>`;
+  } else if (drugKey === 'ceftriaxone') {
+    syrupCalc = `<br>📏 IV dose: <strong>${Math.round(cappedDose)} mg/day</strong> → ใช้ vial ขนาดเหมาะสม`;
+  }
+
+  const tbody = document.getElementById('drugResultTbody');
+  tbody.innerHTML = `
+    <tr><td>ขนาดยา/ครั้ง (mg/dose)</td><td style="font-weight:700;color:#7c3aed">${perDose.toFixed(1)} mg</td></tr>
+    <tr><td>ขนาดยา/วัน (mg/day)</td><td style="font-weight:700;color:#7c3aed">${perDay.toFixed(1)} mg</td></tr>
+    <tr><td>ความถี่</td><td>${d.freq}</td></tr>
+    <tr><td>ขนาดสูงสุด/วัน</td><td>${d.maxDoseDay} mg/day</td></tr>
+    <tr><td>ยาที่ใช้ได้</td><td style="font-size:.72rem;">${d.preps.join('<br>')}</td></tr>
+  `;
+
+  document.getElementById('drugNote').innerHTML =
+    `<i class="fa-solid fa-circle-info mr-1" style="color:#7c3aed;"></i><strong>หมายเหตุ:</strong> ${d.note}${syrupCalc}`;
+
+  resultBox.classList.add('show');
+}
+
+// ════════════════════════════════════════
+// EMERGENCY CALCULATOR
+// ════════════════════════════════════════
+function calcEmerg() {
+  const wt = parseFloat(document.getElementById('emergWeight').value);
+  const age = parseFloat(document.getElementById('emergAge').value);
+  const resultBox = document.getElementById('emergResult');
+
+  if (!wt || wt <= 0) { alert('กรุณาใส่น้ำหนักผู้ป่วย'); return; }
+
+  const items = [];
+
+  // Epinephrine
+  const epiDose = wt * 0.01;
+  const epiVol1_10000 = epiDose / 0.1; // 1:10,000 = 0.1 mg/ml
+  const epiVol1_1000 = epiDose / 1;    // 1:1,000 = 1 mg/ml
+  items.push({
+    icon: 'fa-syringe',
+    label: 'Epinephrine (Adrenaline) IV/IO',
+    val: `${epiDose.toFixed(3)} mg = ${epiVol1_10000.toFixed(2)} ml (1:10,000)`,
+    sub: `0.01 mg/kg | 1:1,000 = ${epiVol1_1000.toFixed(2)} ml | q3–5 min`,
+  });
+
+  // Defibrillation
+  const defib1 = wt * 2;
+  const defib2 = wt * 4;
+  items.push({
+    icon: 'fa-bolt',
+    label: 'Defibrillation (Biphasic)',
+    val: `${defib1}–${defib2} J`,
+    sub: `2 J/kg (initial) → 4 J/kg (subsequent) | Max 10 J/kg หรือ 360 J`,
+  });
+
+  // Synchronized cardioversion
+  items.push({
+    icon: 'fa-wave-square',
+    label: 'Synchronized Cardioversion',
+    val: `${(wt * 0.5).toFixed(1)}–${(wt * 1).toFixed(1)} J`,
+    sub: `0.5–1 J/kg (initial) → 2 J/kg | SVT, AF, AFL`,
+  });
+
+  // ETT Size
+  let ettUnCuffed = '', ettCuffed = '', ettDepth = '';
+  if (age > 0) {
+    ettUnCuffed = ((age / 4) + 4).toFixed(1);
+    ettCuffed = ((age / 4) + 3).toFixed(1);
+    ettDepth = ((age / 2) + 12).toFixed(1);
+  }
+  items.push({
+    icon: 'fa-lungs',
+    label: 'ETT Size',
+    val: age > 0 ? `Uncuffed: ${ettUnCuffed} mm | Cuffed: ${ettCuffed} mm` : 'ใส่อายุเพื่อคำนวณ',
+    sub: age > 0 ? `Depth (oral): ${ettDepth} cm | ± 0.5 size เสมอ` : '',
+  });
+
+  // Atropine
+  const atropine = Math.max(0.1, Math.min(wt * 0.02, 0.5));
+  items.push({
+    icon: 'fa-heart',
+    label: 'Atropine (Bradycardia)',
+    val: `${atropine.toFixed(3)} mg IV`,
+    sub: `0.02 mg/kg | Min 0.1 mg | Max 0.5 mg (child), 1 mg (adol) | q5 min`,
+  });
+
+  // Adenosine
+  const adeno1 = (wt * 0.1).toFixed(2);
+  const adeno2 = (wt * 0.2).toFixed(2);
+  items.push({
+    icon: 'fa-clock-rotate-left',
+    label: 'Adenosine (SVT)',
+    val: `${adeno1} mg → ${adeno2} mg`,
+    sub: `0.1 mg/kg (1st) → 0.2 mg/kg (2nd) | Max 6 mg → 12 mg | Rapid IV push`,
+  });
+
+  // Glucose (D10W)
+  const glucose_ml = wt * 2.5; // D10W 2 ml/kg
+  items.push({
+    icon: 'fa-cube',
+    label: 'Glucose (Hypoglycemia)',
+    val: `D10W: ${glucose_ml.toFixed(0)} ml IV`,
+    sub: `2–4 ml/kg of D10W (= 0.2–0.4 g/kg) slow IV push`,
+  });
+
+  // IO access weight
+  items.push({
+    icon: 'fa-bone',
+    label: 'IO Access (Intraosseous)',
+    val: `พิจารณาทันที`,
+    sub: `ถ้า IV ไม่ได้ภายใน 2 นาที → IO | ตำแหน่ง: proximal tibia, distal femur, proximal humerus`,
+  });
+
+  const container = document.getElementById('emergItems');
+  container.innerHTML = items.map(item => `
+    <div class="emerg-result-row" style="flex-direction:column;align-items:flex-start;gap:3px;padding:8px 0;border-bottom:1px dashed #fecdd3;">
+      <div style="display:flex;align-items:center;gap:7px;">
+        <i class="fa-solid ${item.icon}" style="color:#e11d48;width:16px;text-align:center;font-size:.82rem;"></i>
+        <span class="emerg-result-label" style="font-weight:700;color:#be123c;">${item.label}</span>
+      </div>
+      <div class="emerg-result-value" style="margin-left:23px;">${item.val}</div>
+      ${item.sub ? `<div style="margin-left:23px;font-size:.7rem;color:#9f1239;">${item.sub}</div>` : ''}
+    </div>
+  `).join('');
+
+  resultBox.classList.add('show');
+}
+
+// ════════════════════════════════════════
+// GLOBAL SEARCH
+// ════════════════════════════════════════
+const searchIndex = [
+  { term: 'vital signs สัญญาณชีพ heart rate HR', section: 'vitals', target: 'card-vitals', label: 'ค่าปกติสัญญาณชีพ (Vital Signs)' },
+  { term: 'respiratory rate RR blood pressure BP', section: 'vitals', target: 'card-vitals', label: 'ค่าปกติ RR / BP' },
+  { term: 'milestone พัฒนาการ gross motor fine motor language', section: 'vitals', target: 'card-milestones', label: 'พัฒนาการตามวัย (Milestones)' },
+  { term: 'fluid soluton สารน้ำ holliday segar maintenance', section: 'fluids', target: 'card-vitals', label: 'คำนวณสารน้ำ Holliday-Segar' },
+  { term: 'fluid type NSS dextrose 5D N/2 N/3 LRS', section: 'fluids', target: 'card-fluidtypes', label: 'ชนิด IV Fluid และข้อบ่งชี้' },
+  { term: 'dehydration deficit mild moderate severe', section: 'fluids', target: 'card-fluidtypes', label: 'Fluid Deficit / Dehydration' },
+  { term: 'paracetamol ยาพาราเซตามอล fever ไข้', section: 'drugs', target: 'card-drugref', label: 'Paracetamol Dosing' },
+  { term: 'ibuprofen brufen ปวด anti-inflammatory', section: 'drugs', target: 'card-drugref', label: 'Ibuprofen Dosing' },
+  { term: 'amoxicillin penicillin antibiotic ยาปฏิชีวนะ', section: 'drugs', target: 'card-drugref', label: 'Amoxicillin Dosing' },
+  { term: 'augmentin amoxicillin clavulanate', section: 'drugs', target: 'card-drugref', label: 'Augmentin Dosing' },
+  { term: 'azithromycin zithromax atypical pneumonia', section: 'drugs', target: 'card-drugref', label: 'Azithromycin Dosing' },
+  { term: 'ceftriaxone rocephin IV antibiotic', section: 'drugs', target: 'card-drugref', label: 'Ceftriaxone Dosing' },
+  { term: 'ondansetron zofran อาเจียน anti-emetic', section: 'drugs', target: 'card-drugref', label: 'Ondansetron Dosing' },
+  { term: 'domperidone motilium nausea', section: 'drugs', target: 'card-drugref', label: 'Domperidone Dosing' },
+  { term: 'cetirizine zyrtec antihistamine allergy แพ้', section: 'drugs', target: 'card-drugref', label: 'Cetirizine Dosing' },
+  { term: 'cpr resuscitation cardiac arrest หัวใจหยุด', section: 'emerg', target: 'card-cpr', label: 'Pediatric CPR (BLS)' },
+  { term: 'epinephrine adrenaline epi emergency dose', section: 'emerg', target: 'card-cpr', label: 'Emergency Doses (PALS)' },
+  { term: 'defibrillation shock joules vf vt', section: 'emerg', target: 'card-cpr', label: 'Defibrillation Doses' },
+  { term: 'ett intubation airway tube size', section: 'emerg', target: 'card-ett', label: 'ETT Size / Depth' },
+  { term: 'dengue ไข้เลือดออก DHF warning signs', section: 'guide', target: 'card-dengue', label: 'Dengue — Warning Signs & Fluid Management' },
+  { term: 'dengue platelet เกล็ดเลือด thrombocytopenia', section: 'guide', target: 'card-dengue', label: 'Dengue — Platelet Transfusion' },
+  { term: 'asthma หอบหืด wheeze nebulizer salbutamol', section: 'guide', target: 'card-asthma', label: 'Acute Asthma — Management' },
+  { term: 'salbutamol ipratropium steroid prednisolone', section: 'guide', target: 'card-asthma', label: 'Asthma — Stepwise Treatment' },
+  { term: 'gastroenteritis diarrhea ท้องเดิน อุจจาระร่วง AGE', section: 'guide', target: 'card-age', label: 'AGE — Dehydration Assessment' },
+  { term: 'ORS oral rehydration zinc supplement', section: 'guide', target: 'card-age', label: 'AGE — ORS / IV Management' },
+];
+
+let searchTO = null;
+document.getElementById('globalSearch').addEventListener('input', function() {
+  clearTimeout(searchTO);
+  const q = this.value.trim();
+  if (q.length < 2) { closeSearch(); return; }
+  searchTO = setTimeout(() => doSearch(q), 200);
+});
+
+function doSearch(q) {
+  const terms = q.toLowerCase().split(' ').filter(t => t);
+  const results = searchIndex.filter(item =>
+    terms.some(t => item.term.toLowerCase().includes(t) || item.label.toLowerCase().includes(t))
+  );
+
+  if (results.length === 0) {
+    document.getElementById('searchResults').innerHTML = `<div style="color:#94a3b8;font-size:.82rem;text-align:center;padding:10px;">ไม่พบผลลัพธ์สำหรับ "${q}"</div>`;
+  } else {
+    document.getElementById('searchResults').innerHTML = results.map(r => `
+      <div onclick="goTo('${r.section}','${r.target}')" style="padding:10px 12px;background:#f8fafc;border-radius:12px;margin-bottom:6px;cursor:pointer;border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div>
+          <div style="font-family:'Prompt',sans-serif;font-size:.82rem;font-weight:600;color:#1e293b;">${r.label}</div>
+          <div style="font-size:.7rem;color:#94a3b8;margin-top:2px;">Section: ${r.section}</div>
+        </div>
+        <i class="fa-solid fa-arrow-right" style="color:#0ea5e9;font-size:.8rem;"></i>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('searchOverlay').style.display = 'block';
+  document.getElementById('searchPanel').style.display = 'block';
+}
+
+function goTo(section, cardId) {
+  closeSearch();
+  const sectionEl = document.getElementById('sec-' + section);
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const sections = ['vitals','fluids','drugs','emerg','guide'];
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  navBtns.forEach(b => b.classList.remove('active'));
+  sectionEl.classList.add('active');
+  const idx = sections.indexOf(section);
+  if (idx >= 0) navBtns[idx].classList.add('active');
+  setTimeout(() => {
+    const card = document.getElementById(cardId);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 150);
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').style.display = 'none';
+  document.getElementById('searchPanel').style.display = 'none';
+}
+
+// Enter key on search
+document.getElementById('globalSearch').addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSearch();
+});
+</script>
+
+</body>
+</html>
