@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Pediatric Ward Survival Guide v2</title>
+<title>Pediatric Ward Survival Guide v2.0</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -29,11 +28,15 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .search-wrap input::placeholder{color:rgba(255,255,255,.62);}
 .search-wrap input:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.26);}
 .search-wrap .fa-magnifying-glass{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.72);font-size:.82rem;}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 -2px 18px rgba(0,0,0,.09);display:flex;height:var(--nav-h);border-top:1px solid #e2e8f0;}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.59rem;color:#94a3b8;transition:color .2s,transform .15s;padding:0;}
+
+/* Scrollable Bottom Nav */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 -2px 18px rgba(0,0,0,.09);display:flex;height:var(--nav-h);border-top:1px solid #e2e8f0;overflow-x:auto;scroll-behavior:smooth;}
+.bottom-nav::-webkit-scrollbar { display: none; } /* Hide scrollbar */
+.nav-btn{flex:0 0 20%;min-width:65px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.59rem;color:#94a3b8;transition:color .2s,transform .15s;padding:0;}
 .nav-btn i{font-size:1.08rem;}
 .nav-btn.active{color:var(--clr-primary);}
 .nav-btn:active{transform:scale(.91);}
+
 .section{display:none;padding:13px 11px 6px;animation:fadeUp .25s ease;}
 .section.active{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(9px);}to{opacity:1;transform:translateY(0);}}
@@ -42,7 +45,6 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .icon-circle{width:29px;height:29px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;}
 .badge{display:inline-block;font-size:.66rem;font-weight:600;padding:2px 7px;border-radius:20px;margin-right:3px;}
 .ref-text{font-size:.68rem;color:#94a3b8;margin-top:11px;padding-top:9px;border-top:1px dashed #e2e8f0;display:flex;align-items:center;gap:5px;}
-/* Callout boxes */
 .must-box,.good-box,.pit-box,.pearl-box{border-radius:12px;padding:10px 12px;margin:9px 0;font-size:.76rem;line-height:1.72;}
 .must-box{background:var(--must-bg);border:1.5px solid var(--must-bdr);}
 .good-box{background:var(--good-bg);border:1.5px solid var(--good-bdr);}
@@ -59,27 +61,26 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .good-box ul li::before{content:'💡';position:absolute;left:0;font-size:.62rem;top:3px;}
 .pit-box ul li::before{content:'⚠';position:absolute;left:0;font-size:.62rem;top:3px;}
 .pearl-box ul li::before{content:'●';position:absolute;left:0;color:var(--pearl-bdr);font-size:.62rem;top:4px;}
-/* Tables */
 .vtable{width:100%;border-collapse:collapse;font-size:.76rem;}
 .vtable th{background:#f0f9ff;color:#0369a1;font-weight:700;padding:6px 5px;text-align:left;border-bottom:2px solid #bae6fd;font-family:'Prompt',sans-serif;font-size:.7rem;}
 .vtable td{padding:6px 5px;border-bottom:1px solid #f1f5f9;vertical-align:top;}
 .vtable tr:last-child td{border-bottom:none;}
 .vtable tr:nth-child(even) td{background:#f8fafc;}
-/* Milestones */
 .ms-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
 .ms-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:11px;padding:9px;border:1px solid #bbf7d0;}
 .ms-card .age-lbl{font-family:'Prompt',sans-serif;font-size:.7rem;font-weight:700;color:#15803d;margin-bottom:4px;background:#bbf7d0;display:inline-block;padding:1px 7px;border-radius:7px;}
 .ms-card p{font-size:.7rem;color:#374151;line-height:1.5;margin:2px 0;}
 .ms-card .dom{font-weight:700;color:#166534;}
-/* Calc */
 .calc-group{margin-bottom:10px;}
 .calc-label{font-size:.78rem;font-weight:600;color:#475569;margin-bottom:4px;display:block;}
 .calc-input,.calc-select{width:100%;padding:9px 11px;border:1.5px solid #e2e8f0;border-radius:11px;font-family:'Sarabun',sans-serif;font-size:.88rem;color:var(--clr-text);background:#f8fafc;transition:border-color .2s,box-shadow .2s;}
 .calc-input:focus,.calc-select:focus{outline:none;border-color:var(--clr-primary);box-shadow:0 0 0 3px rgba(14,165,233,.11);background:#fff;}
 .calc-btn{width:100%;padding:11px;background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#fff;font-family:'Prompt',sans-serif;font-size:.88rem;font-weight:700;border:none;border-radius:13px;cursor:pointer;box-shadow:0 4px 13px rgba(14,165,233,.28);transition:transform .15s;}
 .calc-btn:active{transform:scale(.98);}
-.result-box{margin-top:13px;background:linear-gradient(135deg,#f0f9ff,#f0fdf4);border-radius:13px;padding:13px;border:1.5px solid #bae6fd;display:none;}
-.result-box.show{display:block;animation:fadeUp .22s ease;}
+.result-box,.emerg-box{margin-top:13px;border-radius:13px;padding:13px;display:none;}
+.result-box{background:linear-gradient(135deg,#f0f9ff,#f0fdf4);border:1.5px solid #bae6fd;}
+.emerg-box{background:linear-gradient(135deg,#fff1f2,#fffbeb);border:1.5px solid #fecdd3;}
+.result-box.show,.emerg-box.show{display:block;animation:fadeUp .22s ease;}
 .result-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px dashed #e0f2fe;}
 .result-row:last-child{border-bottom:none;}
 .result-label{font-size:.75rem;color:#64748b;}
@@ -87,8 +88,6 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .fluid-type{background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:11px;padding:9px 11px;margin-bottom:7px;}
 .fluid-type .fn{font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#0369a1;}
 .fluid-type p{font-size:.72rem;color:#475569;margin-top:2px;line-height:1.5;}
-.emerg-box{margin-top:13px;background:linear-gradient(135deg,#fff1f2,#fffbeb);border-radius:13px;padding:13px;border:1.5px solid #fecdd3;display:none;}
-.emerg-box.show{display:block;animation:fadeUp .22s ease;}
 .accordion{margin-bottom:9px;border-radius:13px;overflow:hidden;border:1.5px solid #e2e8f0;}
 .acc-header{width:100%;background:#f8fafc;border:none;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Prompt',sans-serif;font-size:.84rem;font-weight:700;color:var(--clr-text);transition:background .2s;text-align:left;gap:6px;}
 .acc-header:hover{background:#f1f5f9;}
@@ -107,7 +106,6 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .drug-table{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:7px;}
 .drug-table th{background:#f0fdf4;color:#166534;padding:6px 7px;text-align:left;font-weight:700;font-size:.71rem;border-bottom:2px solid #bbf7d0;}
 .drug-table td{padding:6px 7px;border-bottom:1px solid #f1f5f9;}
-.drug-table tr:last-child td{border-bottom:none;}
 .drug-note{font-size:.71rem;color:#64748b;margin-top:7px;background:#f8fafc;border-radius:8px;padding:8px;}
 .age-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px;}
 .age-tab{font-size:.69rem;padding:4px 9px;border-radius:20px;border:1.5px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-family:'Sarabun',sans-serif;font-weight:600;color:#64748b;transition:all .14s;}
@@ -118,6 +116,7 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .pulse{animation:pulse-ring 2s infinite;}
 #searchOverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);}
 #searchPanel{display:none;position:fixed;top:0;left:0;right:0;z-index:201;max-height:72vh;overflow-y:auto;background:#fff;border-radius:0 0 20px 20px;padding:13px;box-shadow:0 12px 40px rgba(0,0,0,.22);}
+.apgar-select{padding:5px; font-size:0.8rem; border-radius:8px; border:1px solid #cbd5e1; width:100%; margin-top:2px;}
 </style>
 </head>
 <body>
@@ -134,20 +133,17 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
     <span class="leg-chip" style="background:var(--must-bg);border-color:var(--must-bdr);color:var(--must-txt);"><i class="fa-solid fa-star" style="font-size:.56rem;"></i> Must Know</span>
     <span class="leg-chip" style="background:var(--good-bg);border-color:var(--good-bdr);color:var(--good-txt);"><i class="fa-solid fa-lightbulb" style="font-size:.56rem;"></i> Good to Know</span>
     <span class="leg-chip" style="background:var(--pit-bg);border-color:var(--pit-bdr);color:var(--pit-txt);"><i class="fa-solid fa-triangle-exclamation" style="font-size:.56rem;"></i> Pitfall</span>
-    <span class="leg-chip" style="background:var(--pearl-bg);border-color:var(--pearl-bdr);color:var(--pearl-txt);"><i class="fa-solid fa-gem" style="font-size:.56rem;"></i> Pearl</span>
   </div>
   <div class="search-wrap">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="globalSearch" placeholder="ค้นหายา / โรค / หัวข้อ..." autocomplete="off">
+    <input type="text" id="globalSearch" placeholder="ค้นหายา / โรค / วัคซีน / APGAR..." autocomplete="off">
   </div>
 </header>
 
 <main>
 
-<!-- ===== S1: VITALS ===== -->
-
 <section id="sec-vitals" class="section active">
-  <div class="sec-title"><i class="fa-solid fa-heart-pulse" style="color:#0ea5e9;"></i> Vitals &amp; Development <span class="stag">S1</span></div>
+  <div class="sec-title"><i class="fa-solid fa-heart-pulse" style="color:#0ea5e9;"></i> Vitals &amp; WBC <span class="stag">S1</span></div>
 
   <div class="card" id="card-vitals">
     <div class="card-title"><div class="icon-circle" style="background:#e0f2fe;color:#0369a1;"><i class="fa-solid fa-chart-line"></i></div>ค่าปกติสัญญาณชีพ (Normal Vital Signs)</div>
@@ -175,71 +171,56 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
     </div>
     <div style="margin-top:9px;background:#f0f9ff;border-radius:9px;padding:8px 10px;font-size:.72rem;color:#0369a1;border:1px solid #bae6fd;">
       <i class="fa-solid fa-calculator" style="margin-right:3px;"></i>
-      <strong>Est. Normal SBP (1yr+):</strong> 90+(2xAge yrs) mmHg &nbsp;|&nbsp; <strong>Min SBP:</strong> 70+(2xAge) mmHg
+      <strong>Est. Normal SBP (1yr+):</strong> 90+(2xAge) mmHg &nbsp;|&nbsp; <strong>Min SBP:</strong> 70+(2xAge) mmHg
     </div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Vital Signs</div>
-      <ul>
-        <li><strong>Fever</strong> = temp >=38.0C rectal | >=37.5C axilla | Tachycardia ~10 bpm per 1C rise</li>
-        <li><strong>Hypotension = late sign</strong> in children - if BP drops = decompensated shock already</li>
-        <li><strong>Fever in infant &lt;3 months</strong> >=38C = Serious bacterial infection until proven otherwise - Full sepsis workup</li>
-        <li>SpO2 &lt;95% in room air = abnormal - evaluate immediately</li>
-        <li>UO target: >=1 ml/kg/hr (infant), >=0.5 ml/kg/hr (older child)</li>
-      </ul>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Vital Pearls</div>
-      <ul>
-        <li>Sinus arrhythmia in children is NORMAL - HR increases on inspiration, decreases on expiration</li>
-        <li>BP cuff size matters: too small = falsely high, too large = falsely low (cuff width = 40% arm circumference)</li>
-        <li>Bradycardia in apneic infant = respiratory cause until proven otherwise - BVM first</li>
-        <li>Orthostatic hypotension: SBP drop >=20 mmHg or DBP drop >=10 mmHg on position change</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics, 21st Ed.</div>
   </div>
 
   <div class="card" id="card-milestones">
     <div class="card-title"><div class="icon-circle" style="background:#dcfce7;color:#166534;"><i class="fa-solid fa-child-reaching"></i></div>พัฒนาการตามวัย (Developmental Milestones)</div>
     <div class="ms-grid">
-      <div class="ms-card"><div class="age-lbl">2 เดือน</div><p><span class="dom">Gross:</span> ยกศีรษะ 45</p><p><span class="dom">Fine:</span> มือกำ</p><p><span class="dom">Lang:</span> cooing</p><p><span class="dom">Social:</span> ยิ้มตอบสนอง</p></div>
+      <div class="ms-card"><div class="age-lbl">2 เดือน</div><p><span class="dom">Gross:</span> ยกศีรษะ 45°</p><p><span class="dom">Fine:</span> มือกำ</p><p><span class="dom">Lang:</span> cooing</p><p><span class="dom">Social:</span> ยิ้มตอบสนอง</p></div>
       <div class="ms-card"><div class="age-lbl">4 เดือน</div><p><span class="dom">Gross:</span> พลิกคว่ำ-หงาย</p><p><span class="dom">Fine:</span> จับด้วยฝ่ามือ</p><p><span class="dom">Lang:</span> หัวเราะ คิดคิด</p><p><span class="dom">Social:</span> จำหน้าพ่อแม่</p></div>
-      <div class="ms-card"><div class="age-lbl">6 เดือน</div><p><span class="dom">Gross:</span> นั่งพิง</p><p><span class="dom">Fine:</span> ย้ายของมือ-มือ</p><p><span class="dom">Lang:</span> babbling ba/ma</p><p><span class="dom">Social:</span> กลัวคนแปลกหน้า</p></div>
-      <div class="ms-card"><div class="age-lbl">9 เดือน</div><p><span class="dom">Gross:</span> นั่งเอง คลาน</p><p><span class="dom">Fine:</span> Pincer grasp</p><p><span class="dom">Lang:</span> mama/dada (nonspec)</p><p><span class="dom">Social:</span> clap, wave bye</p></div>
-      <div class="ms-card"><div class="age-lbl">12 เดือน</div><p><span class="dom">Gross:</span> เดินเกาะ/เดินเอง</p><p><span class="dom">Fine:</span> ใส่ของในถ้วย</p><p><span class="dom">Lang:</span> 1-3 คำมีความหมาย</p><p><span class="dom">Social:</span> เลียนแบบ</p></div>
-      <div class="ms-card"><div class="age-lbl">18 เดือน</div><p><span class="dom">Gross:</span> วิ่ง ขึ้นบันได</p><p><span class="dom">Fine:</span> เขียนเส้น stack block</p><p><span class="dom">Lang:</span> 10+ คำ</p><p><span class="dom">Social:</span> เล่นคนเดียว</p></div>
-      <div class="ms-card" style="grid-column:span 2;background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border-color:#bae6fd;">
-        <div class="age-lbl" style="background:#bae6fd;color:#0369a1;">24 เดือน</div>
-        <p><span class="dom" style="color:#0369a1;">Gross:</span> ขึ้น-ลงบันได เตะบอล</p>
-        <p><span class="dom" style="color:#0369a1;">Fine:</span> block 6 ชิ้น พลิกหนังสือ</p>
-        <p><span class="dom" style="color:#0369a1;">Lang:</span> 2-word sentence, 50+ คำ</p>
-        <p><span class="dom" style="color:#0369a1;">Social:</span> Parallel play ใช้ช้อน</p>
-      </div>
+      <div class="ms-card"><div class="age-lbl">6 เดือน</div><p><span class="dom">Gross:</span> นั่งพิง</p><p><span class="dom">Fine:</span> ย้ายของมือ-มือ</p><p><span class="dom">Lang:</span> babbling</p><p><span class="dom">Social:</span> กลัวคนแปลกหน้า</p></div>
+      <div class="ms-card"><div class="age-lbl">9 เดือน</div><p><span class="dom">Gross:</span> นั่งเอง คลาน</p><p><span class="dom">Fine:</span> Pincer grasp</p><p><span class="dom">Lang:</span> mama/dada</p><p><span class="dom">Social:</span> clap, wave bye</p></div>
     </div>
     <div class="must-box" style="margin-top:11px;">
       <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Red Flags พัฒนาการ</div>
       <ul>
         <li><strong>ไม่ยิ้มตอบสนอง</strong> ที่ 2 เดือน = red flag ทันที</li>
-        <li><strong>ไม่ babble</strong> เลยที่ 12 เดือน = ประเมิน autism / hearing loss</li>
-        <li><strong>ไม่มี 2-word phrase</strong> ที่ 24 เดือน = refer ทันที</li>
-        <li><strong>Regression</strong> (เสียทักษะที่มีอยู่) = red flag เสมอ - workup underlying disease</li>
-        <li><strong>ไม่เดิน</strong> ที่ 18 เดือน = ประเมิน motor delay, muscular dystrophy, cerebral palsy</li>
+        <li><strong>Regression</strong> (เสียทักษะที่มีอยู่) = workup underlying disease ทันที</li>
+        <li><strong>ไม่เดิน</strong> ที่ 18 เดือน = ประเมิน motor delay</li>
       </ul>
     </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Dev Pearls</div>
+  </div>
+
+  <div class="card" id="card-vaccines">
+    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-syringe"></i></div>ตารางวัคซีน (Thai EPI 2566)</div>
+    <div style="overflow-x:auto;">
+      <table class="vtable">
+        <thead><tr><th>อายุ</th><th>วัคซีนที่ต้องฉีด (Mandatory)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>แรกเกิด</strong></td><td>BCG, HB 1 (Hepatitis B)</td></tr>
+          <tr><td><strong>2 เดือน</strong></td><td>DTP-HB-Hib 1, OPV 1, Rota 1, (PCV 1)</td></tr>
+          <tr><td><strong>4 เดือน</strong></td><td>DTP-HB-Hib 2, OPV 2, IPV 1, Rota 2, (PCV 2)</td></tr>
+          <tr><td><strong>6 เดือน</strong></td><td>DTP-HB-Hib 3, OPV 3, Rota 3</td></tr>
+          <tr><td><strong>9 เดือน</strong></td><td>MMR 1, LAJE 1 (ไข้สมองอักเสบเจอี)</td></tr>
+          <tr><td><strong>1 ปี</strong></td><td>LAJE 2 (ห่างจากเข็มแรก 3-12 ด.)</td></tr>
+          <tr><td><strong>1.5 ปี</strong></td><td>DTP 4, OPV 4, MMR 2</td></tr>
+          <tr><td><strong>2.5 ปี</strong></td><td>DTP 5, OPV 5</td></tr>
+          <tr><td><strong>นักเรียน ป.5</strong></td><td>HPV (เด็กหญิง 2 เข็ม ห่าง 6 เดือน)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="good-box" style="margin-top:11px;">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Vaccine Pearls</div>
       <ul>
-        <li>Premature infant: ใช้ <strong>corrected age</strong> จนถึง 2 ปี (เช่น 6 mo born 2 mo early = correct to 4 mo)</li>
-        <li>Object permanence เริ่ม 8-9 เดือน = peek-a-boo test ได้</li>
-        <li>MCHAT-R ใช้ screen autism ที่ 18 และ 24 เดือน ตาม AAP</li>
-        <li>Denver II = standard screening tool ในไทย ใช้ได้ตั้งแต่แรกเกิด-6 ปี</li>
+        <li>วัคซีนเชื้อเป็น (Live attenuated) เช่น MMR, VZV, JE, Rota ห้ามให้ในเด็กภูมิคุ้มกันบกพร่อง (HIV, Chemo)</li>
+        <li>ถ้ามารดาเป็น HBsAg Positive ต้องฉีด HBIG ให้เด็กภายใน 12 ชม. พร้อมวัคซีน HB เข็มแรก</li>
+        <li>ไข้หลังฉีด DTP มักเกิดใน 24-48 ชม. ให้ Paracetamol ได้</li>
       </ul>
     </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics, 21st Ed. / AAP Developmental Screening</div>
   </div>
 </section>
-
-<!-- ===== S2: FLUIDS ===== -->
 
 <section id="sec-fluids" class="section">
   <div class="sec-title"><i class="fa-solid fa-droplet" style="color:#38bdf8;"></i> IV Fluid Calculator <span class="stag">S2</span></div>
@@ -250,9 +231,8 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
       <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Holliday-Segar Formula</div>
       <ul>
         <li><strong>1-10 kg:</strong> 100 ml/kg/day</li>
-        <li><strong>11-20 kg:</strong> 1,000 ml + 50 ml/kg (for each kg 11-20)</li>
-        <li><strong>&gt;20 kg:</strong> 1,500 ml + 20 ml/kg (for each kg &gt;20)</li>
-        <li>ml/hr = ml/day divided by 24</li>
+        <li><strong>11-20 kg:</strong> 1,000 ml + 50 ml/kg (for each kg >10)</li>
+        <li><strong>&gt;20 kg:</strong> 1,500 ml + 20 ml/kg (for each kg >20)</li>
       </ul>
     </div>
     <div class="calc-group">
@@ -278,64 +258,21 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
       <div class="result-row" id="row-totalhr" style="display:none;"><span class="result-label">Total Rate (ml/hr)</span><span class="result-value" id="res-total-hr">-</span></div>
       <div style="margin-top:7px;padding:7px 9px;background:#fff;border-radius:9px;border:1px solid #bae6fd;font-size:.71rem;color:#0369a1;" id="fluidFormula"></div>
     </div>
-    <div class="good-box" style="margin-top:11px;">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Practical Tips</div>
+    <div class="pit-box" style="margin-top:11px;">
+      <div class="box-head"><i class="fa-solid fa-triangle-exclamation" style="color:var(--pit-bdr);"></i> Pitfall - Fluid Selection</div>
       <ul>
-        <li>Moderate dehydration: give 50% deficit in 8h then remaining 50% in 16h</li>
-        <li>Severe/Shock: resuscitate with NSS 20 ml/kg bolus first, then calculate deficit</li>
-        <li>Add KCl 20 mEq/L only after UO returns - NEVER give K if anuric</li>
-        <li>Ongoing loss (diarrhea): replace 10 ml/kg per episode</li>
-        <li>Insensible loss increases ~12% per 1C above 37.5C</li>
+        <li><strong>Hypotonic fluid (1/3 NSS)</strong> เพิ่มความเสี่ยง Hyponatremia ปัจจุบันแนะนำให้ใช้ 5%DN/2 แทนในเด็ก</li>
+        <li><strong>Shock:</strong> ใช้ NSS หรือ LRS เท่านั้น <strong>ห้ามให้ Dextrose ใน resuscitation bolus</strong></li>
       </ul>
     </div>
-    <div class="pit-box">
-      <div class="box-head"><i class="fa-solid fa-triangle-exclamation" style="color:var(--pit-bdr);"></i> Pitfall - Fluid</div>
-      <ul>
-        <li><strong>Hypotonic fluid (1/3 NSS)</strong> increases risk of hospital-acquired hyponatremia - current guidelines recommend 1/2 NSS or isotonic instead</li>
-        <li>Hypernatremic dehydration: rehydrate slowly - reduce Na no faster than 10-12 mEq/L/day to prevent cerebral edema</li>
-        <li>Do not give IV fluids unnecessarily - ORT is better for mild-moderate dehydration</li>
-        <li>Reduce maintenance 20-30% in SIADH risk (meningitis, pneumonia)</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / AAP Clinical Report on Maintenance IV Fluids</div>
-  </div>
-
-  <div class="card" id="card-fluidtypes">
-    <div class="card-title"><div class="icon-circle" style="background:#f0fdf4;color:#166534;"><i class="fa-solid fa-vials"></i></div>ชนิด IV Fluid และข้อบ่งชี้</div>
-    <div class="fluid-type"><div class="fn">NSS (0.9% NaCl)</div><p>Resuscitation bolus, Dengue fluid challenge | Na: 154 mEq/L | Osmol: 308</p></div>
-    <div class="fluid-type"><div class="fn">Lactated Ringer's (LRS)</div><p>Resuscitation, post-op, burns - more physiologic | Na 130, K 4, Ca 3, Lactate 28 | Osmol: ~273</p></div>
-    <div class="fluid-type"><div class="fn">5%D/N/2 (Half-NSS + Dextrose)</div><p>Maintenance in infant-child >=28 days | Reduces hyponatremia risk vs 1/3 NSS | Na: 77 mEq/L</p></div>
-    <div class="fluid-type"><div class="fn">5%D/NSS</div><p>Maintenance in adolescents, post-op | Na: 154 mEq/L | Watch for hypernatremia if prolonged</p></div>
-    <div class="fluid-type" style="background:#fff1f2;border-color:#fecdd3;"><div class="fn" style="color:#be123c;"><i class="fa-solid fa-triangle-exclamation" style="margin-right:3px;"></i>KCl Supplement</div><p>20-40 mEq/L | Max IV rate 0.3-0.5 mEq/kg/hr | <strong>NEVER IV push</strong> | Check serum K first always</p></div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Fluid Selection Rules</div>
-      <ul>
-        <li><strong>Shock / Resuscitation:</strong> NSS or LRS only - NO dextrose-containing fluids</li>
-        <li><strong>Hypoglycemia:</strong> D10W 2-4 ml/kg bolus first</li>
-        <li>NEVER give glucose-containing solution in <strong>Head injury / Drowning / Hypoxia</strong> - worsens outcome</li>
-        <li><strong>DKA initial fluid:</strong> NSS 10-20 ml/kg in 1-2h, then switch to 1/2 NSS + K</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed.</div>
   </div>
 </section>
-
-<!-- ===== S3: DRUGS ===== -->
 
 <section id="sec-drugs" class="section">
   <div class="sec-title"><i class="fa-solid fa-pills" style="color:#a78bfa;"></i> Drug Dosing Calculator <span class="stag">S3</span></div>
 
   <div class="card">
-    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-syringe"></i></div>คำนวณขนาดยา (Pediatric Drug Dosing)</div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - กฎก่อนสั่งยาทุกครั้ง</div>
-      <ul>
-        <li>Calculate from <strong>Actual Body Weight</strong> | If obese, use Ideal BW or Adjusted BW</li>
-        <li>Always check <strong>Maximum dose</strong> - large children must not exceed adult maximum</li>
-        <li>Neonates: special caution - renal/hepatic immaturity, different protein binding</li>
-        <li>Always ask about allergy history and drug interactions before prescribing</li>
-      </ul>
-    </div>
+    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-syringe"></i></div>คำนวณขนาดยา</div>
     <div class="calc-group">
       <label class="calc-label"><i class="fa-solid fa-weight-scale" style="margin-right:3px;"></i>น้ำหนักผู้ป่วย (kg)</label>
       <input type="number" id="drugWeight" class="calc-input" placeholder="เช่น 20" min="0.5" max="100" step="0.1">
@@ -352,7 +289,6 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
         <option value="ceftriaxone">Ceftriaxone</option>
         <option value="ondansetron">Ondansetron</option>
         <option value="domperidone">Domperidone</option>
-        <option value="cetirizine">Cetirizine</option>
       </select>
     </div>
     <button class="calc-btn" onclick="calcDrug()" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);box-shadow:0 4px 13px rgba(124,58,237,.28);">
@@ -366,67 +302,90 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
       <div class="drug-note" id="drugNote"></div>
       <div id="drugMustGood" style="margin-top:7px;"></div>
     </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / Thai Pediatric Society Drug Manual</div>
-  </div>
-
-  <div class="card" id="card-drugref">
-    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-list-check"></i></div>Quick Drug Reference Table</div>
-    <div style="overflow-x:auto;">
-      <table class="vtable">
-        <thead><tr><th>ยา</th><th>Dose (mg/kg)</th><th>Freq</th><th>Max/day</th></tr></thead>
-        <tbody>
-          <tr><td>Paracetamol</td><td>10-15/dose</td><td>q4-6h</td><td>75mg/kg; 4g</td></tr>
-          <tr><td>Ibuprofen</td><td>5-10/dose</td><td>q6-8h</td><td>40mg/kg; 2.4g</td></tr>
-          <tr><td>Amoxicillin</td><td>40-90/day</td><td>TID</td><td>3g</td></tr>
-          <tr><td>Augmentin</td><td>45-90/day</td><td>BID</td><td>3g Amox</td></tr>
-          <tr><td>Azithromycin</td><td>10 D1; 5 D2-5</td><td>OD x5d</td><td>500mg</td></tr>
-          <tr><td>Ceftriaxone</td><td>50-100/day</td><td>OD/q12h</td><td>4g</td></tr>
-          <tr><td>Ondansetron</td><td>0.15/dose</td><td>q8h</td><td>24mg</td></tr>
-          <tr><td>Domperidone</td><td>0.2-0.4/dose</td><td>TID-QID</td><td>2.4mg/kg;30mg</td></tr>
-          <tr><td>Cetirizine</td><td>0.25/day</td><td>OD</td><td>10mg</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="must-box" style="margin-top:11px;">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Drug Safety Rules</div>
-      <ul>
-        <li><strong>Paracetamol overdose</strong> (&gt;150 mg/kg): N-acetylcysteine (NAC) immediately | Check LFT + paracetamol level</li>
-        <li><strong>Ibuprofen CONTRAINDICATED in:</strong> dengue, peptic ulcer, renal impairment, dehydration, &lt;6 months</li>
-        <li><strong>Ceftriaxone + Ca IV</strong> in neonates &lt;28 days = FATAL precipitation in lungs/kidneys</li>
-        <li><strong>Azithromycin + Domperidone + Ondansetron</strong> all prolong QT - avoid combinations</li>
-      </ul>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Antibiotic Selection</div>
-      <ul>
-        <li><strong>AOM:</strong> Amoxicillin high-dose 80-90 mg/kg/day 1st line | Augmentin if fail at 48-72h</li>
-        <li><strong>CAP (non-severe):</strong> Amoxicillin 80-90 mg/kg/day | Add Azithromycin if Mycoplasma suspected</li>
-        <li><strong>Animal bite:</strong> Augmentin 1st line always (covers Pasteurella, anaerobes)</li>
-        <li><strong>UTI:</strong> Amox-Clav or Cefixime oral | Ceftriaxone IM if severe or &lt;3 months</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Harriet Lane Handbook, 22nd Ed. / Thai Pediatric Society</div>
   </div>
 </section>
 
-<!-- ===== S4: EMERGENCY ===== -->
+<section id="sec-newborn" class="section">
+  <div class="sec-title"><i class="fa-solid fa-baby" style="color:#f59e0b;"></i> Newborn &amp; Nursery <span class="stag">S4</span></div>
+
+  <div class="card" id="card-apgar">
+    <div class="card-title"><div class="icon-circle" style="background:#fef3c7;color:#d97706;"><i class="fa-solid fa-stopwatch"></i></div>APGAR Score Calculator</div>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <div><label class="calc-label" style="margin-bottom:2px;"><strong>A</strong>ppearance (Skin color)</label>
+        <select id="apgarA" class="apgar-select" onchange="calcApgar()">
+          <option value="0">0 - Blue / Pale</option><option value="1">1 - Body pink, extremities blue (Acrocyanosis)</option><option value="2">2 - Completely pink</option>
+        </select>
+      </div>
+      <div><label class="calc-label" style="margin-bottom:2px;"><strong>P</strong>ulse (Heart rate)</label>
+        <select id="apgarP" class="apgar-select" onchange="calcApgar()">
+          <option value="0">0 - Absent</option><option value="1">1 - &lt; 100 bpm</option><option value="2">2 - &gt; 100 bpm</option>
+        </select>
+      </div>
+      <div><label class="calc-label" style="margin-bottom:2px;"><strong>G</strong>rimace (Reflex irritability)</label>
+        <select id="apgarG" class="apgar-select" onchange="calcApgar()">
+          <option value="0">0 - No response</option><option value="1">1 - Grimace / Weak cry</option><option value="2">2 - Cry / Active withdrawal</option>
+        </select>
+      </div>
+      <div><label class="calc-label" style="margin-bottom:2px;"><strong>A</strong>ctivity (Muscle tone)</label>
+        <select id="apgarAc" class="apgar-select" onchange="calcApgar()">
+          <option value="0">0 - Limp / Flaccid</option><option value="1">1 - Some flexion</option><option value="2">2 - Active motion / Well flexed</option>
+        </select>
+      </div>
+      <div><label class="calc-label" style="margin-bottom:2px;"><strong>R</strong>espiration (Breathing)</label>
+        <select id="apgarR" class="apgar-select" onchange="calcApgar()">
+          <option value="0">0 - Absent</option><option value="1">1 - Weak / Irregular / Gasping</option><option value="2">2 - Good / Strong cry</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:15px; padding:12px; background:#fffbeb; border:1.5px solid #fde68a; border-radius:12px; text-align:center;">
+      <div style="font-size:0.8rem; color:#92400e;">Total APGAR Score</div>
+      <div id="apgarTotal" style="font-size:2rem; font-weight:700; font-family:'Prompt',sans-serif; color:#d97706; line-height:1;">0</div>
+      <div id="apgarInterp" style="font-size:0.85rem; font-weight:700; color:#b45309; margin-top:4px;">Severe Asphyxia</div>
+    </div>
+    <div class="must-box" style="margin-top:10px;">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - APGAR</div>
+      <ul>
+        <li>ประเมินที่ <strong>1 นาที</strong> และ <strong>5 นาที</strong> (ถ้าน้อยกว่า 7 ให้ประเมินต่อทุก 5 นาทีจนถึง 20 นาที)</li>
+        <li><strong>ห้ามรอ</strong> ดู APGAR เพื่อเริ่ม Resuscitate ถ้าเด็กเกิดมาไม่ร้อง/ไม่หายใจ ให้เริ่ม Positive Pressure Ventilation (PPV) ทันที!</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="card-jaundice">
+    <div class="card-title"><div class="icon-circle" style="background:#fef9c3;color:#854d0e;"><i class="fa-solid fa-sun"></i></div>Neonatal Jaundice</div>
+    <div class="must-box">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Jaundice Rules</div>
+      <ul>
+        <li>ตัวเหลืองใน <strong>24 ชม.แรก = PATHOLOGICAL เสมอ</strong> - เจาะ Total/Direct bilirubin ทันที!</li>
+        <li>Physiological: เหลืองวันที่ 2-3, พีควันที่ 4-5, หายภายใน 2 สัปดาห์ (Term)</li>
+        <li>Direct bilirubin &gt;2 mg/dL = Pathological (โรคตับ/ท่อน้ำดี) ห้ามจับส่องไฟเฉยๆ</li>
+        <li>ตรวจพบเด็กเหลืองมากๆ ให้ Rule out <strong>G6PD deficiency</strong> และ <strong>ABO Incompatibility</strong> เสมอ</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" id="card-nsexam">
+    <div class="card-title"><div class="icon-circle" style="background:#f0fdf4;color:#166534;"><i class="fa-solid fa-clipboard-check"></i></div>Newborn Physical Exam Checklist</div>
+    <div class="good-box">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> จุดที่มักลืมตรวจในเด็กทารก (กันโดนอาจารย์ถาม)</div>
+      <ul>
+        <li><strong>Head:</strong> คลำ Anterior/Posterior Fontanelle, แยก Caput succedaneum (ข้าม suture) กับ Cephalohematoma (ไม่ข้าม suture)</li>
+        <li><strong>Eyes:</strong> Red reflex (Rule out congenital cataract / retinoblastoma)</li>
+        <li><strong>Mouth:</strong> เอานิ้วก้อยล้วงคลำ Cleft palate (บางทีแอบอยู่ด้านใน), Epstein pearls (normal)</li>
+        <li><strong>Heart:</strong> ฟัง Murmur (VSD, PDA พบบ่อย) แต่อย่าลืมคลำ Femoral pulse 2 ข้าง (Rule out Coarctation of Aorta)</li>
+        <li><strong>Abdomen:</strong> ดูสายสะดือ (2 Arteries, 1 Vein)</li>
+        <li><strong>Hips:</strong> ตรวจ Developmental Dysplasia of the Hip (DDH) ด้วย Ortolani &amp; Barlow maneuvers</li>
+        <li><strong>Neuro:</strong> Moro reflex, Grasp reflex, Rooting reflex</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
 <section id="sec-emerg" class="section">
-  <div class="sec-title"><i class="fa-solid fa-triangle-exclamation" style="color:#fb7185;"></i> Emergency &amp; Resuscitation <span class="stag">S4</span></div>
+  <div class="sec-title"><i class="fa-solid fa-triangle-exclamation" style="color:#fb7185;"></i> Emergency &amp; CPR <span class="stag">S5</span></div>
 
   <div class="card" style="border:2px solid #fecdd3;">
     <div class="card-title"><div class="icon-circle pulse" style="background:#fb7185;color:#fff;"><i class="fa-solid fa-heart"></i></div><span style="color:#be123c;">PALS Quick Calculator</span></div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - ABCDE Priorities</div>
-      <ul>
-        <li><strong>A</strong>irway - Open, suction, OPA/NPA adjunct</li>
-        <li><strong>B</strong>reathing - BVM 100% O2, intubation if needed</li>
-        <li><strong>C</strong>irculation - Compressions + IV/IO access + Fluids/Drugs</li>
-        <li><strong>D</strong>isability - GCS, glucose (check BSL immediately), pupils</li>
-        <li><strong>E</strong>xposure - Temperature, rash, trauma, bleeding</li>
-        <li>Pediatric cardiac arrest is mostly <strong>RESPIRATORY</strong> - prioritize airway/breathing first</li>
-      </ul>
-    </div>
     <div class="calc-group">
       <label class="calc-label" style="color:#be123c;"><i class="fa-solid fa-weight-scale" style="margin-right:3px;"></i>น้ำหนักผู้ป่วย (kg)</label>
       <input type="number" id="emergWeight" class="calc-input" placeholder="เช่น 20" min="0.5" max="100" step="0.1" style="border-color:#fecdd3;">
@@ -442,319 +401,89 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
       <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#be123c;margin-bottom:9px;"><i class="fa-solid fa-clipboard-list" style="margin-right:3px;"></i>Emergency Quick Reference</div>
       <div id="emergItems"></div>
     </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS Guidelines 2020</div>
-  </div>
-
-  <div class="card" id="card-cpr">
-    <div class="card-title"><div class="icon-circle" style="background:#fff1f2;color:#be123c;"><i class="fa-solid fa-person-falling-burst"></i></div>ขั้นตอน Pediatric CPR (BLS)</div>
-    <div style="font-size:.76rem;line-height:1.78;color:#374151;">
-      <div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;padding:8px;background:#fff1f2;border-radius:9px;border-left:3px solid #fb7185;"><span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:.95rem;min-width:18px;">1</span><div><strong>Check responsiveness</strong> - ไม่ตอบสนอง = Call for help + AED + activate emergency team</div></div>
-      <div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;padding:8px;background:#fff1f2;border-radius:9px;border-left:3px solid #fb7185;"><span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:.95rem;min-width:18px;">2</span><div><strong>Open airway</strong> - Head-tilt chin-lift | Jaw-thrust if C-spine injury suspected</div></div>
-      <div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;padding:8px;background:#fff1f2;border-radius:9px;border-left:3px solid #fb7185;"><span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:.95rem;min-width:18px;">3</span><div><strong>2 rescue breaths</strong> - Watch chest rise | max 1 sec/breath | BVM + 100% O2</div></div>
-      <div style="display:flex;gap:9px;align-items:flex-start;margin-bottom:7px;padding:8px;background:#fff1f2;border-radius:9px;border-left:3px solid #fb7185;"><span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:.95rem;min-width:18px;">4</span><div><strong>Compressions : Ventilation</strong><br>1 rescuer: <strong>30:2</strong> | 2 rescuers (child): <strong>15:2</strong><br>Rate: <strong>100-120/min</strong> | Depth: >=1/3 AP (infant ~4cm, child ~5cm) | Allow full recoil</div></div>
-      <div style="display:flex;gap:9px;align-items:flex-start;padding:8px;background:#fff1f2;border-radius:9px;border-left:3px solid #fb7185;"><span style="font-family:'Prompt',sans-serif;font-weight:700;color:#fb7185;font-size:.95rem;min-width:18px;">5</span><div><strong>Reassess q2 min</strong> - Rhythm check | Defibrillate if VF/pVT</div></div>
-    </div>
-    <div class="must-box" style="margin-top:11px;">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - CPR Critical Points</div>
-      <ul>
-        <li><strong>Shockable:</strong> VF, Pulseless VT - Defib 2 J/kg - CPR 2 min - repeat 4 J/kg</li>
-        <li><strong>Non-shockable:</strong> Asystole, PEA - CPR + Epinephrine q3-5 min + treat H's &amp; T's</li>
-        <li><strong>H's:</strong> Hypoxia, Hypovolemia, Hypo/Hyperkalemia, Hypothermia, Hypoglycemia</li>
-        <li><strong>T's:</strong> Tension PTX, Tamponade, Toxins, Thrombosis</li>
-        <li>ETCO2 &gt;40 mmHg during CPR = likely ROSC | &lt;10 mmHg = poor CPR quality</li>
-      </ul>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Advanced Resuscitation</div>
-      <ul>
-        <li>IO access: if IV fails in 90 sec - go IO immediately | Proximal tibia is 1st choice in children</li>
-        <li>Post-ROSC: SpO2 94-99% (avoid hyperoxia), ETCO2 35-45 mmHg, MAP >=65 mmHg</li>
-        <li>Vasopressin NOT recommended in pediatric arrest (2020 PALS)</li>
-        <li>Capnography: ETCO2 >=10-15 mmHg = adequate CPR quality</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS Guidelines 2020</div>
-  </div>
-
-  <div class="card" id="card-ett">
-    <div class="card-title"><div class="icon-circle" style="background:#fef3c7;color:#92400e;"><i class="fa-solid fa-lungs"></i></div>Airway Management - ETT Reference</div>
-    <div style="font-size:.76rem;color:#374151;line-height:1.7;">
-      <div style="background:#fffbeb;border-radius:9px;padding:9px;border:1.5px solid #fde68a;margin-bottom:7px;">
-        <strong style="color:#92400e;font-family:'Prompt',sans-serif;">ETT Uncuffed (1-8 yr)</strong>
-        <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin:3px 0;">ID (mm) = (Age/4) + 4</div>
-      </div>
-      <div style="background:#fffbeb;border-radius:9px;padding:9px;border:1.5px solid #fde68a;margin-bottom:7px;">
-        <strong style="color:#92400e;font-family:'Prompt',sans-serif;">ETT Cuffed (Kilian)</strong>
-        <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin:3px 0;">ID (mm) = (Age/4) + 3</div>
-        <span style="font-size:.69rem;color:#64748b;">Cuff pressure &lt;= 20-25 cmH2O</span>
-      </div>
-      <div style="background:#fffbeb;border-radius:9px;padding:9px;border:1.5px solid #fde68a;">
-        <strong style="color:#92400e;font-family:'Prompt',sans-serif;">ETT Depth (Oral)</strong>
-        <div style="font-size:1rem;font-family:'Prompt',sans-serif;color:#0ea5e9;margin:3px 0;">Depth (cm) = (Age/2) + 12 &nbsp;or&nbsp; ID x 3</div>
-        <span style="font-size:.69rem;color:#64748b;">Nasal: oral depth + 2-3 cm | Neonate: by GA/BW (2.5-3.5 mm)</span>
-      </div>
-    </div>
-    <div class="must-box" style="margin-top:11px;">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Intubation Checklist</div>
-      <ul>
-        <li>Prepare ETT +/- 0.5 size (3 sizes) + stylet + suction + BVM always</li>
-        <li>Preoxygenate with 100% O2 BVM for >=3 min before intubation</li>
-        <li>RSI: Atropine 0.02 mg/kg (if Succinylcholine in &lt;1 yr) + Ketamine 1-2 mg/kg + Rocuronium 1.2 mg/kg</li>
-        <li>Confirm ETT placement: bilateral chest rise + ETCO2 + CXR</li>
-      </ul>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Airway Tips</div>
-      <ul>
-        <li>Infant larynx is higher (C3-C4) + narrow floppy epiglottis - use straight blade (Miller)</li>
-        <li>Ketamine = preferred induction in asthma + hemodynamically unstable (bronchodilator + sympathomimetic)</li>
-        <li>3-3-2 rule: mouth opening &lt;3F, hyoid-chin &lt;3F, thyroid-floor &lt;2F = difficult airway</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AHA PALS 2020</div>
-  </div>
-
-  <div class="card" id="card-shock">
-    <div class="card-title"><div class="icon-circle" style="background:#fff1f2;color:#be123c;"><i class="fa-solid fa-bolt"></i></div>Pediatric Shock Recognition</div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Shock Types</div>
-      <ul>
-        <li><strong>Compensated:</strong> HR up, CRT up, cool/pale - BP still NORMAL - do NOT miss!</li>
-        <li><strong>Decompensated:</strong> BP low, altered consciousness, oliguria - LATE sign in children</li>
-        <li><strong>Hypovolemic:</strong> dehydration/blood loss - NSS/LRS bolus</li>
-        <li><strong>Septic:</strong> warm (vasodilation) or cold (vasoconstriction) - fluid + antibiotics +/- vasopressor</li>
-        <li><strong>Cardiogenic:</strong> hepatomegaly, rales, gallop - careful with fluids - Dobutamine</li>
-        <li><strong>Obstructive:</strong> tension PTX, tamponade - decompress FIRST</li>
-      </ul>
-    </div>
-    <div class="pearl-box">
-      <div class="box-head"><i class="fa-solid fa-gem" style="color:var(--pearl-bdr);"></i> Pearl - Septic Shock 1-Hour Bundle</div>
-      <ul>
-        <li>Blood cultures BEFORE antibiotics (but do NOT delay antibiotics to wait for BC)</li>
-        <li>Broad-spectrum antibiotics within 1 hour</li>
-        <li>NSS/LRS 20 ml/kg bolus x3 (reassess after each bolus)</li>
-        <li>Lactate &gt;2 mmol/L = tissue hypoperfusion | &gt;=4 = severe sepsis</li>
-        <li>Norepinephrine (warm shock) or Epinephrine (cold shock) if fluid refractory</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Surviving Sepsis Campaign Pediatric Guidelines 2020</div>
   </div>
 </section>
 
-<!-- ===== S5: GUIDELINES ===== -->
-
 <section id="sec-guide" class="section">
-  <div class="sec-title"><i class="fa-solid fa-book-medical" style="color:#22c55e;"></i> Thai CPGs &amp; Guidelines <span class="stag">S5</span></div>
+  <div class="sec-title"><i class="fa-solid fa-user-doctor" style="color:#22c55e;"></i> Wards &amp; CPGs <span class="stag">S6</span></div>
+
+  <div class="card" id="card-yr4">
+    <div class="card-title"><div class="icon-circle" style="background:#dcfce7;color:#166534;"><i class="fa-solid fa-graduation-cap"></i></div>Year 4 Survival Guide (ซักประวัติ &amp; รายงานเคส)</div>
+    
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>Pediatric History Taking Template</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p><strong>ซักประวัติเด็ก ต้องมี 4 เสาหลักนี้เสมอ (ห้ามลืมถาม!):</strong></p>
+          <div class="info-box"><strong style="color:#0369a1;">1. Birth History (ประวัติแรกเกิด)</strong><br>- ฝากครรภ์ปกติไหม? (ANC), คลอดอายุครรภ์เท่าไหร่? (Term/Preterm)<br>- คลอดวิธีไหน? (NL/C-S), น้ำหนักแรกเกิด? (Birth weight)<br>- มีภาวะแทรกซ้อนไหม? (ตัวเหลือง ตัวเขียว สำลักขี้เทา นอน NICU)</div>
+          <div class="info-box"><strong style="color:#0369a1;">2. Nutritional History (ประวัติโภชนาการ)</strong><br>- <strong>เด็กเล็ก:</strong> กินนมแม่ล้วนหรือนมผง? วันละกี่ออนซ์? เริ่มอาหารเสริม (Weaning) ตอนกี่เดือน?<br>- <strong>เด็กโต:</strong> กินข้าวครบ 3 มื้อไหม? เลือกกินหรือเปล่า?</div>
+          <div class="info-box"><strong style="color:#0369a1;">3. Immunization History (ประวัติวัคซีน)</strong><br>- รับวัคซีนครบตามเกณฑ์ไหม? (ขอดูสมุดสีชมพูเสมอ!)<br>- มีวัคซีนเสริมไหม? (เช่น IPD, Rota, ไข้หวัดใหญ่)</div>
+          <div class="info-box"><strong style="color:#0369a1;">4. Developmental History (ประวัติพัฒนาการ)</strong><br>- ทำตามเกณฑ์ได้ไหม? (เช่น ตอนนี้ 9 เดือน นั่งเองได้หรือยัง หยิบของชิ้นเล็กได้ไหม) <i>อ้างอิงจาก Section 1</i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>Noon Report Structure (รายงานเคสให้อาจารย์ฟัง)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p>ฟอร์แมตการพรีเซนต์ให้กระชับ โดนใจอาจารย์:</p>
+          <ul>
+            <li><strong>Patient Profile:</strong> ผู้ป่วยเด็กหญิง/ชาย ไทย อายุ... ปี/เดือน มาด้วยอาการ... (Chief Complaint) กี่วันก่อนมาโรงพยาบาล</li>
+            <li><strong>HPI:</strong> เล่าประวัติปัจจุบันให้เป็น Timeline (เริ่มจากวันแรกที่มีอาการจนถึงวันนี้)</li>
+            <li><strong>Pertinent negatives:</strong> สิ่งที่ไม่มี แต่เราถามเพื่อ Rule out โรคอันตราย (เช่น "ไม่มีซึม", "ไม่หอบเหนื่อย", "กินได้ปกติ")</li>
+            <li><strong>4 Pillars (ย่อๆ):</strong> "ประวัติอดีต, แรกเกิด, อาหาร, วัคซีน, พัฒนาการ ปกติตามวัยครับ/ค่ะ"</li>
+            <li><strong>Physical Exam:</strong> เน้น Vitals ตอนแรกรับ และระบบที่เกี่ยวข้องกับโรค</li>
+            <li><strong>Problem List:</strong> สรุปปัญหาของคนไข้เป็นข้อๆ</li>
+            <li><strong>Assessment &amp; Plan:</strong> คิดว่าเป็นโรคอะไร (Provisional Dx)? เพราะอะไร? และแพลนจะส่งตรวจ/ให้ยาอะไรต่อ?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="card" id="card-dengue">
-    <div class="card-title"><div class="icon-circle" style="background:#fff1f2;color:#be123c;"><i class="fa-solid fa-mosquito"></i></div>Dengue Infection</div>
+    <div class="card-title"><div class="icon-circle" style="background:#fff1f2;color:#be123c;"><i class="fa-solid fa-mosquito"></i></div>Dengue Infection (ไข้เลือดออก)</div>
     <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Dengue Essentials</div>
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Dengue</div>
       <ul>
-        <li>Critical phase = <strong>Days 3-5</strong> of fever - peak plasma leakage</li>
-        <li><strong>NEVER give NSAIDs/Aspirin</strong> - Paracetamol only for fever</li>
-        <li>Tourniquet test (+): >=10 petechiae/inch squared = dengue highly likely</li>
-        <li>NS1 Ag: best sensitivity on days 1-5 | IgM: positive after day 5</li>
-        <li>Defervescence = critical phase starting - monitor closely 24-48h after fever breaks</li>
+        <li><strong>ห้ามให้ NSAIDs/Aspirin เด็ดขาด!</strong> เสี่ยงเลือดออกในกระเพาะ ให้ Paracetamol เท่านั้น</li>
+        <li>Warning signs (ต้อง Admit): ปวดท้องมาก, อาเจียนซ้ำๆ, ตับโต >2cm, มีเลือดออก, Hct ขึ้นไวพร้อม PLT ต่ำลง</li>
       </ul>
     </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>Dengue Classification (WHO 2009)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <p><strong>1. Dengue Without Warning Signs</strong> - can manage as OPD</p>
-          <p style="margin-top:5px;"><strong>2. Dengue With Warning Signs</strong> - ADMIT always:</p>
-          <ul><li>Severe abdominal pain or tenderness</li><li>Vomiting >=3x/hr or persistent</li><li>Fluid accumulation (ascites/pleural effusion)</li><li>Mucosal bleeding</li><li>Lethargy/restlessness</li><li>Liver enlargement &gt;2 cm</li><li>Hct rising + rapid PLT drop</li></ul>
-          <p style="margin-top:5px;"><strong>3. Severe Dengue</strong> - ICU: severe plasma leakage+shock, severe bleeding, severe organ impairment</p>
-        </div>
-      </div>
-    </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>IV Fluid Protocol - Warning Signs</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <div class="info-box"><strong>Start:</strong> NSS or LRS 5-7 ml/kg/hr x 1-2h</div>
-          <p><strong>Reassess q1-2h:</strong></p>
-          <ul><li>Improving: reduce rate 5 - 3 - 2 - 1.5 - maintenance</li><li>No improvement: repeat 5-10 ml/kg/hr x 1h</li><li>Shock: 10-20 ml/kg bolus + colloid (Dextran 70 or albumin)</li></ul>
-          <div class="warn-box"><i class="fa-solid fa-triangle-exclamation" style="margin-right:3px;"></i>Monitor Hct q4-6h | Watch for fluid overload | Hct dropping + persistent tachycardia may = rebleeding, not fluid overload</div>
-        </div>
-        <div class="acc-ref"><i class="fa-solid fa-book-open" style="margin-right:3px;"></i>Ref: CPG Dengue MoPH Thailand 2022</div>
-      </div>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Dengue Pearls</div>
-      <ul>
-        <li>Saddle-back fever = fever drops then returns = classic dengue pattern</li>
-        <li>Relative bradycardia (Faget's sign) = HR lower than expected for fever - common in dengue, NOT a bad sign</li>
-        <li>Recovery phase: Hct dropping + bradycardia + convalescent rash = signs of improvement</li>
-        <li>Platelet transfusion: PLT &lt;10,000 (no bleeding) or &lt;20,000 (with bleeding) only - NOT routine</li>
-        <li>Discharge: afebrile >=24h, PLT improving, no warning signs, good oral intake</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: CPG Dengue, Ministry of Public Health Thailand 2022</div>
   </div>
 
   <div class="card" id="card-asthma">
     <div class="card-title"><div class="icon-circle" style="background:#e0f2fe;color:#0369a1;"><i class="fa-solid fa-lungs-virus"></i></div>Acute Asthma Exacerbation</div>
     <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Life-threatening Signs</div>
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Asthma</div>
       <ul>
-        <li><strong>Silent chest</strong> = NO wheeze = minimal airflow = MOST severe - NOT improvement!</li>
-        <li>SpO2 &lt;90% on room air, altered consciousness, unable to speak = critical</li>
-        <li>Pulsus paradoxus &gt;20 mmHg = severe exacerbation</li>
+        <li><strong>Silent chest</strong> (ฟังไม่เจอ Wheeze แต่คนไข้เหนื่อยมาก) = อาการแย่ลงมากจนลมเข้าไม่ได้ ไม่ใช่อาการดีขึ้น! เตรียมใส่ท่อช่วยหายใจ</li>
       </ul>
     </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>Severity Assessment (GINA/Thai)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <div style="overflow-x:auto;">
-            <table class="vtable" style="font-size:.7rem;">
-              <thead><tr><th>Sign</th><th style="color:#15803d;">Mild</th><th style="color:#92400e;">Moderate</th><th style="color:#be123c;">Severe</th></tr></thead>
-              <tbody>
-                <tr><td>Speech</td><td>Full sentences</td><td>Short phrases</td><td>Single words</td></tr>
-                <tr><td>Position</td><td>Can lie down</td><td>Prefers sitting</td><td>Tripod</td></tr>
-                <tr><td>Agitation</td><td>None</td><td>Present</td><td>Severe/drowsy</td></tr>
-                <tr><td>SpO2 (RA)</td><td>&gt;95%</td><td>91-95%</td><td>&lt;=90%</td></tr>
-                <tr><td>PEFR</td><td>&gt;70%</td><td>40-70%</td><td>&lt;40%</td></tr>
-                <tr><td>Wheeze</td><td>Mild-mod</td><td>Loud</td><td>Silent chest</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="acc-ref"><i class="fa-solid fa-book-open" style="margin-right:3px;"></i>Ref: Thai Asthma Guideline / GINA 2023</div>
-      </div>
-    </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>Stepwise Management</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <div style="background:#f0fdf4;border-radius:9px;padding:9px;border:1px solid #bbf7d0;margin-bottom:7px;"><strong style="color:#15803d;">Mild:</strong><ul><li>Salbutamol MDI 2-4 puffs via spacer q20min x3 in 1h</li><li>O2 target SpO2 >=95% | Observe 1-4h</li></ul></div>
-          <div style="background:#fffbeb;border-radius:9px;padding:9px;border:1px solid #fde68a;margin-bottom:7px;"><strong style="color:#92400e;">Moderate:</strong><ul><li>Salbutamol Neb 0.15 mg/kg (min 2.5 mg) q20min x3</li><li>+ Ipratropium 0.25-0.5 mg neb x3 doses (FIRST 3 treatments only)</li><li>Prednisolone oral 1-2 mg/kg/day (max 40 mg) x 3-5 days</li></ul></div>
-          <div style="background:#fff1f2;border-radius:9px;padding:9px;border:1px solid #fecdd3;"><strong style="color:#be123c;">Severe/Life-threatening:</strong><ul><li>Continuous Salbutamol nebulization + high flow O2</li><li>IV Methylprednisolone 1-2 mg/kg q6h</li><li>IV Magnesium Sulfate 25-75 mg/kg (max 2g) over 20 min</li><li>Prepare ICU, intubation (Ketamine preferred induction in asthma)</li></ul></div>
-        </div>
-        <div class="acc-ref"><i class="fa-solid fa-book-open" style="margin-right:3px;"></i>Ref: Thai Asthma Guideline 2022 / GINA 2023</div>
-      </div>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Asthma Pearls</div>
-      <ul>
-        <li>Ipratropium is only beneficial for <strong>first 3 doses</strong> - continuing after provides no added benefit</li>
-        <li>IV Magnesium: bronchodilator via Ca channel block - very effective in severe/life-threatening</li>
-        <li>CXR not needed routinely - order if suspect pneumothorax, pneumonia, or first episode not responding</li>
-        <li>Antibiotics NOT indicated in asthma exacerbation unless clear bacterial infection evidence</li>
-      </ul>
-    </div>
-    <div class="pit-box">
-      <div class="box-head"><i class="fa-solid fa-triangle-exclamation" style="color:var(--pit-bdr);"></i> Pitfall - Asthma</div>
-      <ul>
-        <li>Do NOT discharge too early after a single salbutamol dose - effect often wears off in 1-2h</li>
-        <li>Silent chest = worsening, NOT improvement - escalate treatment immediately</li>
-        <li>Sedatives in non-intubated asthma patients can cause respiratory arrest</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Thai Asthma Guideline 2022 / GINA 2023</div>
   </div>
 
-  <div class="card" id="card-age">
-    <div class="card-title"><div class="icon-circle" style="background:#f0fdf4;color:#166534;"><i class="fa-solid fa-bacteria"></i></div>Acute Gastroenteritis (AGE)</div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - AGE Danger Signs</div>
-      <ul>
-        <li>Bloody diarrhea + fever = suspect Shigella, Salmonella, EHEC - stool C/S</li>
-        <li>Infant &lt;3 months + diarrhea = ADMIT and evaluate always</li>
-        <li>Projectile/bilious vomiting = R/O obstruction / pyloric stenosis first</li>
-        <li>HUS = EHEC: bloody diarrhea + microangiopathic anemia + thrombocytopenia + AKI</li>
-        <li><strong>NEVER give Loperamide</strong> in children &lt;12 years - dangerous</li>
-      </ul>
-    </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>Dehydration Assessment (WHO)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <div style="overflow-x:auto;">
-            <table class="vtable" style="font-size:.7rem;">
-              <thead><tr><th>Sign</th><th style="color:#15803d;">Mild (3-5%)</th><th style="color:#92400e;">Mod (6-9%)</th><th style="color:#be123c;">Severe (&gt;=10%)</th></tr></thead>
-              <tbody>
-                <tr><td>Consciousness</td><td>Normal</td><td>Restless</td><td>Lethargic</td></tr>
-                <tr><td>Eyes</td><td>Normal</td><td>Slightly sunken</td><td>Very sunken</td></tr>
-                <tr><td>Tears</td><td>Present</td><td>Decreased</td><td>Absent</td></tr>
-                <tr><td>Mouth/Tongue</td><td>Moist</td><td>Dry</td><td>Very dry</td></tr>
-                <tr><td>Skin turgor</td><td>&lt;1s</td><td>&lt;2s</td><td>&gt;=2s</td></tr>
-                <tr><td>CRT</td><td>&lt;2s</td><td>2-3s</td><td>&gt;3s</td></tr>
-                <tr><td>UO</td><td>Decreased</td><td>Very low</td><td>Oliguria/Anuria</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="acc-ref"><i class="fa-solid fa-book-open" style="margin-right:3px;"></i>Ref: WHO/UNICEF IMCI 2022</div>
+  <div class="card" id="card-links">
+    <div class="card-title"><div class="icon-circle" style="background:#f3f4f6;color:#4b5563;"><i class="fa-solid fa-link"></i></div>Official Quick Links</div>
+    <a href="https://www.thaipediatrics.org/700/" target="_blank" style="display:flex; align-items:center; justify-content:space-between; padding:12px 15px; background:linear-gradient(135deg,#0ea5e9,#0284c7); border-radius:12px; text-decoration:none; color:#fff; font-family:'Prompt',sans-serif; font-weight:600; font-size:0.85rem; box-shadow:0 4px 10px rgba(14,165,233,0.3);">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <i class="fa-solid fa-globe" style="font-size:1.1rem;"></i>
+        <span>Guideline สมาคมกุมารแพทย์แห่งประเทศไทย</span>
       </div>
-    </div>
-    <div class="accordion">
-      <button class="acc-header" onclick="toggleAcc(this)"><span>ORS / IV Management</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
-      <div class="acc-body">
-        <div class="acc-content">
-          <div style="background:#f0fdf4;border-radius:9px;padding:9px;border:1px solid #bbf7d0;margin-bottom:7px;"><strong style="color:#15803d;">Mild:</strong><ul><li>ORS <strong>50 ml/kg</strong> over 4h + replace ongoing loss (10 ml/kg/episode)</li><li>Low-osmolarity ORS (Na 75 mEq/L) | Small frequent sips q5 min</li><li>Zinc 10-20 mg/day x 10-14 days</li></ul></div>
-          <div style="background:#fffbeb;border-radius:9px;padding:9px;border:1px solid #fde68a;margin-bottom:7px;"><strong style="color:#92400e;">Moderate:</strong><ul><li>ORS <strong>100 ml/kg</strong> over 4h | IV NSS/LRS 20 ml/kg if ORT fails</li><li>Ondansetron 0.15 mg/kg PO/IV to enable successful ORT</li></ul></div>
-          <div style="background:#fff1f2;border-radius:9px;padding:9px;border:1px solid #fecdd3;"><strong style="color:#be123c;">Severe / Shock:</strong><ul><li>NSS/LRS <strong>20 ml/kg bolus</strong> over 15-20 min - repeat PRN</li><li>Check: electrolytes, BUN, Cr, glucose, pH, lactate</li></ul></div>
-        </div>
-        <div class="acc-ref"><i class="fa-solid fa-book-open" style="margin-right:3px;"></i>Ref: WHO/UNICEF IMCI 2022</div>
-      </div>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - AGE Pearls</div>
-      <ul>
-        <li>Ondansetron reduces vomiting and improves ORT success - reduces IV use and admission rate</li>
-        <li>Probiotics (L. rhamnosus GG, S. boulardii) reduce duration ~1 day - moderate evidence</li>
-        <li>Cola/juice/sports drinks are NOT ORS substitutes - high osmolarity, low Na - worsens diarrhea</li>
-        <li>Antibiotics only for: Shigella (Azithromycin), Cholera (Azithromycin), Giardia (Metronidazole)</li>
-        <li>Continue feeding (no NPO) - early feeding improves recovery</li>
-      </ul>
-    </div>
-    <div class="pit-box">
-      <div class="box-head"><i class="fa-solid fa-triangle-exclamation" style="color:var(--pit-bdr);"></i> Pitfall - AGE</div>
-      <ul>
-        <li>Over-hydration with hypotonic fluids = hyponatremic seizure</li>
-        <li>Hypernatremic dehydration: rehydrate slowly, reduce Na &lt;=10-12 mEq/L/day</li>
-        <li>Do NOT diagnose AGE too quickly - rule out surgical cause (intussusception, appendicitis) if bilious vomiting or severe pain</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: WHO/UNICEF IMCI 2022 / Thai Pediatric Society AGE Guideline</div>
-  </div>
-
-  <div class="card" id="card-jaundice">
-    <div class="card-title"><div class="icon-circle" style="background:#fef9c3;color:#854d0e;"><i class="fa-solid fa-baby"></i></div>Neonatal Jaundice - Quick Reference</div>
-    <div class="must-box">
-      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know - Jaundice Rules</div>
-      <ul>
-        <li>Jaundice in <strong>first 24h = ALWAYS PATHOLOGICAL</strong> - check Total/Direct bilirubin immediately</li>
-        <li>Physiological: appears day 2-3, peaks day 4-5, resolves &lt;2 wks (term) / &lt;3 wks (preterm)</li>
-        <li>Direct bilirubin &gt;2 mg/dL or &gt;20% of total = pathological - workup liver disease</li>
-        <li>G6PD deficiency: severe and rapid jaundice - check G6PD screen in all severe cases</li>
-        <li>Phototherapy/Exchange threshold: use Bhutani nomogram based on GA + postnatal age (hours)</li>
-      </ul>
-    </div>
-    <div class="good-box">
-      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know - Phototherapy Tips</div>
-      <ul>
-        <li>Adequate hydration during phototherapy - insensible water loss increases significantly</li>
-        <li>Breast milk jaundice: peaks week 2-3, can last 3-12 weeks - do NOT stop breastfeeding</li>
-        <li>Bronze baby syndrome: cholestatic jaundice + phototherapy - STOP phototherapy immediately</li>
-        <li>After phototherapy: check bilirubin rebound at 12-24h after stopping</li>
-      </ul>
-    </div>
-    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AAP Neonatal Hyperbilirubinemia Guidelines 2022 / Nelson 21st Ed.</div>
+      <i class="fa-solid fa-arrow-up-right-from-square"></i>
+    </a>
   </div>
 </section>
 
 </main>
 
 <nav class="bottom-nav">
-  <button class="nav-btn active" onclick="showSection('vitals',this)"><i class="fa-solid fa-heart-pulse"></i><span>Vitals</span></button>
+  <button class="nav-btn active" onclick="showSection('vitals',this)"><i class="fa-solid fa-heart-pulse"></i><span>Vitals/WBC</span></button>
   <button class="nav-btn" onclick="showSection('fluids',this)"><i class="fa-solid fa-droplet"></i><span>Fluids</span></button>
   <button class="nav-btn" onclick="showSection('drugs',this)"><i class="fa-solid fa-pills"></i><span>Drugs</span></button>
+  <button class="nav-btn" onclick="showSection('newborn',this)"><i class="fa-solid fa-baby"></i><span>Newborn</span></button>
   <button class="nav-btn" onclick="showSection('emerg',this)"><i class="fa-solid fa-triangle-exclamation"></i><span>Emergency</span></button>
-  <button class="nav-btn" onclick="showSection('guide',this)"><i class="fa-solid fa-book-medical"></i><span>CPGs</span></button>
+  <button class="nav-btn" onclick="showSection('guide',this)"><i class="fa-solid fa-user-doctor"></i><span>Wards</span></button>
 </nav>
 
 <div id="searchOverlay" onclick="closeSearch()"></div>
@@ -767,13 +496,18 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 </div>
 
 <script>
+// Section Navigation
 function showSection(name,btn){
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('sec-'+name).classList.add('active');
   btn.classList.add('active');
+  // Scroll tab into view if needed
+  btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// Accordion
 function toggleAcc(btn){
   var body=btn.nextElementSibling;
   var isOpen=body.classList.contains('open');
@@ -781,6 +515,8 @@ function toggleAcc(btn){
   btn.closest('.card').querySelectorAll('.acc-body').forEach(function(b){b.classList.remove('open');});
   if(!isOpen){btn.classList.add('open');body.classList.add('open');}
 }
+
+// Vitals Filter
 function filterVitals(group,el){
   document.querySelectorAll('.age-tab').forEach(function(t){t.classList.remove('active');});
   el.classList.add('active');
@@ -788,6 +524,34 @@ function filterVitals(group,el){
     r.style.display=(group==='all'||r.dataset.group===group)?'':'none';
   });
 }
+
+// APGAR Calculator
+function calcApgar() {
+  let a = parseInt(document.getElementById('apgarA').value) || 0;
+  let p = parseInt(document.getElementById('apgarP').value) || 0;
+  let g = parseInt(document.getElementById('apgarG').value) || 0;
+  let ac = parseInt(document.getElementById('apgarAc').value) || 0;
+  let r = parseInt(document.getElementById('apgarR').value) || 0;
+  
+  let total = a + p + g + ac + r;
+  document.getElementById('apgarTotal').textContent = total;
+  
+  let interpEl = document.getElementById('apgarInterp');
+  if(total >= 7) {
+    interpEl.textContent = "Normal (No Asphyxia)";
+    interpEl.style.color = "#166534";
+  } else if(total >= 4) {
+    interpEl.textContent = "Mild-Moderate Asphyxia (Needs PPV)";
+    interpEl.style.color = "#b45309";
+  } else {
+    interpEl.textContent = "Severe Asphyxia (Immediate Resuscitation)";
+    interpEl.style.color = "#be123c";
+  }
+}
+// Run once to initialize
+calcApgar();
+
+// Fluid Calculator
 function calcFluids(){
   var wt=parseFloat(document.getElementById('fluidWeight').value);
   var dehy=document.getElementById('fluidType').value;
@@ -812,61 +576,32 @@ function calcFluids(){
   document.getElementById('fluidResult').classList.add('show');
 }
 
+// Drugs Data
 var drugs={
   paracetamol:{name:'Paracetamol',dosePerKg:15,freq:'q4-6h',fpd:4,maxD:4000,maxKg:75,
-    preps:'Syrup 120mg/5ml | Syrup 250mg/5ml | Tab 500mg | Suppository 60/125/250mg',
+    preps:'Syrup 120mg/5ml | Syrup 250mg/5ml | Tab 500mg',
     syrupFn:function(d){return 'Syrup 120mg/5ml = <strong>'+((d/120)*5).toFixed(1)+' ml/dose</strong> | Syrup 250mg/5ml = <strong>'+((d/250)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'10-15 mg/kg/dose | Max 5 doses/24h | Caution in liver disease',
-    must:'Safest antipyretic for all ages including dengue | Overdose >150mg/kg: give NAC immediately',
-    good:'Can alternate with Ibuprofen (not simultaneously) for better fever control'},
+    note:'10-15 mg/kg/dose | Max 5 doses/24h',
+    must:'Safest antipyretic for all ages including dengue',
+    good:'Can alternate with Ibuprofen for better fever control (except dengue)'},
   ibuprofen:{name:'Ibuprofen',dosePerKg:7.5,freq:'q6-8h',fpd:3,maxD:2400,maxKg:40,
     preps:'Syrup 100mg/5ml | Tab 200mg, 400mg',
     syrupFn:function(d){return 'Syrup 100mg/5ml = <strong>'+((d/100)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'Use in >=6 months only | Give after food | AVOID: dengue, GI ulcer, renal impairment, dehydration',
-    must:'CONTRAINDICATED in dengue (increases bleeding risk) and dehydrated patients (renal failure risk)',
-    good:'Longer fever control duration (6-8h vs 4-6h paracetamol) | Has anti-inflammatory effect'},
-  amoxicillin:{name:'Amoxicillin',dosePerKg:40,freq:'TID (divided 3)',fpd:3,maxD:3000,maxKg:90,
-    preps:'Syrup 125mg/5ml | Syrup 250mg/5ml | Drop 50mg/ml | Capsule 250/500mg',
-    syrupFn:function(d){var dose=d/3;return 'Syrup 125mg/5ml = <strong>'+((dose/125)*5).toFixed(1)+' ml/dose</strong> | Syrup 250mg/5ml = <strong>'+((dose/250)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'Standard 40mg/kg/day | High-dose 80-90mg/kg/day for AOM/resistant organisms',
-    must:'High-dose (80-90mg/kg/day) is now standard for AOM per AAP 2022 guideline',
-    good:'Better GI absorption than Ampicillin | Post-antibiotic effect against Streptococcus'},
+    note:'Use in >=6 months only | Give after food',
+    must:'CONTRAINDICATED in dengue (increases bleeding risk) and dehydration',
+    good:'Longer fever control duration (6-8h) | Has anti-inflammatory effect'},
+  amoxicillin:{name:'Amoxicillin',dosePerKg:40,freq:'TID',fpd:3,maxD:3000,maxKg:90,
+    preps:'Syrup 125mg/5ml | Syrup 250mg/5ml | Capsule 250/500mg',
+    syrupFn:function(d){var dose=d/3;return 'Syrup 250mg/5ml = <strong>'+((dose/250)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'Standard 40mg/kg/day | High-dose 80-90mg/kg/day for AOM',
+    must:'High-dose is now standard for AOM per guidelines',
+    good:'Better GI absorption than Ampicillin'},
   augmentin:{name:'Augmentin (Amox/Clav)',dosePerKg:45,freq:'BID',fpd:2,maxD:3000,maxKg:90,
-    preps:'Syrup 228mg/5ml (4:1 ratio) | Tab 625mg | Tab 1g (BD formulation)',
+    preps:'Syrup 228mg/5ml (4:1 ratio)',
     syrupFn:function(d){var dose=d/2;return 'Syrup 228mg/5ml = <strong>'+((dose/228)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'Calculate by Amoxicillin component | 45-90mg/kg/day divided BID | AOM fail, animal bite, SSTI',
-    must:'Animal bite: Augmentin is ALWAYS 1st line - covers Pasteurella + anaerobes | Human bite: consult surgery',
-    good:'BID dosing (extended-release) improves compliance vs TID in children'},
-  azithromycin:{name:'Azithromycin',dosePerKg:10,freq:'OD x5 days',fpd:1,maxD:500,maxKg:10,
-    preps:'Syrup 200mg/5ml | Tab 250mg, 500mg',
-    syrupFn:function(d){return 'Syrup 200mg/5ml = <strong>'+((d/200)*5).toFixed(1)+' ml/dose (Day 1)</strong>';},
-    note:'Day1: 10mg/kg | Day2-5: 5mg/kg OD | Max 500mg/dose | High intracellular concentration',
-    must:'1st line for: atypical pneumonia (Mycoplasma), pertussis (whooping cough), Chlamydia',
-    good:'Check ECG if cardiac risk factors - can prolong QT | Drug interaction with warfarin, digoxin'},
-  ceftriaxone:{name:'Ceftriaxone',dosePerKg:75,freq:'OD or divided q12h',fpd:1,maxD:4000,maxKg:100,
-    preps:'Vial 250mg | Vial 500mg | Vial 1g',
-    syrupFn:function(d){return 'IV/IM dose: <strong>'+Math.round(d)+' mg/day</strong>';},
-    note:'Meningitis: 100mg/kg/day q12h | Bacteremia/CAP: 50-75mg OD | Max 4g/day',
-    must:'NEVER mix with Ca-containing IV solutions in neonates <28 days - FATAL precipitation in lungs/kidneys',
-    good:'Excellent coverage: H. influenzae, S. pneumoniae, N. meningitidis | Can give IM (mix with 1% lidocaine)'},
-  ondansetron:{name:'Ondansetron',dosePerKg:0.15,freq:'q8h PRN',fpd:3,maxD:24,maxKg:0.45,
-    preps:'Syrup 4mg/5ml | Tab 4mg, 8mg (ODT) | IV 2mg/ml',
-    syrupFn:function(d){var cap=Math.min(d,d<40?4:8);return 'Syrup 4mg/5ml = <strong>'+((cap/4)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'0.15mg/kg | Max 4mg/dose (<40kg) or 8mg/dose (>=40kg) | Helps ORT success in AGE',
-    must:'Level I evidence for acute vomiting in AGE | Significantly reduces IV use and admission rate',
-    good:'ODT (orally disintegrating tablet) ideal for vomiting children | Caution: QT prolongation in congenital LQTS'},
-  domperidone:{name:'Domperidone',dosePerKg:0.25,freq:'TID-QID before meals',fpd:3,maxD:30,maxKg:2.4,
-    preps:'Syrup 5mg/5ml | Tab 10mg | Suppository 30mg',
-    syrupFn:function(d){return 'Syrup 5mg/5ml = <strong>'+((d/5)*5).toFixed(1)+' ml/dose</strong>';},
-    note:'0.2-0.4mg/kg/dose TID-QID | Max 2.4mg/kg/day | EMA: caution in children <35kg',
-    must:'EMA recommends CAUTION in children <35 kg - use only when benefit clearly outweighs QT risk',
-    good:'Peripheral dopamine antagonist - reduces GERD, gastroparesis | Does NOT cross BBB (less EPS)'},
-  cetirizine:{name:'Cetirizine',dosePerKg:0.25,freq:'OD (bedtime)',fpd:1,maxD:10,maxKg:0.5,
-    preps:'Syrup 5mg/5ml | Tab 10mg',
-    syrupFn:function(d){return 'Syrup 5mg/5ml = <strong>'+((d/5)*5).toFixed(1)+' ml/day</strong>';},
-    note:'0.25mg/kg/day OD | 2-5yr: 2.5-5mg | >=6yr: 5-10mg | Max 10mg/day',
-    must:'2nd gen antihistamine - less sedating than 1st gen (chlorpheniramine) | No anticholinergic effects',
-    good:'Levocetirizine (active enantiomer) = half the dose for same effect | Can use from 6 months (Levo)'}
+    note:'Calculate by Amoxicillin component',
+    must:'Animal bite: Augmentin is ALWAYS 1st line (covers Pasteurella)',
+    good:'BID dosing improves compliance vs TID'}
 };
 
 function calcDrug(){
@@ -892,27 +627,21 @@ function calcDrug(){
   document.getElementById('drugResult').classList.add('show');
 }
 
+// Emergency Calc
 function calcEmerg(){
   var wt=parseFloat(document.getElementById('emergWeight').value);
   var age=parseFloat(document.getElementById('emergAge').value)||0;
   if(!wt||wt<=0){alert('กรุณาใส่น้ำหนักผู้ป่วย');return;}
   var items=[];
   var epiDose=wt*0.01;
-  items.push({icon:'fa-syringe',label:'Epinephrine (Adrenaline) IV/IO',val:(epiDose.toFixed(3))+' mg',sub:'= '+((epiDose/0.1).toFixed(2))+' ml of 1:10,000 | = '+(epiDose.toFixed(3))+' ml of 1:1,000 | repeat q3-5min'});
-  items.push({icon:'fa-bolt',label:'Defibrillation',val:(wt*2)+' - '+(wt*4)+' J',sub:'Initial 2 J/kg then 4 J/kg | Max 10 J/kg (360 J)'});
-  items.push({icon:'fa-wave-square',label:'Synchronized Cardioversion',val:((wt*0.5).toFixed(0))+' - '+((wt*1).toFixed(0))+' J',sub:'0.5-1 J/kg initial then 2 J/kg | SVT, VT with pulse'});
+  items.push({icon:'fa-syringe',label:'Epinephrine IV/IO',val:(epiDose.toFixed(3))+' mg',sub:'= '+((epiDose/0.1).toFixed(2))+' ml of 1:10,000 | repeat q3-5min'});
+  items.push({icon:'fa-bolt',label:'Defibrillation',val:(wt*2)+' - '+(wt*4)+' J',sub:'Initial 2 J/kg then 4 J/kg | Max 10 J/kg'});
   var ettUC=age>0?((age/4+4).toFixed(1)):'-';
   var ettC=age>0?((age/4+3).toFixed(1)):'-';
   var dep=age>0?((age/2+12).toFixed(1)):'-';
-  items.push({icon:'fa-lungs',label:'ETT Size',val:age>0?('Uncuffed: '+ettUC+' mm | Cuffed: '+ettC+' mm'):'Enter age to calculate',sub:age>0?('Oral depth: '+dep+' cm | Prepare +/-0.5 mm'):''});
-  var atrop=Math.max(0.1,Math.min(wt*0.02,0.5));
-  items.push({icon:'fa-heart',label:'Atropine (Bradycardia)',val:atrop.toFixed(3)+' mg IV',sub:'0.02 mg/kg | Min 0.1 mg | Max 0.5 mg (child) 1 mg (adol)'});
-  items.push({icon:'fa-clock-rotate-left',label:'Adenosine (SVT)',val:((wt*0.1).toFixed(2))+' then '+((wt*0.2).toFixed(2))+' mg',sub:'0.1 mg/kg 1st dose then 0.2 mg/kg | Max 6mg then 12mg | Rapid IV push + flush'});
-  items.push({icon:'fa-cube',label:'Glucose (Hypoglycemia)',val:'D10W: '+((wt*2.5).toFixed(0))+' ml',sub:'2-4 ml/kg D10W = 0.2-0.4 g/kg | Slow IV push over 5 min'});
-  items.push({icon:'fa-droplet',label:'IV Fluid Bolus (Resuscitation)',val:((wt*20).toFixed(0))+' ml NSS/LRS',sub:'20 ml/kg over 5-20 min | Repeat up to 3x (60 ml/kg total) | Reassess after each'});
-  items.push({icon:'fa-bone',label:'IO Access',val:'Consider immediately',sub:'If IV fails in 90 sec go IO | Proximal tibia is 1st choice | Distal femur, humeral head alternative'});
-  var midaz=(wt*0.1).toFixed(2);
-  items.push({icon:'fa-pills',label:'Midazolam (Seizure / Sedation)',val:midaz+' mg IV/IO',sub:'0.05-0.1 mg/kg | Buccal/Intranasal: 0.2 mg/kg | Max 5 mg/dose'});
+  items.push({icon:'fa-lungs',label:'ETT Size',val:age>0?('Uncuffed: '+ettUC+' mm | Cuffed: '+ettC+' mm'):'Enter age to calculate',sub:age>0?('Oral depth: '+dep+' cm'):''});
+  items.push({icon:'fa-cube',label:'Glucose (D10W)',val:'D10W: '+((wt*2.5).toFixed(0))+' ml',sub:'2-4 ml/kg D10W | Slow IV push'});
+  items.push({icon:'fa-droplet',label:'IV Fluid Bolus',val:((wt*20).toFixed(0))+' ml NSS/LRS',sub:'20 ml/kg over 5-20 min | Repeat up to 3x'});
   document.getElementById('emergItems').innerHTML=items.map(function(it){
     return '<div style="display:flex;flex-direction:column;gap:2px;padding:9px 0;border-bottom:1px dashed #fecdd3;">'+
       '<div style="display:flex;align-items:center;gap:7px;"><i class="fa-solid '+it.icon+'" style="color:#e11d48;width:15px;text-align:center;font-size:.8rem;flex-shrink:0;"></i>'+
@@ -924,29 +653,21 @@ function calcEmerg(){
   document.getElementById('emergResult').classList.add('show');
 }
 
+// Global Search
 var searchIndex=[
-  {term:'vital signs HR RR BP fever temperature tachycardia',section:'vitals',target:'card-vitals',label:'Normal Vital Signs'},
-  {term:'milestone development gross motor fine language social red flag autism',section:'vitals',target:'card-milestones',label:'Developmental Milestones + Red Flags'},
-  {term:'fluid holliday segar maintenance dehydration deficit',section:'fluids',target:'card-vitals',label:'IV Fluid Calculator (Holliday-Segar)'},
-  {term:'fluid type NSS LRS dextrose D10W potassium KCl selection',section:'fluids',target:'card-fluidtypes',label:'IV Fluid Types & Indications'},
-  {term:'paracetamol acetaminophen fever pain antipyretic',section:'drugs',target:'card-drugref',label:'Paracetamol Dosing'},
-  {term:'ibuprofen brufen NSAID anti-inflammatory pain dengue',section:'drugs',target:'card-drugref',label:'Ibuprofen Dosing'},
-  {term:'amoxicillin penicillin antibiotic AOM pneumonia',section:'drugs',target:'card-drugref',label:'Amoxicillin Dosing'},
-  {term:'augmentin amoxicillin clavulanate animal bite SSTI',section:'drugs',target:'card-drugref',label:'Augmentin Dosing'},
-  {term:'azithromycin atypical mycoplasma pertussis whooping cough',section:'drugs',target:'card-drugref',label:'Azithromycin Dosing'},
-  {term:'ceftriaxone rocephin IV antibiotic meningitis bacteremia',section:'drugs',target:'card-drugref',label:'Ceftriaxone Dosing'},
-  {term:'ondansetron zofran vomiting antiemetic AGE gastroenteritis',section:'drugs',target:'card-drugref',label:'Ondansetron Dosing'},
-  {term:'domperidone motilium nausea GERD gastroparesis',section:'drugs',target:'card-drugref',label:'Domperidone Dosing'},
-  {term:'cetirizine zyrtec antihistamine allergy urticaria',section:'drugs',target:'card-drugref',label:'Cetirizine Dosing'},
-  {term:'CPR resuscitation cardiac arrest BLS compression',section:'emerg',target:'card-cpr',label:'Pediatric CPR (BLS)'},
-  {term:'epinephrine adrenaline defibrillation shock PALS emergency',section:'emerg',target:'card-cpr',label:'PALS Emergency Calculator'},
-  {term:'ETT intubation airway tube size depth RSI ketamine',section:'emerg',target:'card-ett',label:'ETT & Airway Management'},
-  {term:'shock septic hypovolemic cardiogenic obstructive vasopressor',section:'emerg',target:'card-shock',label:'Pediatric Shock Recognition'},
-  {term:'dengue DHF warning signs plasma leakage fluid protocol',section:'guide',target:'card-dengue',label:'Dengue Infection Management'},
-  {term:'asthma wheeze salbutamol nebulizer severity silent chest',section:'guide',target:'card-asthma',label:'Acute Asthma Exacerbation'},
-  {term:'gastroenteritis diarrhea AGE ORS dehydration ondansetron zinc',section:'guide',target:'card-age',label:'AGE - Dehydration & ORS'},
-  {term:'jaundice neonatal phototherapy bilirubin G6PD breast milk',section:'guide',target:'card-jaundice',label:'Neonatal Jaundice'},
-  {term:'must know good to know pitfall pearl tips clinical',section:'vitals',target:'card-vitals',label:'Clinical Tips (Must Know / Good to Know)'}
+  {term:'vital signs HR RR BP fever temperature',section:'vitals',target:'card-vitals',label:'Normal Vital Signs'},
+  {term:'milestone development gross motor fine language',section:'vitals',target:'card-milestones',label:'Developmental Milestones'},
+  {term:'vaccine EPI immunization dtp mmr',section:'vitals',target:'card-vaccines',label:'ตารางวัคซีน (Thai EPI)'},
+  {term:'fluid holliday segar maintenance dehydration deficit',section:'fluids',target:'card-vitals',label:'IV Fluid Calculator'},
+  {term:'drug paracetamol ibuprofen amoxicillin',section:'drugs',target:'card-drugref',label:'Drug Dosing Calculator'},
+  {term:'apgar score asphyxia newborn',section:'newborn',target:'card-apgar',label:'APGAR Score Calculator'},
+  {term:'jaundice yellow phototherapy g6pd',section:'newborn',target:'card-jaundice',label:'Neonatal Jaundice'},
+  {term:'physical exam newborn reflex',section:'newborn',target:'card-nsexam',label:'Newborn Exam Checklist'},
+  {term:'CPR resuscitation cardiac arrest BLS',section:'emerg',target:'card-cpr',label:'PALS Emergency Calculator'},
+  {term:'history taking noon report presentation year 4',section:'guide',target:'card-yr4',label:'Year 4 Survival Guide'},
+  {term:'dengue warning signs',section:'guide',target:'card-dengue',label:'Dengue Infection Guidelines'},
+  {term:'asthma exacerbation wheeze',section:'guide',target:'card-asthma',label:'Acute Asthma Guidelines'},
+  {term:'links thaipediatrics guideline',section:'guide',target:'card-links',label:'Official Guidelines Link'}
 ];
 
 var sTO=null;
@@ -963,9 +684,9 @@ function doSearch(q){
   var results=searchIndex.filter(function(item){
     return terms.some(function(t){return item.term.toLowerCase().indexOf(t)>=0||item.label.toLowerCase().indexOf(t)>=0;});
   });
-  var secNames=['vitals','fluids','drugs','emerg','guide'];
+  var secNames=['vitals','fluids','drugs','newborn','emerg','guide'];
   if(!results.length){
-    document.getElementById('searchResults').innerHTML='<div style="color:#94a3b8;font-size:.82rem;text-align:center;padding:16px;">No results found for "'+q+'"</div>';
+    document.getElementById('searchResults').innerHTML='<div style="color:#94a3b8;font-size:.82rem;text-align:center;padding:16px;">ไม่พบข้อมูลสำหรับ "'+q+'"</div>';
   } else {
     document.getElementById('searchResults').innerHTML=results.map(function(r){
       var sIdx=secNames.indexOf(r.section);
@@ -984,12 +705,16 @@ function doSearch(q){
 
 function goTo(section,cardId){
   closeSearch();
-  var secNames=['vitals','fluids','drugs','emerg','guide'];
+  var secNames=['vitals','fluids','drugs','newborn','emerg','guide'];
   document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
   document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('sec-'+section).classList.add('active');
   var idx=secNames.indexOf(section);
-  if(idx>=0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  if(idx>=0) {
+    let btn = document.querySelectorAll('.nav-btn')[idx];
+    btn.classList.add('active');
+    btn.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  }
   setTimeout(function(){
     var card=document.getElementById(cardId);
     if(card) card.scrollIntoView({behavior:'smooth',block:'start'});
@@ -999,6 +724,7 @@ function goTo(section,cardId){
 function closeSearch(){
   document.getElementById('searchOverlay').style.display='none';
   document.getElementById('searchPanel').style.display='none';
+  document.getElementById('globalSearch').value='';
 }
 </script>
 
