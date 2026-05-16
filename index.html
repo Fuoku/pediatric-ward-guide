@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pediatric Ward Survival Guide v3</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -25,7 +25,7 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .legend-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
 .leg-chip{display:inline-flex;align-items:center;gap:4px;font-size:.66rem;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid;}
 .search-wrap{position:relative;margin-top:9px;}
-.search-wrap input{width:100%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;padding:8px 12px 8px 34px;color:#fff;font-size:.86rem;font-family:'Sarabun',sans-serif;backdrop-filter:blur(8px);}
+.search-wrap input{width:100%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;padding:8px 12px 8px 34px;color:#fff;font-size:.86rem;font-family:'Sarabun',sans-serif;}
 .search-wrap input::placeholder{color:rgba(255,255,255,.62);}
 .search-wrap input:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.26);}
 .search-wrap .fa-magnifying-glass{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.72);font-size:.82rem;}
@@ -116,14 +116,66 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .stag{background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#fff;font-size:.6rem;padding:3px 7px;border-radius:7px;font-weight:700;}
 @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(251,113,133,.45);}70%{box-shadow:0 0 0 10px rgba(251,113,133,0);}100%{box-shadow:0 0 0 0 rgba(251,113,133,0);}}
 .pulse{animation:pulse-ring 2s infinite;}
-#searchOverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);}
+#searchOverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);}
 #searchPanel{display:none;position:fixed;top:0;left:0;right:0;z-index:201;max-height:72vh;overflow-y:auto;background:#fff;border-radius:0 0 20px 20px;padding:13px;box-shadow:0 12px 40px rgba(0,0,0,.22);}
 
 .more-menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:13px;padding:12px 8px;cursor:pointer;font-family:‘Sarabun’,sans-serif;font-size:.72rem;font-weight:600;color:#374151;transition:background .15s,transform .12s;width:100%;}
 .more-menu-btn:active{transform:scale(.95);background:#f1f5f9;}
 .more-menu-btn i{font-size:1.2rem;}
-</style>
 
+/* ── iOS / iPad Touch Fixes ── */
+
+- { -webkit-tap-highlight-color: transparent; }
+  html { -webkit-text-size-adjust: 100%; }
+  button, a, [onclick] {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  }
+  .nav-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 44px; /* Apple HIG minimum touch target */
+  }
+  .more-menu-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  min-height: 44px;
+  cursor: pointer;
+  }
+  .acc-header {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  }
+  .age-tab {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 36px;
+  }
+  .calc-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  }
+  /* Fix sticky header eating touch on iOS */
+  .app-header { -webkit-transform: translateZ(0); transform: translateZ(0); }
+  /* Fix bottom nav on iOS Safari with home bar */
+  .bottom-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: calc(var(–nav-h) + env(safe-area-inset-bottom, 0px));
+  }
+  body {
+  padding-bottom: calc(var(–nav-h) + env(safe-area-inset-bottom, 0px) + 20px);
+  }
+  /* Remove backdrop-filter on overlays (broken on some iOS) */
+  #searchOverlay, #moreOverlay { background: rgba(0,0,0,0.5) !important; }
+
+</style>
 </head>
 <body>
 
@@ -762,15 +814,15 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
   <button class="nav-btn" id="nb-more" onclick="toggleMoreMenu()"><i class="fa-solid fa-ellipsis"></i><span>More</span></button>
 </nav>
 <!-- More Menu Drawer -->
-<div id="moreOverlay" onclick="closeMoreMenu()" style="display:none;position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);"></div>
+<div id="moreOverlay" onclick="closeMoreMenu()" style="display:none;position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.35);"></div>
 <div id="moreMenu" style="display:none;position:fixed;bottom:calc(var(--nav-h) + 8px);left:50%;transform:translateX(-50%);z-index:95;background:#fff;border-radius:18px;padding:10px 8px;box-shadow:0 8px 32px rgba(0,0,0,.18);border:1px solid #e2e8f0;width:92%;max-width:420px;">
   <div style="font-family:'Prompt',sans-serif;font-size:.72rem;font-weight:700;color:#94a3b8;padding:4px 8px 8px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;">เมนูเพิ่มเติม</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-    <button onclick="showSection('guide',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-book-medical" style="color:#22c55e;"></i><span>CPGs</span></button>
-    <button onclick="showSection('wbc',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-syringe" style="color:#f59e0b;"></i><span>WBC / วัคซีน</span></button>
-    <button onclick="showSection('nursery',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-baby" style="color:#ec4899;"></i><span>Nursery</span></button>
-    <button onclick="showSection('yr4',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-user-graduate" style="color:#8b5cf6;"></i><span>Year 4 Survival</span></button>
-    <button onclick="showSection('links',null);closeMoreMenu();" class="more-menu-btn" style="grid-column:span 2;"><i class="fa-solid fa-link" style="color:#0ea5e9;"></i><span>Quick Links</span></button>
+    <button onclick="navToSection('guide')" class="more-menu-btn"><i class="fa-solid fa-book-medical" style="color:#22c55e;"></i><span>CPGs</span></button>
+    <button onclick="navToSection('wbc')" class="more-menu-btn"><i class="fa-solid fa-syringe" style="color:#f59e0b;"></i><span>WBC / วัคซีน</span></button>
+    <button onclick="navToSection('nursery')" class="more-menu-btn"><i class="fa-solid fa-baby" style="color:#ec4899;"></i><span>Nursery</span></button>
+    <button onclick="navToSection('yr4')" class="more-menu-btn"><i class="fa-solid fa-user-graduate" style="color:#8b5cf6;"></i><span>Year 4 Survival</span></button>
+    <button onclick="navToSection('links')" class="more-menu-btn" style="grid-column:span 2;"><i class="fa-solid fa-link" style="color:#0ea5e9;"></i><span>Quick Links</span></button>
   </div>
 </div>
 
@@ -1610,12 +1662,65 @@ document.getElementById(‘searchOverlay’).style.display = ‘none’;
 document.getElementById(‘searchPanel’).style.display   = ‘none’;
 }
 
-// ── Init ──
+// ── navToSection: used by More menu (combines closeMoreMenu + showSection) ──
+function navToSection(name) {
+closeMoreMenu();
+showSection(name, null);
+}
+
+// ── iOS touch fix: add touchstart listeners to all nav buttons ──
+// This fires instantly without the 300ms click delay on iOS Safari
+function attachTouchListeners() {
+// Bottom nav buttons
+var navBtns = document.querySelectorAll(’.nav-btn’);
+navBtns.forEach(function(btn) {
+btn.addEventListener(‘touchstart’, function(e) {
+e.preventDefault();
+btn.click();
+}, { passive: false });
+});
+
+// More menu buttons
+var moreMenuBtns = document.querySelectorAll(’.more-menu-btn’);
+moreMenuBtns.forEach(function(btn) {
+btn.addEventListener(‘touchstart’, function(e) {
+e.preventDefault();
+btn.click();
+}, { passive: false });
+});
+
+// Accordion headers
+document.addEventListener(‘touchstart’, function(e) {
+var target = e.target.closest(’.acc-header’);
+if (target) {
+e.preventDefault();
+toggleAcc(target);
+}
+var ageTab = e.target.closest(’.age-tab’);
+if (ageTab) {
+e.preventDefault();
+ageTab.click();
+}
+var calcBtn = e.target.closest(’.calc-btn’);
+if (calcBtn) {
+e.preventDefault();
+calcBtn.click();
+}
+var nbItem = e.target.closest(’#nbChecklist > div’);
+if (nbItem) {
+e.preventDefault();
+nbItem.click();
+}
+}, { passive: false });
+}
+
+// Run after DOM is ready
 (function init(){
 renderNbChecklist();
 calcApgar();
+attachTouchListeners();
 })();
-</script>
 
+</script>
 </body>
 </html>
