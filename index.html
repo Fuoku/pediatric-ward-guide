@@ -31,7 +31,8 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .search-wrap .fa-magnifying-glass{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.72);font-size:.82rem;}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 -2px 18px rgba(0,0,0,.09);display:flex;height:var(--nav-h);border-top:1px solid #e2e8f0;}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.59rem;color:#94a3b8;transition:color .2s,transform .15s;padding:0;}
-.nav-btn i{font-size:1.08rem;}
+.nav-btn i{font-size:1.08rem;pointer-events:none;}
+.nav-btn span{pointer-events:none;}
 .nav-btn.active{color:var(--clr-primary);}
 .nav-btn:active{transform:scale(.91);}
 .section{display:none;padding:13px 11px 6px;animation:fadeUp .25s ease;}
@@ -92,7 +93,8 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .accordion{margin-bottom:9px;border-radius:13px;overflow:hidden;border:1.5px solid #e2e8f0;}
 .acc-header{width:100%;background:#f8fafc;border:none;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Prompt',sans-serif;font-size:.84rem;font-weight:700;color:var(--clr-text);transition:background .2s;text-align:left;gap:6px;}
 .acc-header:hover{background:#f1f5f9;}
-.acc-icon{font-size:.7rem;color:#94a3b8;transition:transform .25s;flex-shrink:0;}
+.acc-icon{font-size:.7rem;color:#94a3b8;transition:transform .25s;flex-shrink:0;pointer-events:none;}
+.acc-header span{pointer-events:none;}
 .acc-header.open .acc-icon{transform:rotate(180deg);}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .25s;background:#fff;padding:0 13px;}
 .acc-body.open{max-height:1200px;padding:11px 13px;}
@@ -121,7 +123,8 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 
 .more-menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:13px;padding:12px 8px;cursor:pointer;font-family:‘Sarabun’,sans-serif;font-size:.72rem;font-weight:600;color:#374151;transition:background .15s,transform .12s;width:100%;}
 .more-menu-btn:active{transform:scale(.95);background:#f1f5f9;}
-.more-menu-btn i{font-size:1.2rem;}
+.more-menu-btn i{font-size:1.2rem;pointer-events:none;}
+.more-menu-btn span{pointer-events:none;}
 
 /* ── iOS / iPad Touch Fixes ── */
 
@@ -132,6 +135,10 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
   -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
+  }
+  /* Ensure child elements never steal the click from their parent button */
+  button > *, a > * {
+  pointer-events: none;
   }
   .nav-btn {
   touch-action: manipulation;
@@ -1296,8 +1303,8 @@ if (nb) nb.classList.add(‘active’);
 var nb = document.getElementById(‘nb-more’);
 if (nb) nb.classList.add(‘active’);
 }
-if (btn) btn.classList.add(‘active’);
-window.scrollTo({ top: 0, behavior: ‘smooth’ });
+if (btn && btn.classList) btn.classList.add(‘active’);
+try { window.scrollTo({ top: 0, behavior: ‘smooth’ }); } catch(e) { window.scrollTo(0, 0); }
 }
 
 // ── More Menu ──
@@ -1321,11 +1328,16 @@ function toggleAcc(btn) {
 var body = btn.nextElementSibling;
 if (!body) return;
 var isOpen = body.classList.contains(‘open’);
-// Close all siblings in same card
-var card = btn.closest(’.card’);
+// Walk up to find parent card without closest() (more reliable on iOS WebKit)
+var card = btn.parentNode;
+while (card && !card.classList.contains(‘card’)) {
+card = card.parentNode;
+}
 if (card) {
-card.querySelectorAll(’.acc-header’).forEach(function(h){ h.classList.remove(‘open’); });
-card.querySelectorAll(’.acc-body’).forEach(function(b){ b.classList.remove(‘open’); });
+var headers = card.getElementsByClassName(‘acc-header’);
+var bodies  = card.getElementsByClassName(‘acc-body’);
+for (var i = 0; i < headers.length; i++) headers[i].classList.remove(‘open’);
+for (var i = 0; i < bodies.length;  i++) bodies[i].classList.remove(‘open’);
 }
 if (!isOpen) {
 btn.classList.add(‘open’);
@@ -1662,63 +1674,16 @@ document.getElementById(‘searchOverlay’).style.display = ‘none’;
 document.getElementById(‘searchPanel’).style.display   = ‘none’;
 }
 
-// ── navToSection: used by More menu (combines closeMoreMenu + showSection) ──
+// ── navToSection: single call for More menu buttons ──
 function navToSection(name) {
 closeMoreMenu();
 showSection(name, null);
 }
 
-// ── iOS touch fix: add touchstart listeners to all nav buttons ──
-// This fires instantly without the 300ms click delay on iOS Safari
-function attachTouchListeners() {
-// Bottom nav buttons
-var navBtns = document.querySelectorAll(’.nav-btn’);
-navBtns.forEach(function(btn) {
-btn.addEventListener(‘touchstart’, function(e) {
-e.preventDefault();
-btn.click();
-}, { passive: false });
-});
-
-// More menu buttons
-var moreMenuBtns = document.querySelectorAll(’.more-menu-btn’);
-moreMenuBtns.forEach(function(btn) {
-btn.addEventListener(‘touchstart’, function(e) {
-e.preventDefault();
-btn.click();
-}, { passive: false });
-});
-
-// Accordion headers
-document.addEventListener(‘touchstart’, function(e) {
-var target = e.target.closest(’.acc-header’);
-if (target) {
-e.preventDefault();
-toggleAcc(target);
-}
-var ageTab = e.target.closest(’.age-tab’);
-if (ageTab) {
-e.preventDefault();
-ageTab.click();
-}
-var calcBtn = e.target.closest(’.calc-btn’);
-if (calcBtn) {
-e.preventDefault();
-calcBtn.click();
-}
-var nbItem = e.target.closest(’#nbChecklist > div’);
-if (nbItem) {
-e.preventDefault();
-nbItem.click();
-}
-}, { passive: false });
-}
-
-// Run after DOM is ready
+// ── Init ──
 (function init(){
 renderNbChecklist();
 calcApgar();
-attachTouchListeners();
 })();
 
 </script>
