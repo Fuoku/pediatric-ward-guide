@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Pediatric Ward Survival Guide v3</title>
 <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -25,14 +25,13 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .legend-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;}
 .leg-chip{display:inline-flex;align-items:center;gap:4px;font-size:.66rem;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid;}
 .search-wrap{position:relative;margin-top:9px;}
-.search-wrap input{width:100%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;padding:8px 12px 8px 34px;color:#fff;font-size:.86rem;font-family:'Sarabun',sans-serif;}
+.search-wrap input{width:100%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;padding:8px 12px 8px 34px;color:#fff;font-size:.86rem;font-family:'Sarabun',sans-serif;backdrop-filter:blur(8px);}
 .search-wrap input::placeholder{color:rgba(255,255,255,.62);}
 .search-wrap input:focus{outline:none;border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.26);}
 .search-wrap .fa-magnifying-glass{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.72);font-size:.82rem;}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#fff;box-shadow:0 -2px 18px rgba(0,0,0,.09);display:flex;height:var(--nav-h);border-top:1px solid #e2e8f0;}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;cursor:pointer;font-family:'Sarabun',sans-serif;font-size:.59rem;color:#94a3b8;transition:color .2s,transform .15s;padding:0;}
-.nav-btn i{font-size:1.08rem;pointer-events:none;}
-.nav-btn span{pointer-events:none;}
+.nav-btn i{font-size:1.08rem;}
 .nav-btn.active{color:var(--clr-primary);}
 .nav-btn:active{transform:scale(.91);}
 .section{display:none;padding:13px 11px 6px;animation:fadeUp .25s ease;}
@@ -93,8 +92,7 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .accordion{margin-bottom:9px;border-radius:13px;overflow:hidden;border:1.5px solid #e2e8f0;}
 .acc-header{width:100%;background:#f8fafc;border:none;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:'Prompt',sans-serif;font-size:.84rem;font-weight:700;color:var(--clr-text);transition:background .2s;text-align:left;gap:6px;}
 .acc-header:hover{background:#f1f5f9;}
-.acc-icon{font-size:.7rem;color:#94a3b8;transition:transform .25s;flex-shrink:0;pointer-events:none;}
-.acc-header span{pointer-events:none;}
+.acc-icon{font-size:.7rem;color:#94a3b8;transition:transform .25s;flex-shrink:0;}
 .acc-header.open .acc-icon{transform:rotate(180deg);}
 .acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .25s;background:#fff;padding:0 13px;}
 .acc-body.open{max-height:1200px;padding:11px 13px;}
@@ -118,71 +116,14 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
 .stag{background:linear-gradient(135deg,#0ea5e9,#22c55e);color:#fff;font-size:.6rem;padding:3px 7px;border-radius:7px;font-weight:700;}
 @keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(251,113,133,.45);}70%{box-shadow:0 0 0 10px rgba(251,113,133,0);}100%{box-shadow:0 0 0 0 rgba(251,113,133,0);}}
 .pulse{animation:pulse-ring 2s infinite;}
-#searchOverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);}
+#searchOverlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.45);backdrop-filter:blur(4px);}
 #searchPanel{display:none;position:fixed;top:0;left:0;right:0;z-index:201;max-height:72vh;overflow-y:auto;background:#fff;border-radius:0 0 20px 20px;padding:13px;box-shadow:0 12px 40px rgba(0,0,0,.22);}
 
 .more-menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:13px;padding:12px 8px;cursor:pointer;font-family:‘Sarabun’,sans-serif;font-size:.72rem;font-weight:600;color:#374151;transition:background .15s,transform .12s;width:100%;}
 .more-menu-btn:active{transform:scale(.95);background:#f1f5f9;}
-.more-menu-btn i{font-size:1.2rem;pointer-events:none;}
-.more-menu-btn span{pointer-events:none;}
-
-/* ── iOS / iPad Touch Fixes ── */
-
-- { -webkit-tap-highlight-color: transparent; }
-  html { -webkit-text-size-adjust: 100%; }
-  button, a, [onclick] {
-  touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: pointer;
-  }
-  /* Ensure child elements never steal the click from their parent button */
-  button > *, a > * {
-  pointer-events: none;
-  }
-  .nav-btn {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  appearance: none;
-  min-height: 44px; /* Apple HIG minimum touch target */
-  }
-  .more-menu-btn {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  min-height: 44px;
-  cursor: pointer;
-  }
-  .acc-header {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  min-height: 44px;
-  }
-  .age-tab {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  min-height: 36px;
-  }
-  .calc-btn {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  }
-  /* Fix sticky header eating touch on iOS */
-  .app-header { -webkit-transform: translateZ(0); transform: translateZ(0); }
-  /* Fix bottom nav on iOS Safari with home bar */
-  .bottom-nav {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  height: calc(var(–nav-h) + env(safe-area-inset-bottom, 0px));
-  }
-  body {
-  padding-bottom: calc(var(–nav-h) + env(safe-area-inset-bottom, 0px) + 20px);
-  }
-  /* Remove backdrop-filter on overlays (broken on some iOS) */
-  #searchOverlay, #moreOverlay { background: rgba(0,0,0,0.5) !important; }
-
+.more-menu-btn i{font-size:1.2rem;}
 </style>
+
 </head>
 <body>
 
@@ -821,15 +762,15 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
   <button class="nav-btn" id="nb-more" onclick="toggleMoreMenu()"><i class="fa-solid fa-ellipsis"></i><span>More</span></button>
 </nav>
 <!-- More Menu Drawer -->
-<div id="moreOverlay" onclick="closeMoreMenu()" style="display:none;position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.35);"></div>
+<div id="moreOverlay" onclick="closeMoreMenu()" style="display:none;position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.35);backdrop-filter:blur(2px);"></div>
 <div id="moreMenu" style="display:none;position:fixed;bottom:calc(var(--nav-h) + 8px);left:50%;transform:translateX(-50%);z-index:95;background:#fff;border-radius:18px;padding:10px 8px;box-shadow:0 8px 32px rgba(0,0,0,.18);border:1px solid #e2e8f0;width:92%;max-width:420px;">
   <div style="font-family:'Prompt',sans-serif;font-size:.72rem;font-weight:700;color:#94a3b8;padding:4px 8px 8px;border-bottom:1px solid #f1f5f9;margin-bottom:6px;">เมนูเพิ่มเติม</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-    <button onclick="navToSection('guide')" class="more-menu-btn"><i class="fa-solid fa-book-medical" style="color:#22c55e;"></i><span>CPGs</span></button>
-    <button onclick="navToSection('wbc')" class="more-menu-btn"><i class="fa-solid fa-syringe" style="color:#f59e0b;"></i><span>WBC / วัคซีน</span></button>
-    <button onclick="navToSection('nursery')" class="more-menu-btn"><i class="fa-solid fa-baby" style="color:#ec4899;"></i><span>Nursery</span></button>
-    <button onclick="navToSection('yr4')" class="more-menu-btn"><i class="fa-solid fa-user-graduate" style="color:#8b5cf6;"></i><span>Year 4 Survival</span></button>
-    <button onclick="navToSection('links')" class="more-menu-btn" style="grid-column:span 2;"><i class="fa-solid fa-link" style="color:#0ea5e9;"></i><span>Quick Links</span></button>
+    <button onclick="showSection('guide',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-book-medical" style="color:#22c55e;"></i><span>CPGs</span></button>
+    <button onclick="showSection('wbc',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-syringe" style="color:#f59e0b;"></i><span>WBC / วัคซีน</span></button>
+    <button onclick="showSection('nursery',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-baby" style="color:#ec4899;"></i><span>Nursery</span></button>
+    <button onclick="showSection('yr4',null);closeMoreMenu();" class="more-menu-btn"><i class="fa-solid fa-user-graduate" style="color:#8b5cf6;"></i><span>Year 4 Survival</span></button>
+    <button onclick="showSection('links',null);closeMoreMenu();" class="more-menu-btn" style="grid-column:span 2;"><i class="fa-solid fa-link" style="color:#0ea5e9;"></i><span>Quick Links</span></button>
   </div>
 </div>
 
@@ -841,6 +782,893 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
   </div>
   <div id="searchResults"></div>
 </div>
+
+<script>
+function showSection(name,btn){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('sec-'+name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleAcc(btn){
+  var body=btn.nextElementSibling;
+  var isOpen=body.classList.contains('open');
+  btn.closest('.card').querySelectorAll('.acc-header').forEach(function(h){h.classList.remove('open');});
+  btn.closest('.card').querySelectorAll('.acc-body').forEach(function(b){b.classList.remove('open');});
+  if(!isOpen){btn.classList.add('open');body.classList.add('open');}
+}
+function filterVitals(group,el){
+  document.querySelectorAll('.age-tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  document.querySelectorAll('#vitalsTbody tr').forEach(function(r){
+    r.style.display=(group==='all'||r.dataset.group===group)?'':'none';
+  });
+}
+function calcFluids(){
+  var wt=parseFloat(document.getElementById('fluidWeight').value);
+  var dehy=document.getElementById('fluidType').value;
+  if(!wt||wt<=0){alert('กรุณาใส่น้ำหนักผู้ป่วย');return;}
+  var maint=wt<=10?wt*100:wt<=20?1000+(wt-10)*50:1500+(wt-20)*20;
+  var mhr=maint/24;
+  var formula=wt<=10?(wt+'x100='+maint+' ml/day'):wt<=20?('1000+('+wt+'-10)x50='+maint+' ml/day'):('1500+('+wt+'-20)x20='+maint+' ml/day');
+  document.getElementById('res-maint-day').textContent=Math.round(maint)+' ml';
+  document.getElementById('res-maint-hr').textContent=mhr.toFixed(1)+' ml/hr';
+  var dR=document.getElementById('row-deficit'),tR=document.getElementById('row-total'),tH=document.getElementById('row-totalhr');
+  if(dehy!=='none'){
+    var p=dehy==='mild'?0.05:dehy==='moderate'?0.10:0.15;
+    var def=wt*1000*p,tot=maint+def;
+    document.getElementById('res-deficit').textContent=Math.round(def)+' ml';
+    document.getElementById('res-total').textContent=Math.round(tot)+' ml';
+    document.getElementById('res-total-hr').textContent=(tot/24).toFixed(1)+' ml/hr';
+    dR.style.display=tR.style.display=tH.style.display='flex';
+  } else {
+    dR.style.display=tR.style.display=tH.style.display='none';
+  }
+  document.getElementById('fluidFormula').innerHTML='<i class="fa-solid fa-function" style="margin-right:4px;"></i><strong>Formula:</strong> '+formula;
+  document.getElementById('fluidResult').classList.add('show');
+}
+
+var drugs={
+  paracetamol:{name:'Paracetamol',dosePerKg:15,freq:'q4-6h',fpd:4,maxD:4000,maxKg:75,
+    preps:'Syrup 120mg/5ml | Syrup 250mg/5ml | Tab 500mg | Suppository 60/125/250mg',
+    syrupFn:function(d){return 'Syrup 120mg/5ml = <strong>'+((d/120)*5).toFixed(1)+' ml/dose</strong> | Syrup 250mg/5ml = <strong>'+((d/250)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'10-15 mg/kg/dose | Max 5 doses/24h | Caution in liver disease',
+    must:'Safest antipyretic for all ages including dengue | Overdose >150mg/kg: give NAC immediately',
+    good:'Can alternate with Ibuprofen (not simultaneously) for better fever control'},
+  ibuprofen:{name:'Ibuprofen',dosePerKg:7.5,freq:'q6-8h',fpd:3,maxD:2400,maxKg:40,
+    preps:'Syrup 100mg/5ml | Tab 200mg, 400mg',
+    syrupFn:function(d){return 'Syrup 100mg/5ml = <strong>'+((d/100)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'Use in >=6 months only | Give after food | AVOID: dengue, GI ulcer, renal impairment, dehydration',
+    must:'CONTRAINDICATED in dengue (increases bleeding risk) and dehydrated patients (renal failure risk)',
+    good:'Longer fever control duration (6-8h vs 4-6h paracetamol) | Has anti-inflammatory effect'},
+  amoxicillin:{name:'Amoxicillin',dosePerKg:40,freq:'TID (divided 3)',fpd:3,maxD:3000,maxKg:90,
+    preps:'Syrup 125mg/5ml | Syrup 250mg/5ml | Drop 50mg/ml | Capsule 250/500mg',
+    syrupFn:function(d){var dose=d/3;return 'Syrup 125mg/5ml = <strong>'+((dose/125)*5).toFixed(1)+' ml/dose</strong> | Syrup 250mg/5ml = <strong>'+((dose/250)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'Standard 40mg/kg/day | High-dose 80-90mg/kg/day for AOM/resistant organisms',
+    must:'High-dose (80-90mg/kg/day) is now standard for AOM per AAP 2022 guideline',
+    good:'Better GI absorption than Ampicillin | Post-antibiotic effect against Streptococcus'},
+  augmentin:{name:'Augmentin (Amox/Clav)',dosePerKg:45,freq:'BID',fpd:2,maxD:3000,maxKg:90,
+    preps:'Syrup 228mg/5ml (4:1 ratio) | Tab 625mg | Tab 1g (BD formulation)',
+    syrupFn:function(d){var dose=d/2;return 'Syrup 228mg/5ml = <strong>'+((dose/228)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'Calculate by Amoxicillin component | 45-90mg/kg/day divided BID | AOM fail, animal bite, SSTI',
+    must:'Animal bite: Augmentin is ALWAYS 1st line - covers Pasteurella + anaerobes | Human bite: consult surgery',
+    good:'BID dosing (extended-release) improves compliance vs TID in children'},
+  azithromycin:{name:'Azithromycin',dosePerKg:10,freq:'OD x5 days',fpd:1,maxD:500,maxKg:10,
+    preps:'Syrup 200mg/5ml | Tab 250mg, 500mg',
+    syrupFn:function(d){return 'Syrup 200mg/5ml = <strong>'+((d/200)*5).toFixed(1)+' ml/dose (Day 1)</strong>';},
+    note:'Day1: 10mg/kg | Day2-5: 5mg/kg OD | Max 500mg/dose | High intracellular concentration',
+    must:'1st line for: atypical pneumonia (Mycoplasma), pertussis (whooping cough), Chlamydia',
+    good:'Check ECG if cardiac risk factors - can prolong QT | Drug interaction with warfarin, digoxin'},
+  ceftriaxone:{name:'Ceftriaxone',dosePerKg:75,freq:'OD or divided q12h',fpd:1,maxD:4000,maxKg:100,
+    preps:'Vial 250mg | Vial 500mg | Vial 1g',
+    syrupFn:function(d){return 'IV/IM dose: <strong>'+Math.round(d)+' mg/day</strong>';},
+    note:'Meningitis: 100mg/kg/day q12h | Bacteremia/CAP: 50-75mg OD | Max 4g/day',
+    must:'NEVER mix with Ca-containing IV solutions in neonates <28 days - FATAL precipitation in lungs/kidneys',
+    good:'Excellent coverage: H. influenzae, S. pneumoniae, N. meningitidis | Can give IM (mix with 1% lidocaine)'},
+  ondansetron:{name:'Ondansetron',dosePerKg:0.15,freq:'q8h PRN',fpd:3,maxD:24,maxKg:0.45,
+    preps:'Syrup 4mg/5ml | Tab 4mg, 8mg (ODT) | IV 2mg/ml',
+    syrupFn:function(d){var cap=Math.min(d,d<40?4:8);return 'Syrup 4mg/5ml = <strong>'+((cap/4)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'0.15mg/kg | Max 4mg/dose (<40kg) or 8mg/dose (>=40kg) | Helps ORT success in AGE',
+    must:'Level I evidence for acute vomiting in AGE | Significantly reduces IV use and admission rate',
+    good:'ODT (orally disintegrating tablet) ideal for vomiting children | Caution: QT prolongation in congenital LQTS'},
+  domperidone:{name:'Domperidone',dosePerKg:0.25,freq:'TID-QID before meals',fpd:3,maxD:30,maxKg:2.4,
+    preps:'Syrup 5mg/5ml | Tab 10mg | Suppository 30mg',
+    syrupFn:function(d){return 'Syrup 5mg/5ml = <strong>'+((d/5)*5).toFixed(1)+' ml/dose</strong>';},
+    note:'0.2-0.4mg/kg/dose TID-QID | Max 2.4mg/kg/day | EMA: caution in children <35kg',
+    must:'EMA recommends CAUTION in children <35 kg - use only when benefit clearly outweighs QT risk',
+    good:'Peripheral dopamine antagonist - reduces GERD, gastroparesis | Does NOT cross BBB (less EPS)'},
+  cetirizine:{name:'Cetirizine',dosePerKg:0.25,freq:'OD (bedtime)',fpd:1,maxD:10,maxKg:0.5,
+    preps:'Syrup 5mg/5ml | Tab 10mg',
+    syrupFn:function(d){return 'Syrup 5mg/5ml = <strong>'+((d/5)*5).toFixed(1)+' ml/day</strong>';},
+    note:'0.25mg/kg/day OD | 2-5yr: 2.5-5mg | >=6yr: 5-10mg | Max 10mg/day',
+    must:'2nd gen antihistamine - less sedating than 1st gen (chlorpheniramine) | No anticholinergic effects',
+    good:'Levocetirizine (active enantiomer) = half the dose for same effect | Can use from 6 months (Levo)'}
+};
+
+function calcDrug(){
+  var wt=parseFloat(document.getElementById('drugWeight').value);
+  var key=document.getElementById('drugSelect').value;
+  if(!wt||wt<=0){alert('กรุณาใส่น้ำหนักผู้ป่วย');return;}
+  if(!key){alert('กรุณาเลือกยา');return;}
+  var d=drugs[key];
+  var perDay=Math.min(wt*d.dosePerKg,d.maxD);
+  var perDose=perDay/d.fpd;
+  document.getElementById('drugResultName').textContent=d.name;
+  document.getElementById('drugResultTbody').innerHTML=
+    '<tr><td>ขนาดยา/ครั้ง</td><td style="font-weight:700;color:#7c3aed;">'+perDose.toFixed(2)+' mg</td></tr>'+
+    '<tr><td>ขนาดยา/วัน</td><td style="font-weight:700;color:#7c3aed;">'+perDay.toFixed(1)+' mg</td></tr>'+
+    '<tr><td>ความถี่</td><td>'+d.freq+'</td></tr>'+
+    '<tr><td>Max dose/day</td><td>'+d.maxD+' mg</td></tr>'+
+    '<tr><td>การเตรียมยา</td><td style="font-size:.71rem;">'+d.preps+'</td></tr>';
+  var syrup=d.syrupFn(perDose);
+  document.getElementById('drugNote').innerHTML='<i class="fa-solid fa-circle-info" style="color:#7c3aed;margin-right:4px;"></i><strong>Note:</strong> '+d.note+'<br>'+syrup;
+  document.getElementById('drugMustGood').innerHTML=
+    '<div class="must-box" style="margin-top:8px;"><div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know</div><ul><li>'+d.must+'</li></ul></div>'+
+    '<div class="good-box"><div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know</div><ul><li>'+d.good+'</li></ul></div>';
+  document.getElementById('drugResult').classList.add('show');
+}
+
+function calcEmerg(){
+  var wt=parseFloat(document.getElementById('emergWeight').value);
+  var age=parseFloat(document.getElementById('emergAge').value)||0;
+  if(!wt||wt<=0){alert('กรุณาใส่น้ำหนักผู้ป่วย');return;}
+  var items=[];
+  var epiDose=wt*0.01;
+  items.push({icon:'fa-syringe',label:'Epinephrine (Adrenaline) IV/IO',val:(epiDose.toFixed(3))+' mg',sub:'= '+((epiDose/0.1).toFixed(2))+' ml of 1:10,000 | = '+(epiDose.toFixed(3))+' ml of 1:1,000 | repeat q3-5min'});
+  items.push({icon:'fa-bolt',label:'Defibrillation',val:(wt*2)+' - '+(wt*4)+' J',sub:'Initial 2 J/kg then 4 J/kg | Max 10 J/kg (360 J)'});
+  items.push({icon:'fa-wave-square',label:'Synchronized Cardioversion',val:((wt*0.5).toFixed(0))+' - '+((wt*1).toFixed(0))+' J',sub:'0.5-1 J/kg initial then 2 J/kg | SVT, VT with pulse'});
+  var ettUC=age>0?((age/4+4).toFixed(1)):'-';
+  var ettC=age>0?((age/4+3).toFixed(1)):'-';
+  var dep=age>0?((age/2+12).toFixed(1)):'-';
+  items.push({icon:'fa-lungs',label:'ETT Size',val:age>0?('Uncuffed: '+ettUC+' mm | Cuffed: '+ettC+' mm'):'Enter age to calculate',sub:age>0?('Oral depth: '+dep+' cm | Prepare +/-0.5 mm'):''});
+  var atrop=Math.max(0.1,Math.min(wt*0.02,0.5));
+  items.push({icon:'fa-heart',label:'Atropine (Bradycardia)',val:atrop.toFixed(3)+' mg IV',sub:'0.02 mg/kg | Min 0.1 mg | Max 0.5 mg (child) 1 mg (adol)'});
+  items.push({icon:'fa-clock-rotate-left',label:'Adenosine (SVT)',val:((wt*0.1).toFixed(2))+' then '+((wt*0.2).toFixed(2))+' mg',sub:'0.1 mg/kg 1st dose then 0.2 mg/kg | Max 6mg then 12mg | Rapid IV push + flush'});
+  items.push({icon:'fa-cube',label:'Glucose (Hypoglycemia)',val:'D10W: '+((wt*2.5).toFixed(0))+' ml',sub:'2-4 ml/kg D10W = 0.2-0.4 g/kg | Slow IV push over 5 min'});
+  items.push({icon:'fa-droplet',label:'IV Fluid Bolus (Resuscitation)',val:((wt*20).toFixed(0))+' ml NSS/LRS',sub:'20 ml/kg over 5-20 min | Repeat up to 3x (60 ml/kg total) | Reassess after each'});
+  items.push({icon:'fa-bone',label:'IO Access',val:'Consider immediately',sub:'If IV fails in 90 sec go IO | Proximal tibia is 1st choice | Distal femur, humeral head alternative'});
+  var midaz=(wt*0.1).toFixed(2);
+  items.push({icon:'fa-pills',label:'Midazolam (Seizure / Sedation)',val:midaz+' mg IV/IO',sub:'0.05-0.1 mg/kg | Buccal/Intranasal: 0.2 mg/kg | Max 5 mg/dose'});
+  document.getElementById('emergItems').innerHTML=items.map(function(it){
+    return '<div style="display:flex;flex-direction:column;gap:2px;padding:9px 0;border-bottom:1px dashed #fecdd3;">'+
+      '<div style="display:flex;align-items:center;gap:7px;"><i class="fa-solid '+it.icon+'" style="color:#e11d48;width:15px;text-align:center;font-size:.8rem;flex-shrink:0;"></i>'+
+      '<span style="font-family:Prompt,sans-serif;font-size:.79rem;font-weight:700;color:#be123c;">'+it.label+'</span></div>'+
+      '<div style="font-family:Prompt,sans-serif;font-size:.92rem;font-weight:700;color:#e11d48;margin-left:22px;">'+it.val+'</div>'+
+      (it.sub?'<div style="margin-left:22px;font-size:.68rem;color:#9f1239;">'+it.sub+'</div>':'')+
+      '</div>';
+  }).join('');
+  document.getElementById('emergResult').classList.add('show');
+}
+
+var searchIndex=[
+  {term:'vital signs HR RR BP fever temperature tachycardia',section:'vitals',target:'card-vitals',label:'Normal Vital Signs'},
+  {term:'milestone development gross motor fine language social red flag autism',section:'vitals',target:'card-milestones',label:'Developmental Milestones + Red Flags'},
+  {term:'fluid holliday segar maintenance dehydration deficit',section:'fluids',target:'card-vitals',label:'IV Fluid Calculator (Holliday-Segar)'},
+  {term:'fluid type NSS LRS dextrose D10W potassium KCl selection',section:'fluids',target:'card-fluidtypes',label:'IV Fluid Types & Indications'},
+  {term:'paracetamol acetaminophen fever pain antipyretic',section:'drugs',target:'card-drugref',label:'Paracetamol Dosing'},
+  {term:'ibuprofen brufen NSAID anti-inflammatory pain dengue',section:'drugs',target:'card-drugref',label:'Ibuprofen Dosing'},
+  {term:'amoxicillin penicillin antibiotic AOM pneumonia',section:'drugs',target:'card-drugref',label:'Amoxicillin Dosing'},
+  {term:'augmentin amoxicillin clavulanate animal bite SSTI',section:'drugs',target:'card-drugref',label:'Augmentin Dosing'},
+  {term:'azithromycin atypical mycoplasma pertussis whooping cough',section:'drugs',target:'card-drugref',label:'Azithromycin Dosing'},
+  {term:'ceftriaxone rocephin IV antibiotic meningitis bacteremia',section:'drugs',target:'card-drugref',label:'Ceftriaxone Dosing'},
+  {term:'ondansetron zofran vomiting antiemetic AGE gastroenteritis',section:'drugs',target:'card-drugref',label:'Ondansetron Dosing'},
+  {term:'domperidone motilium nausea GERD gastroparesis',section:'drugs',target:'card-drugref',label:'Domperidone Dosing'},
+  {term:'cetirizine zyrtec antihistamine allergy urticaria',section:'drugs',target:'card-drugref',label:'Cetirizine Dosing'},
+  {term:'CPR resuscitation cardiac arrest BLS compression',section:'emerg',target:'card-cpr',label:'Pediatric CPR (BLS)'},
+  {term:'epinephrine adrenaline defibrillation shock PALS emergency',section:'emerg',target:'card-cpr',label:'PALS Emergency Calculator'},
+  {term:'ETT intubation airway tube size depth RSI ketamine',section:'emerg',target:'card-ett',label:'ETT & Airway Management'},
+  {term:'shock septic hypovolemic cardiogenic obstructive vasopressor',section:'emerg',target:'card-shock',label:'Pediatric Shock Recognition'},
+  {term:'dengue DHF warning signs plasma leakage fluid protocol',section:'guide',target:'card-dengue',label:'Dengue Infection Management'},
+  {term:'asthma wheeze salbutamol nebulizer severity silent chest',section:'guide',target:'card-asthma',label:'Acute Asthma Exacerbation'},
+  {term:'gastroenteritis diarrhea AGE ORS dehydration ondansetron zinc',section:'guide',target:'card-age',label:'AGE - Dehydration & ORS'},
+  {term:'jaundice neonatal phototherapy bilirubin G6PD breast milk',section:'guide',target:'card-jaundice',label:'Neonatal Jaundice'},
+  {term:'must know good to know pitfall pearl tips clinical',section:'vitals',target:'card-vitals',label:'Clinical Tips (Must Know / Good to Know)'}
+];
+
+var sTO=null;
+document.getElementById('globalSearch').addEventListener('input',function(){
+  clearTimeout(sTO);
+  var q=this.value.trim();
+  if(q.length<2){closeSearch();return;}
+  sTO=setTimeout(function(){doSearch(q);},180);
+});
+document.getElementById('globalSearch').addEventListener('keydown',function(e){if(e.key==='Escape')closeSearch();});
+
+function doSearch(q){
+  var terms=q.toLowerCase().split(' ').filter(function(t){return t.length>0;});
+  var results=searchIndex.filter(function(item){
+    return terms.some(function(t){return item.term.toLowerCase().indexOf(t)>=0||item.label.toLowerCase().indexOf(t)>=0;});
+  });
+  var secNames=['vitals','fluids','drugs','emerg','guide','wbc','nursery','yr4','links'];
+  if(!results.length){
+    document.getElementById('searchResults').innerHTML='<div style="color:#94a3b8;font-size:.82rem;text-align:center;padding:16px;">No results found for "'+q+'"</div>';
+  } else {
+    document.getElementById('searchResults').innerHTML=results.map(function(r){
+      var sIdx=secNames.indexOf(r.section);
+      return '<div onclick="goTo(\''+r.section+'\',\''+r.target+'\')" style="padding:10px 12px;background:#f8fafc;border-radius:12px;margin-bottom:6px;cursor:pointer;border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px;">'+
+        '<div>'+
+        '<div style="font-family:Prompt,sans-serif;font-size:.82rem;font-weight:700;color:#1e293b;">'+r.label+'</div>'+
+        '<div style="font-size:.68rem;color:#94a3b8;margin-top:2px;">Section '+(sIdx+1)+' - '+r.section.charAt(0).toUpperCase()+r.section.slice(1)+'</div>'+
+        '</div>'+
+        '<i class="fa-solid fa-arrow-right" style="color:#0ea5e9;font-size:.78rem;flex-shrink:0;"></i>'+
+        '</div>';
+    }).join('');
+  }
+  document.getElementById('searchOverlay').style.display='block';
+  document.getElementById('searchPanel').style.display='block';
+}
+
+function goTo(section,cardId){
+  closeSearch();
+  var secNames=['vitals','fluids','drugs','emerg','guide','wbc','nursery','yr4','links'];
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('sec-'+section).classList.add('active');
+  var idx=secNames.indexOf(section);
+  if(idx>=0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  setTimeout(function(){
+    var card=document.getElementById(cardId);
+    if(card) card.scrollIntoView({behavior:'smooth',block:'start'});
+  },150);
+}
+
+function closeSearch(){
+  document.getElementById('searchOverlay').style.display='none';
+
+<!-- ===== S6: WELL BABY CLINIC ===== -->
+<section id="sec-wbc" class="section">
+  <div class="sec-title"><i class="fa-solid fa-syringe" style="color:#f59e0b;"></i> Well Baby Clinic (WBC) <span class="stag">S6</span></div>
+
+  <div class="card" id="card-vaccine">
+    <div class="card-title"><div class="icon-circle" style="background:#fef3c7;color:#92400e;"><i class="fa-solid fa-shield-virus"></i></div>ตารางวัคซีนพื้นฐาน (Thai EPI Vaccine Schedule)</div>
+    <div class="must-box">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know — Vaccine Rules</div>
+      <ul>
+        <li>วัคซีนที่ให้ก่อนกำหนดเกิน 4 วัน = <strong>ไม่นับ</strong> ต้องให้ใหม่</li>
+        <li>Live vaccines (MMR, Varicella, OPV): ให้พร้อมกันได้ หรือห่างกัน ≥4 สัปดาห์</li>
+        <li>ไข้ต่ำ (&lt;38.5°C) ไม่ใช่ข้อห้ามการฉีดวัคซีน</li>
+        <li><strong>Anaphylaxis</strong> จากวัคซีนก่อน = ข้อห้ามเด็ดขาดสำหรับวัคซีนชนิดเดียวกัน</li>
+      </ul>
+    </div>
+    <div style="overflow-x:auto;margin-top:4px;">
+      <table class="vtable" style="min-width:520px;">
+        <thead>
+          <tr>
+            <th style="min-width:70px;">อายุ</th>
+            <th>วัคซีน</th>
+            <th style="min-width:80px;">ชื่อย่อ</th>
+            <th>เส้นทาง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="badge" style="background:#e0f2fe;color:#0369a1;">แรกเกิด</span></td><td>Hepatitis B (dose 1) + BCG</td><td>HBV1, BCG</td><td>IM, ID</td></tr>
+          <tr><td><span class="badge" style="background:#dcfce7;color:#166534;">1 เดือน</span></td><td>Hepatitis B (dose 2)</td><td>HBV2</td><td>IM</td></tr>
+          <tr><td><span class="badge" style="background:#fef3c7;color:#92400e;">2 เดือน</span></td><td>DTP-HB-Hib (dose 1) + OPV1 + Rota1</td><td>DTP1, OPV1</td><td>IM, oral</td></tr>
+          <tr><td><span class="badge" style="background:#ede9fe;color:#5b21b6;">4 เดือน</span></td><td>DTP-HB-Hib (dose 2) + OPV2 + Rota2</td><td>DTP2, OPV2</td><td>IM, oral</td></tr>
+          <tr><td><span class="badge" style="background:#fce7f3;color:#9d174d;">6 เดือน</span></td><td>DTP-HB-Hib (dose 3) + OPV3 + Influenza1</td><td>DTP3, OPV3</td><td>IM, oral, IM</td></tr>
+          <tr><td><span class="badge" style="background:#ffedd5;color:#9a3412;">7 เดือน</span></td><td>Influenza (dose 2 ถ้าฉีดครั้งแรก &lt;9yr)</td><td>Flu2</td><td>IM</td></tr>
+          <tr><td><span class="badge" style="background:#f0fdf4;color:#15803d;">9 เดือน</span></td><td>MMR (dose 1) + JE (dose 1)</td><td>MMR1, JE1</td><td>SC, IM/SC</td></tr>
+          <tr><td><span class="badge" style="background:#f0f9ff;color:#0369a1;">12 เดือน</span></td><td>MMR (dose 2) + JE (dose 2) + Hepatitis A1 + Varicella</td><td>MMR2, HepA1, VZV</td><td>SC/IM</td></tr>
+          <tr><td><span class="badge" style="background:#fff1f2;color:#be123c;">18 เดือน</span></td><td>DTP-HB-Hib (dose 4) + OPV4 + Hepatitis A2</td><td>DTP4, OPV4, HepA2</td><td>IM, oral</td></tr>
+          <tr><td><span class="badge" style="background:#faf5ff;color:#5b21b6;">2.5 ปี</span></td><td>JE (dose 3)</td><td>JE3</td><td>IM/SC</td></tr>
+          <tr><td><span class="badge" style="background:#f0fdfa;color:#0f766e;">4 ปี</span></td><td>DTP (dose 5) + OPV5 + MMR (dose 3 ถ้าไม่ได้ VZV)</td><td>DTP5, OPV5</td><td>IM, oral</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:10px;background:#fffbeb;border-radius:10px;padding:9px 11px;font-size:.73rem;color:#92400e;border:1.5px solid #fde68a;">
+      <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>
+      <strong>Optional vaccines (ไม่ฟรี):</strong> Pneumococcal (PCV), Rotavirus (ครบ 2 dose), Influenza (ทุกปี), HPV (11-12 ปี, หญิง), Varicella (ถ้าไม่รวมอยู่แล้ว)
+    </div>
+    <div class="good-box">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know — Vaccine Pearls</div>
+      <ul>
+        <li>BCG scar: ควรปรากฏที่ 4–6 สัปดาห์หลังฉีด ถ้าไม่มี → ตรวจสอบ technique และพิจารณาฉีดซ้ำ</li>
+        <li>Catch-up vaccination: ถ้าเด็กมาช้า ใช้ minimum interval ระหว่าง doses (ส่วนใหญ่ 4 สัปดาห์)</li>
+        <li>Rotavirus: ห้ามให้หลัง 8 เดือน (dose 1 ต้องให้ก่อน 15 สัปดาห์) เพราะ intussusception risk</li>
+        <li>Influenza: ทารก 6–8 เดือน ฉีดครั้งแรก ต้องให้ 2 doses ห่างกัน ≥4 สัปดาห์</li>
+        <li>Preterm infants: ฉีดวัคซีนตาม <strong>chronological age</strong> ไม่ใช่ corrected age</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Thai Pediatric Society EPI Schedule 2024 / กรมควบคุมโรค</div>
+  </div>
+
+  <div class="card" id="card-growth">
+    <div class="card-title"><div class="icon-circle" style="background:#fef3c7;color:#92400e;"><i class="fa-solid fa-chart-simple"></i></div>การเจริญเติบโต (Growth Monitoring)</div>
+    <div class="must-box">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know — Growth Rules</div>
+      <ul>
+        <li>ใช้ <strong>WHO Growth Charts</strong> (0–5 yr) และ <strong>Thai Growth Reference</strong> (5–18 yr)</li>
+        <li><strong>Failure to Thrive (FTT)</strong>: น้ำหนักต่ำกว่า 3rd percentile หรือ weight faltering ข้าม 2 major centiles</li>
+        <li>น้ำหนักทารกแรกเกิด: ลดได้ไม่เกิน <strong>10%</strong> ใน 3–5 วัน และควรกลับสู่ birth weight ภายใน 10–14 วัน</li>
+        <li>Average weight gain: 0–3 mo = 25–30 g/day | 3–6 mo = 15–20 g/day | 6–12 mo = 10–15 g/day</li>
+      </ul>
+    </div>
+    <div class="good-box">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know — Quick Weight Estimates</div>
+      <ul>
+        <li><strong>Double birth weight</strong>: ~5 months | <strong>Triple</strong>: ~12 months</li>
+        <li>Estimated weight (2–12 yr): (Age yr × 2) + 8 kg</li>
+        <li>Head circumference: Birth ~34 cm → 6 mo ~43 cm → 12 mo ~46 cm → 2 yr ~48 cm</li>
+        <li>Anterior fontanelle closes: 9–18 months (mean 13 mo) | Posterior: 2–3 months</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Thai Pediatric Society / WHO Child Growth Standards</div>
+  </div>
+</section>
+
+<!-- ===== S7: NURSERY / NEWBORN ===== -->
+<section id="sec-nursery" class="section">
+  <div class="sec-title"><i class="fa-solid fa-baby" style="color:#ec4899;"></i> Newborn / Nursery (NS) <span class="stag">S7</span></div>
+
+  <!-- APGAR Calculator -->
+  <div class="card" id="card-apgar">
+    <div class="card-title"><div class="icon-circle" style="background:#fce7f3;color:#9d174d;"><i class="fa-solid fa-baby-carriage"></i></div>APGAR Score Calculator</div>
+    <div style="font-size:.75rem;color:#64748b;margin-bottom:10px;">ประเมินที่ 1 นาที และ 5 นาทีหลังคลอด (ถ้า &lt;7 → ทุก 5 นาที จนถึง 20 นาที)</div>
+
+    <div style="display:grid;gap:8px;" id="apgarGrid">
+      <!-- A -->
+      <div style="background:#fdf4ff;border-radius:11px;padding:10px;border:1.5px solid #e879f9;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#86198f;margin-bottom:6px;"><span style="background:#e879f9;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:.7rem;">A</span>Appearance (Skin Color)</div>
+        <select class="calc-select" id="apgar-a" onchange="calcApgar()" style="font-size:.8rem;">
+          <option value="0">0 — Blue/Pale all over (Cyanosis ทั่วตัว)</option>
+          <option value="1">1 — Blue extremities, Pink body (Acrocyanosis)</option>
+          <option value="2">2 — Pink all over (ชมพูทั้งตัว)</option>
+        </select>
+      </div>
+      <!-- P -->
+      <div style="background:#fdf4ff;border-radius:11px;padding:10px;border:1.5px solid #e879f9;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#86198f;margin-bottom:6px;"><span style="background:#e879f9;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:.7rem;">P</span>Pulse (Heart Rate)</div>
+        <select class="calc-select" id="apgar-p" onchange="calcApgar()" style="font-size:.8rem;">
+          <option value="0">0 — Absent (ไม่มี)</option>
+          <option value="1">1 — &lt;100 bpm</option>
+          <option value="2">2 — ≥100 bpm</option>
+        </select>
+      </div>
+      <!-- G -->
+      <div style="background:#fdf4ff;border-radius:11px;padding:10px;border:1.5px solid #e879f9;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#86198f;margin-bottom:6px;"><span style="background:#e879f9;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:.7rem;">G</span>Grimace (Reflex Irritability)</div>
+        <select class="calc-select" id="apgar-g" onchange="calcApgar()" style="font-size:.8rem;">
+          <option value="0">0 — No response (ไม่มีการตอบสนอง)</option>
+          <option value="1">1 — Grimace (ขมวดคิ้ว/ทำหน้า)</option>
+          <option value="2">2 — Cough/Sneeze/Cry (ไอ/จาม/ร้อง)</option>
+        </select>
+      </div>
+      <!-- A2 -->
+      <div style="background:#fdf4ff;border-radius:11px;padding:10px;border:1.5px solid #e879f9;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#86198f;margin-bottom:6px;"><span style="background:#e879f9;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:.7rem;">A</span>Activity (Muscle Tone)</div>
+        <select class="calc-select" id="apgar-act" onchange="calcApgar()" style="font-size:.8rem;">
+          <option value="0">0 — Limp (อ่อนแรง/ไม่ขยับ)</option>
+          <option value="1">1 — Some flexion (งอแขนขาบ้าง)</option>
+          <option value="2">2 — Active motion (ขยับดี)</option>
+        </select>
+      </div>
+      <!-- R -->
+      <div style="background:#fdf4ff;border-radius:11px;padding:10px;border:1.5px solid #e879f9;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.8rem;font-weight:700;color:#86198f;margin-bottom:6px;"><span style="background:#e879f9;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:.7rem;">R</span>Respiration</div>
+        <select class="calc-select" id="apgar-r" onchange="calcApgar()" style="font-size:.8rem;">
+          <option value="0">0 — Absent (ไม่หายใจ)</option>
+          <option value="1">1 — Weak/Irregular (หายใจอ่อน/ไม่สม่ำเสมอ)</option>
+          <option value="2">2 — Strong cry (ร้องดัง/หายใจดี)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- APGAR Result -->
+    <div id="apgarResult" style="margin-top:12px;border-radius:14px;padding:14px;text-align:center;background:#f5f3ff;border:2px solid #c4b5fd;">
+      <div style="font-family:'Prompt',sans-serif;font-size:2rem;font-weight:700;color:#7c3aed;" id="apgarScore">0</div>
+      <div style="font-size:.78rem;color:#5b21b6;font-weight:600;" id="apgarLabel">เลือกค่าด้านบนเพื่อคำนวณ</div>
+      <div style="font-size:.7rem;color:#94a3b8;margin-top:4px;" id="apgarAction"></div>
+    </div>
+
+    <div style="margin-top:10px;overflow-x:auto;">
+      <table class="vtable">
+        <thead><tr><th>Score</th><th>ความหมาย</th><th>การจัดการ</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge" style="background:#f0fdf4;color:#15803d;">7–10</span></td><td>Normal</td><td>Routine newborn care</td></tr>
+          <tr><td><span class="badge" style="background:#fef3c7;color:#92400e;">4–6</span></td><td>Moderate depression</td><td>Stimulation + O2 + BVM ถ้าจำเป็น</td></tr>
+          <tr><td><span class="badge" style="background:#fff1f2;color:#be123c;">0–3</span></td><td>Severe depression</td><td>Immediate resuscitation — NRP protocol</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="must-box" style="margin-top:10px;">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know — APGAR</div>
+      <ul>
+        <li>APGAR ไม่ใช่ตัวกำหนดการ resuscitate — <strong>ตัดสินใจ resuscitate ก่อน</strong> แล้วค่อยให้ APGAR score</li>
+        <li>APGAR 5-min &lt;7 → ให้ score ซ้ำทุก 5 นาที จนถึง 20 นาที</li>
+        <li>APGAR 5-min &lt;5 → สัมพันธ์กับ neonatal encephalopathy risk → พิจารณา therapeutic hypothermia</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AAP/AHA Neonatal Resuscitation Program (NRP) 8th Ed.</div>
+  </div>
+
+  <!-- Neonatal Jaundice Quick Guide -->
+  <div class="card" id="card-neo-jaundice">
+    <div class="card-title"><div class="icon-circle" style="background:#fef9c3;color:#854d0e;"><i class="fa-solid fa-sun"></i></div>Neonatal Jaundice — Phototherapy Guide</div>
+    <div class="must-box">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know — Jaundice Essentials</div>
+      <ul>
+        <li>Jaundice ใน <strong>24 ชั่วโมงแรก = Pathological เสมอ</strong> → ตรวจ TB ทันที</li>
+        <li>Direct (Conjugated) bilirubin &gt;2 mg/dL หรือ &gt;20% of total → Pathological → workup cholestasis</li>
+        <li>Physiological jaundice: ปรากฏ D2–3, peak D4–5, หายใน 2 สัปดาห์ (term)</li>
+        <li>Kernicterus risk factors: Hemolysis, G6PD def, Prematurity, Sepsis, Acidosis, Hypoalbuminemia</li>
+      </ul>
+    </div>
+    <div style="overflow-x:auto;margin-top:8px;">
+      <table class="vtable">
+        <thead>
+          <tr><th>อายุ (hr)</th><th>Phototherapy (mg/dL)</th><th>Exchange Transfusion (mg/dL)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt;24 h</td><td colspan="2" style="text-align:center;color:#be123c;font-weight:700;">Pathological — workup immediately</td></tr>
+          <tr><td>24–48 h</td><td>≥12 (term); ≥10 (preterm)</td><td>≥20 (term); ≥15 (preterm)</td></tr>
+          <tr><td>49–72 h</td><td>≥15 (term); ≥12 (preterm)</td><td>≥25 (term); ≥20 (preterm)</td></tr>
+          <tr><td>&gt;72 h</td><td>≥17 (term); ≥14 (preterm)</td><td>≥25+ (term); use Bhutani chart</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="good-box">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know — Phototherapy Tips</div>
+      <ul>
+        <li>ให้ adequate hydration ระหว่าง phototherapy — IWL เพิ่มขึ้น → เพิ่ม fluid 10–20%</li>
+        <li>Breast milk jaundice: peak สัปดาห์ที่ 2–3, อาจนาน 3–12 สัปดาห์ — <strong>ไม่ต้องหยุดนมแม่</strong></li>
+        <li>Bronze baby syndrome: cholestasis + phototherapy → pigment เปลี่ยนสีน้ำตาล → หยุด PT ทันที</li>
+        <li>Check bilirubin rebound ที่ 12–24h หลังหยุด phototherapy</li>
+        <li>ใช้ Bhutani nomogram ตาม GA + postnatal hours เป็นมาตรฐาน</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: AAP Neonatal Hyperbilirubinemia Guidelines 2022 / Thai Pediatric Society</div>
+  </div>
+
+  <!-- Newborn Physical Exam Checklist -->
+  <div class="card" id="card-nbexam">
+    <div class="card-title"><div class="icon-circle" style="background:#fce7f3;color:#9d174d;"><i class="fa-solid fa-clipboard-check"></i></div>Newborn Physical Exam Checklist</div>
+    <div style="font-size:.75rem;color:#64748b;margin-bottom:10px;">ตรวจครบ <strong>ทุกข้อ</strong> ก่อน discharge — tap เพื่อ mark ✓</div>
+    <div id="nbChecklist" style="display:flex;flex-direction:column;gap:6px;"></div>
+    <div style="margin-top:10px;background:#f0fdf4;border-radius:10px;padding:8px 10px;font-size:.73rem;color:#166534;border:1px solid #bbf7d0;">
+      <span id="nbCheckProgress">0/0 completed</span> &nbsp;|&nbsp;
+      <button onclick="resetNbChecklist()" style="background:none;border:none;color:#0ea5e9;font-size:.73rem;cursor:pointer;padding:0;">Reset</button>
+    </div>
+    <div class="must-box" style="margin-top:10px;">
+      <div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know — Critical Findings</div>
+      <ul>
+        <li><strong>Red reflex absent</strong> → refer ophthalmology stat (congenital cataract/retinoblastoma)</li>
+        <li><strong>No anal opening</strong> → imperforate anus → surgical consult immediately</li>
+        <li><strong>Positive Ortolani/Barlow</strong> → DDH → ultrasound hip + orthopedic referral</li>
+        <li><strong>Heart murmur</strong> ใน newborn: ส่วนใหญ่ innocent แต่ R/O CHD → ECG + Echo ถ้า loud, harsh, holosystolic</li>
+        <li><strong>Clavicle fracture</strong> (crepitus, asymmetric Moro) → immobilize arm to body × 1–2 wks</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics 21st Ed. / Thai Pediatric Society</div>
+  </div>
+</section>
+
+<!-- ===== S8: YEAR 4 SURVIVAL ===== -->
+<section id="sec-yr4" class="section">
+  <div class="sec-title"><i class="fa-solid fa-user-graduate" style="color:#8b5cf6;"></i> Year 4 Survival Guide <span class="stag">S8</span></div>
+
+  <!-- History Taking Template -->
+  <div class="card" id="card-hx">
+    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-notes-medical"></i></div>Pediatric History Taking Template</div>
+    <div style="font-size:.75rem;color:#64748b;margin-bottom:10px;">กดที่หัวข้อเพื่อขยาย — ครอบคลุมทุก component ที่ Attending คาดหวัง</div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>1. Chief Complaint (CC) &amp; Present Illness (PI)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p><strong>CC:</strong> อาการหลักและระยะเวลา (เช่น "ไข้สูง 3 วัน")</p>
+          <p style="margin-top:6px;"><strong>PI — ถามตาม OLDCART:</strong></p>
+          <ul>
+            <li><strong>O</strong>nset — เริ่มเมื่อไหร่ เฉียบพลันหรือค่อยเป็น</li>
+            <li><strong>L</strong>ocation — ตำแหน่งอาการ (ถ้ามี)</li>
+            <li><strong>D</strong>uration — นานแค่ไหน ต่อเนื่องหรือเป็นๆ หายๆ</li>
+            <li><strong>C</strong>haracter — ลักษณะอาการ (ไข้สูงแค่ไหน, ท้องเดินกี่ครั้ง, ลักษณะอุจจาระ)</li>
+            <li><strong>A</strong>ssociated symptoms — อาการร่วม (ไอ, น้ำมูก, อาเจียน, ผื่น)</li>
+            <li><strong>R</strong>elieving/aggravating — อะไรทำให้ดีขึ้น/แย่ลง</li>
+            <li><strong>T</strong>reatment so far — ยาที่ได้รับแล้ว ผลเป็นอย่างไร</li>
+          </ul>
+          <div class="info-box"><i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>อย่าลืม: Sick contact, การระบาดในชุมชน, การท่องเที่ยว (ถ้าสงสัย infectious disease)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>2. Past Medical History (PMH)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <ul>
+            <li>โรคประจำตัว / การผ่าตัดในอดีต</li>
+            <li>การ admit ในโรงพยาบาล (เมื่อไหร่ เพราะอะไร)</li>
+            <li>ยาที่กินอยู่ประจำ / แพ้ยาหรืออาหาร</li>
+            <li>ประวัติชัก / Febrile seizure</li>
+            <li>ประวัติ atopy: ภูมิแพ้, ผื่น eczema, หอบหืด</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>3. Birth History (ประวัติแรกเกิด)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <ul>
+            <li><strong>ANC:</strong> ฝากครรภ์กี่ครั้ง ที่ไหน ผลปกติหรือไม่</li>
+            <li><strong>Maternal illness:</strong> DM, HT, Infection ระหว่างตั้งครรภ์, TORCH, GBS</li>
+            <li><strong>GA:</strong> อายุครรภ์กี่สัปดาห์ (Term / Preterm)</li>
+            <li><strong>Delivery:</strong> NVD หรือ C/S (indication คืออะไร)</li>
+            <li><strong>Birth weight:</strong> กี่กรัม | <strong>Birth length / HC</strong></li>
+            <li><strong>APGAR score:</strong> 1 min / 5 min</li>
+            <li><strong>Complications:</strong> Asphyxia, NICU admission, Phototherapy, Infection</li>
+            <li><strong>Newborn screening:</strong> TSH, PKU — ผลปกติหรือไม่</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>4. Nutritional History (ประวัติโภชนาการ)</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <ul>
+            <li><strong>Breast milk:</strong> เคยกินนมแม่ไหม กี่เดือน เหตุผลที่หยุด</li>
+            <li><strong>Formula:</strong> ยี่ห้ออะไร ชงเข้มข้นแค่ไหน กี่ออนซ์/วัน กี่มื้อ</li>
+            <li><strong>Weaning / Solid foods:</strong> เริ่มอาหารเสริมเมื่ออายุกี่เดือน อาหารหลากหลายหรือไม่</li>
+            <li><strong>Current diet:</strong> กินอาหารอะไรบ้างตอนนี้ มีปัญหาการกินไหม</li>
+            <li><strong>Vitamin D / Iron supplement:</strong> ได้รับหรือไม่</li>
+          </ul>
+          <div class="warn-box"><i class="fa-solid fa-triangle-exclamation" style="margin-right:4px;"></i>ถาม formula concentration เสมอ — formula เข้มข้นเกิน → Hypernatremic dehydration</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>5. Immunization &amp; Developmental History</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <p><strong>Immunization:</strong> วัคซีนครบตามเกณฑ์หรือไม่ มีสมุดวัคซีนไหม วัคซีนพิเศษที่ได้รับเพิ่ม</p>
+          <p style="margin-top:6px;"><strong>Development (ถามตาม 4 domains):</strong></p>
+          <ul>
+            <li><strong>Gross motor:</strong> ตอนนี้ทำอะไรได้บ้าง (นั่ง ยืน เดิน วิ่ง)</li>
+            <li><strong>Fine motor:</strong> จับของ วาดรูป ใช้ช้อน</li>
+            <li><strong>Language:</strong> พูดกี่คำ พูดประโยคได้ไหม เข้าใจคำสั่งง่ายๆ ได้ไหม</li>
+            <li><strong>Social/Adaptive:</strong> เล่นกับคนอื่น แต่งตัวเอง ใช้ห้องน้ำเอง</li>
+          </ul>
+          <div class="info-box">เปรียบเทียบกับ milestone ปกติ และถามพ่อแม่ว่ามีความกังวลด้านพัฒนาการไหม</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="acc-header" onclick="toggleAcc(this)"><span>6. Family &amp; Social History</span><i class="fa-solid fa-chevron-down acc-icon"></i></button>
+      <div class="acc-body">
+        <div class="acc-content">
+          <ul>
+            <li><strong>Family history:</strong> โรคที่ถ่ายทอดทางพันธุกรรม (DM, HT, Asthma, Thalassemia, Congenital disease)</li>
+            <li><strong>Consanguinity:</strong> พ่อแม่เป็นญาติกันหรือไม่</li>
+            <li><strong>Siblings:</strong> พี่น้องกี่คน สุขภาพเป็นอย่างไร ป่วยด้วยอาการเดียวกันไหม</li>
+            <li><strong>Social:</strong> ผู้เลี้ยงดูหลัก เรียนโรงเรียนไหม สัตว์เลี้ยง ควันบุหรี่ในบ้าน</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Nelson Textbook of Pediatrics 21st Ed. / Pediatric Clinical Skills</div>
+  </div>
+
+  <!-- Case Presentation -->
+  <div class="card" id="card-presentation">
+    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-person-chalkboard"></i></div>Case Presentation — Noon Report Structure</div>
+    <div style="font-size:.75rem;color:#64748b;margin-bottom:10px;">ลำดับการ present case ที่ Attending คาดหวังใน Pediatrics ward round</div>
+
+    <div style="display:flex;flex-direction:column;gap:7px;">
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">① Opening Statement</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">"This is [ชื่อ], a [อายุ]-[month/year]-old [เพศ] child, who presented with [CC] for [duration]."</div>
+      </div>
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">② HPI (History of Present Illness)</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">Describe chronologically: เริ่มต้นอาการ → progression → associated symptoms → treatment received → response</div>
+      </div>
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">③ Relevant PMH / Birth / Nutrition / Immunization</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">เน้นเฉพาะที่ relevant กับ case นี้ ไม่ต้อง recite ทั้งหมด</div>
+      </div>
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">④ Physical Examination</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">V/S → General appearance → Systematic findings (อย่า skip system) → Key positive &amp; negative findings</div>
+      </div>
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">⑤ Investigations</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">CBC, metabolic panel, CXR, cultures — ระบุค่าที่ผิดปกติพร้อมวันที่</div>
+      </div>
+      <div style="background:#f5f3ff;border-radius:11px;padding:10px 12px;border-left:4px solid #8b5cf6;">
+        <div style="font-family:'Prompt',sans-serif;font-size:.78rem;font-weight:700;color:#5b21b6;">⑥ Assessment &amp; Plan</div>
+        <div style="font-size:.74rem;color:#374151;margin-top:4px;">"My assessment is [diagnosis / DDx]. My plan is [investigations to order] + [treatment] + [monitoring]."</div>
+      </div>
+    </div>
+
+    <div class="good-box" style="margin-top:10px;">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know — Presentation Tips</div>
+      <ul>
+        <li>ฝึกพูดให้ได้ใน <strong>3–5 นาที</strong> สำหรับ new case | 1–2 นาที สำหรับ follow-up</li>
+        <li>จบด้วย "ผมคิดว่าปัญหาหลักคือ..." แสดงว่า synthesize ข้อมูลได้ ไม่ใช่แค่ list</li>
+        <li>ถ้าไม่รู้คำตอบ: "ผมยังไม่แน่ใจ แต่ผมจะไปค้นข้อมูลแล้วมารายงาน" ดีกว่าเดา</li>
+        <li>Note สิ่ง positive และ negative findings สำคัญ — การพูดว่า "ไม่มีสิ่งที่..." แสดงว่าตรวจละเอียด</li>
+      </ul>
+    </div>
+    <div class="pit-box">
+      <div class="box-head"><i class="fa-solid fa-triangle-exclamation" style="color:var(--pit-bdr);"></i> Pitfall — Common Year 4 Mistakes</div>
+      <ul>
+        <li>อ่าน chart แทนการ present — Attending ต้องการ synthesis ไม่ใช่ transcription</li>
+        <li>ลืม Birth history ใน infant/toddler — สำคัญมากใน pediatrics ต่างจาก adult medicine</li>
+        <li>ไม่บอก developmental status — เป็น vital information ใน pediatrics ทุก case</li>
+        <li>V/S ไม่ครบ — อย่าลืม O2 saturation, pain score, weight/height</li>
+        <li>ไม่อัปเดต medication list เมื่อแพทย์เปลี่ยนยา</li>
+      </ul>
+    </div>
+    <div class="ref-text"><i class="fa-solid fa-book-open"></i> Ref: Pediatric Clinical Skills / AAP Medical Education Resources</div>
+  </div>
+
+  <!-- Ward Tips -->
+  <div class="card" id="card-wardtips">
+    <div class="card-title"><div class="icon-circle" style="background:#ede9fe;color:#5b21b6;"><i class="fa-solid fa-lightbulb"></i></div>Ward Survival Tips — Senior Student Insights</div>
+    <div class="pearl-box">
+      <div class="box-head"><i class="fa-solid fa-gem" style="color:var(--pearl-bdr);"></i> Daily Routine Tips</div>
+      <ul>
+        <li>มาถึง ward ก่อน round อย่างน้อย <strong>30 นาที</strong> — ดู chart, V/S กลางคืน, lab ใหม่</li>
+        <li>เตรียม <strong>one-liner</strong> ทุก patient: "[ชื่อ] D[วันที่ admit] ของ [diagnosis] V/S stable/unstable"</li>
+        <li>เขียน daily progress note <strong>ก่อน round</strong> เสมอ — SOAP format</li>
+        <li>ถ้าไม่รู้จะทำอะไร → ถามพยาบาล หรือ medical student senior ก่อน</li>
+        <li>Handover: ใช้ <strong>SBAR</strong> (Situation, Background, Assessment, Recommendation)</li>
+      </ul>
+    </div>
+    <div class="good-box">
+      <div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Practical Must-Haves ในกระเป๋า</div>
+      <ul>
+        <li>ปากกา 2 สี (น้ำเงิน + แดง) | Stethoscope | Penlight | Tape measure (วัด HC)</li>
+        <li>Pocket notebook หรือ app จดเลขทะเบียน + diagnosis ทุก patient</li>
+        <li>แอพนี้ 😊 + UpToDate / PedsCases bookmarked</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== S9: QUICK LINKS ===== -->
+<section id="sec-links" class="section">
+  <div class="sec-title"><i class="fa-solid fa-link" style="color:#0ea5e9;"></i> Official Quick Links <span class="stag">S9</span></div>
+
+  <div class="card" id="card-links">
+    <div class="card-title"><div class="icon-circle" style="background:#e0f2fe;color:#0369a1;"><i class="fa-solid fa-globe"></i></div>แหล่งข้อมูลอ้างอิงมาตรฐาน</div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;">
+
+      <a href="https://www.thaipediatrics.org/700/" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:linear-gradient(135deg,#0ea5e9,#22c55e);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 4px 16px rgba(14,165,233,.28);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.88rem;font-weight:700;color:#fff;"><i class="fa-solid fa-book-open-reader" style="margin-right:6px;"></i>Thai Pediatric Society — CPG Guidelines</div>
+            <div style="font-size:.72rem;color:rgba(255,255,255,.85);margin-top:3px;">แนวทางเวชปฏิบัติ สมาคมกุมารแพทย์แห่งประเทศไทย</div>
+            <div style="font-size:.68rem;color:rgba(255,255,255,.7);margin-top:2px;">thaipediatrics.org/700/</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:rgba(255,255,255,.9);font-size:1rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://www.uptodate.com" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #e2e8f0;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-database" style="margin-right:6px;color:#0ea5e9;"></i>UpToDate</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">Evidence-based clinical decision support</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#0ea5e9;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://www.who.int/publications/i/item/9789240018143" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #e2e8f0;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-earth-asia" style="margin-right:6px;color:#22c55e;"></i>WHO IMCI Guidelines</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">Integrated Management of Childhood Illness</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#22c55e;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://www.heart.org/en/cpr/pediatric-first-aid-cpr-aed" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #fecdd3;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-heart-pulse" style="margin-right:6px;color:#fb7185;"></i>AHA — Pediatric CPR / PALS</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">American Heart Association Pediatric Guidelines</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#fb7185;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://www.gina-asthma.org" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #bae6fd;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-lungs" style="margin-right:6px;color:#0ea5e9;"></i>GINA — Asthma Guidelines</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">Global Initiative for Asthma 2024</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#0ea5e9;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://www.cdc.gov/vaccines/schedules/hcp/imz/child-adolescent.html" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #bbf7d0;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-syringe" style="margin-right:6px;color:#22c55e;"></i>CDC — Immunization Schedule</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">US Childhood &amp; Adolescent Vaccine Schedule (Reference)</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#22c55e;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+
+      <a href="https://harrietlane.app" target="_blank" rel="noopener" style="text-decoration:none;">
+        <div style="background:#fff;border-radius:14px;padding:13px 15px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px solid #c4b5fd;box-shadow:0 2px 10px rgba(0,0,0,.055);">
+          <div>
+            <div style="font-family:'Prompt',sans-serif;font-size:.86rem;font-weight:700;color:#1e293b;"><i class="fa-solid fa-pills" style="margin-right:6px;color:#8b5cf6;"></i>Harriet Lane Handbook App</div>
+            <div style="font-size:.71rem;color:#64748b;margin-top:2px;">Pediatric drug dosing &amp; clinical reference</div>
+          </div>
+          <i class="fa-solid fa-arrow-up-right-from-square" style="color:#8b5cf6;font-size:.9rem;flex-shrink:0;"></i>
+        </div>
+      </a>
+    </div>
+
+    <div style="margin-top:14px;background:#f0f9ff;border-radius:12px;padding:11px 13px;font-size:.73rem;color:#0369a1;border:1px solid #bae6fd;text-align:center;">
+      <i class="fa-solid fa-circle-info" style="margin-right:4px;"></i>
+      ลิงก์ทั้งหมดเปิดใน browser ใหม่ • ข้อมูลอ้างอิงจาก guidelines ล่าสุด ณ ปี 2025–2026
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="icon-circle" style="background:#f0fdf4;color:#166534;"><i class="fa-solid fa-mobile-screen"></i></div>แอพ &amp; เครื่องมือแนะนำ</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:.78rem;">
+      <div style="background:#f8fafc;border-radius:10px;padding:9px 11px;border:1px solid #e2e8f0;"><span style="font-weight:700;color:#1e293b;">📱 Medscape</span> — Drug reference, DDx, Clinical tools (Free)</div>
+      <div style="background:#f8fafc;border-radius:10px;padding:9px 11px;border:1px solid #e2e8f0;"><span style="font-weight:700;color:#1e293b;">📱 PediatricsCentral</span> — Harriet Lane + Nelson + Pediatrics in Review</div>
+      <div style="background:#f8fafc;border-radius:10px;padding:9px 11px;border:1px solid #e2e8f0;"><span style="font-weight:700;color:#1e293b;">📱 VisualDx</span> — Rash identification + visual diagnosis</div>
+      <div style="background:#f8fafc;border-radius:10px;padding:9px 11px;border:1px solid #e2e8f0;"><span style="font-weight:700;color:#1e293b;">📱 MDCalc</span> — Clinical calculators (Bhutani, pSOFA, PEWS score)</div>
+      <div style="background:#f8fafc;border-radius:10px;padding:9px 11px;border:1px solid #e2e8f0;"><span style="font-weight:700;color:#1e293b;">📱 Epocrates</span> — Drug dosing + interaction checker (Free tier available)</div>
+    </div>
+  </div>
+</section>
+
+<script>
+// ===== NEW FUNCTIONS TO APPEND =====
+
+function toggleMoreMenu(){
+  var menu=document.getElementById('moreMenu');
+  var overlay=document.getElementById('moreOverlay');
+  var isOpen=menu.style.display!=='none';
+  if(isOpen){closeMoreMenu();}
+  else{menu.style.display='block';overlay.style.display='block';}
+}
+function closeMoreMenu(){
+  document.getElementById('moreMenu').style.display='none';
+  document.getElementById('moreOverlay').style.display='none';
+}
+
+// Patch showSection to handle new sections and update More button highlight
+var _origShowSection=window.showSection;
+window.showSection=function(name,btn){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  var el=document.getElementById('sec-'+name);
+  if(el) el.classList.add('active');
+  var mainSections=['vitals','fluids','drugs','emerg'];
+  var mainIds=['nb-vitals','nb-fluids','nb-drugs','nb-emerg'];
+  var idx=mainSections.indexOf(name);
+  if(idx>=0){
+    var nb=document.getElementById(mainIds[idx]);
+    if(nb) nb.classList.add('active');
+  } else {
+    // highlight More button for secondary sections
+    var nb=document.getElementById('nb-more');
+    if(nb) nb.classList.add('active');
+  }
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+
+// APGAR Calculator
+function calcApgar(){
+  var a=parseInt(document.getElementById('apgar-a').value);
+  var p=parseInt(document.getElementById('apgar-p').value);
+  var g=parseInt(document.getElementById('apgar-g').value);
+  var act=parseInt(document.getElementById('apgar-act').value);
+  var r=parseInt(document.getElementById('apgar-r').value);
+  var total=a+p+g+act+r;
+  document.getElementById('apgarScore').textContent=total;
+  var label,action,color;
+  if(total>=7){label='Normal (ปกติ)';action='Routine newborn care — Dry, warm, monitor';color='#22c55e';}
+  else if(total>=4){label='Moderate Depression';action='Stimulation + O2 supplementation + BVM if needed — Call neonatologist';color='#f59e0b';}
+  else{label='Severe Depression';action='Immediate resuscitation — NRP protocol — Call NICU STAT';color='#e11d48';}
+  document.getElementById('apgarLabel').textContent=label;
+  document.getElementById('apgarLabel').style.color=color;
+  document.getElementById('apgarAction').textContent=action;
+  document.getElementById('apgarResult').style.borderColor=color;
+  document.getElementById('apgarScore').style.color=color;
+}
+
+// Newborn Checklist
+var nbItems=[
+  'General appearance: color, tone, cry, posture',
+  'Vital signs: HR, RR, Temp, SpO2',
+  'Head: fontanelles (size, tension), sutures, shape, caput/cephalohematoma',
+  'Eyes: red reflex bilaterally (R/O cataract, retinoblastoma)',
+  'Ears: position, ear pits/tags, hearing screen done',
+  'Nose: patency (pass NGT or occlude each nostril)',
+  'Mouth: palate intact (hard + soft), cleft, tongue-tie',
+  'Neck: masses, cystic hygroma, torticollis',
+  'Chest: shape, breath sounds bilaterally equal, no retractions',
+  'Heart: murmur, pulses (4 limbs), capillary refill',
+  'Abdomen: cord (3 vessels), organomegaly, distension, hernia',
+  'Genitalia: (M) testes descended, hypospadias | (F) labia, vaginal opening',
+  'Anus: patent (check visually)',
+  'Spine: sacral dimple, spina bifida, hair tuft',
+  'Extremities: digits, palmar creases, polydactyly/syndactyly',
+  'Hips: Ortolani / Barlow test (DDH screening)',
+  'Clavicles: crepitus, asymmetry (R/O fracture)',
+  'Neurological: Moro reflex, Grasp reflex, Rooting, Sucking',
+  'Skin: jaundice extent, petechiae, birthmarks, rash',
+  'Weight / Length / Head circumference measured and plotted'
+];
+var nbChecked={};
+
+function renderNbChecklist(){
+  var container=document.getElementById('nbChecklist');
+  container.innerHTML=nbItems.map(function(item,i){
+    var checked=nbChecked[i]||false;
+    return '<div onclick="toggleNbItem('+i+')" style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:'+(checked?'#f0fdf4':'#fafafa')+';border-radius:10px;border:1.5px solid '+(checked?'#86efac':'#e2e8f0')+';cursor:pointer;transition:all .15s;">'+
+      '<div style="width:20px;height:20px;border-radius:6px;border:2px solid '+(checked?'#22c55e':'#cbd5e1')+';background:'+(checked?'#22c55e':'#fff')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+
+      (checked?'<i class="fa-solid fa-check" style="font-size:.6rem;color:#fff;"></i>':'')+'</div>'+
+      '<span style="font-size:.74rem;line-height:1.5;color:'+(checked?'#166534':'#374151')+';'+(checked?'text-decoration:line-through;':'')+'">'+item+'</span>'+
+      '</div>';
+  }).join('');
+  var done=Object.values(nbChecked).filter(Boolean).length;
+  document.getElementById('nbCheckProgress').textContent=done+'/'+nbItems.length+' completed';
+}
+
+function toggleNbItem(i){
+  nbChecked[i]=!nbChecked[i];
+  renderNbChecklist();
+}
+function resetNbChecklist(){
+  nbChecked={};
+  renderNbChecklist();
+}
+
+// Update search index for new sections
+var extraSearchIndex=[
+  {term:'vaccine EPI วัคซีน BCG HBV DTP MMR schedule',section:'wbc',target:'card-vaccine',label:'Thai EPI Vaccine Schedule'},
+  {term:'growth weight milestone fontanelle head circumference',section:'wbc',target:'card-growth',label:'Growth Monitoring'},
+  {term:'apgar score newborn resuscitation NRP',section:'nursery',target:'card-apgar',label:'APGAR Score Calculator'},
+  {term:'jaundice neonatal phototherapy bilirubin exchange transfusion',section:'nursery',target:'card-neo-jaundice',label:'Neonatal Jaundice Phototherapy Guide'},
+  {term:'newborn exam physical red reflex ortolani barlow DDH moro reflex',section:'nursery',target:'card-nbexam',label:'Newborn Physical Exam Checklist'},
+  {term:'history taking template CC PI birth nutrition immunization development',section:'yr4',target:'card-hx',label:'Pediatric History Taking Template'},
+  {term:'case presentation noon report SOAP ward round attending',section:'yr4',target:'card-presentation',label:'Case Presentation Structure'},
+  {term:'ward survival year 4 tips SBAR handover pocket',section:'yr4',target:'card-wardtips',label:'Ward Survival Tips'},
+  {term:'links guidelines Thai Pediatric Society UpToDate GINA WHO',section:'links',target:'card-links',label:'Official Quick Links'},
+];
+
+// Append to existing searchIndex
+if(typeof searchIndex!=='undefined'){
+  extraSearchIndex.forEach(function(item){searchIndex.push(item);});
+}
+
+// Render checklist on load
+document.addEventListener('DOMContentLoaded',function(){
+  renderNbChecklist();
+  calcApgar();
+});
+// Also call immediately in case DOMContentLoaded already fired
+if(document.readyState==='complete'||document.readyState==='interactive'){
+  renderNbChecklist();
+  calcApgar();
+}
+</script>
+
+</body>
+</html>
 
 <!-- ===== S6: WELL BABY CLINIC ===== -->
 
@@ -1282,410 +2110,106 @@ body{font-family:'Sarabun',sans-serif;background:var(--clr-bg);color:var(--clr-t
     </div>
   </div>
 </section>
+
 <script>
-// ============================================================
-// UNIFIED JAVASCRIPT — Pediatric Ward Survival Guide v3.0
-// ============================================================
-
-// ── Section Navigation ──
-var ALL_SECTIONS = [‘vitals’,‘fluids’,‘drugs’,‘emerg’,‘guide’,‘wbc’,‘nursery’,‘yr4’,‘links’];
-var MAIN_NAV_MAP = {vitals:‘nb-vitals’,fluids:‘nb-fluids’,drugs:‘nb-drugs’,emerg:‘nb-emerg’};
-
-function showSection(name, btn) {
-document.querySelectorAll(’.section’).forEach(function(s){ s.classList.remove(‘active’); });
-document.querySelectorAll(’.nav-btn’).forEach(function(b){ b.classList.remove(‘active’); });
-var el = document.getElementById(‘sec-’ + name);
-if (el) el.classList.add(‘active’);
-if (MAIN_NAV_MAP[name]) {
-var nb = document.getElementById(MAIN_NAV_MAP[name]);
-if (nb) nb.classList.add(‘active’);
-} else {
-var nb = document.getElementById(‘nb-more’);
-if (nb) nb.classList.add(‘active’);
+function toggleMoreMenu(){
+  var m=document.getElementById('moreMenu'),o=document.getElementById('moreOverlay');
+  var open=m.style.display!=='none';
+  if(open){m.style.display='none';o.style.display='none';}
+  else{m.style.display='block';o.style.display='block';}
 }
-if (btn && btn.classList) btn.classList.add(‘active’);
-try { window.scrollTo({ top: 0, behavior: ‘smooth’ }); } catch(e) { window.scrollTo(0, 0); }
+function closeMoreMenu(){
+  document.getElementById('moreMenu').style.display='none';
+  document.getElementById('moreOverlay').style.display='none';
 }
-
-// ── More Menu ──
-function toggleMoreMenu() {
-var m = document.getElementById(‘moreMenu’);
-var o = document.getElementById(‘moreOverlay’);
-if (!m || !o) return;
-var open = m.style.display !== ‘none’;
-m.style.display = open ? ‘none’ : ‘block’;
-o.style.display = open ? ‘none’ : ‘block’;
-}
-function closeMoreMenu() {
-var m = document.getElementById(‘moreMenu’);
-var o = document.getElementById(‘moreOverlay’);
-if (m) m.style.display = ‘none’;
-if (o) o.style.display = ‘none’;
-}
-
-// ── Accordion ──
-function toggleAcc(btn) {
-var body = btn.nextElementSibling;
-if (!body) return;
-var isOpen = body.classList.contains(‘open’);
-// Walk up to find parent card without closest() (more reliable on iOS WebKit)
-var card = btn.parentNode;
-while (card && !card.classList.contains(‘card’)) {
-card = card.parentNode;
-}
-if (card) {
-var headers = card.getElementsByClassName(‘acc-header’);
-var bodies  = card.getElementsByClassName(‘acc-body’);
-for (var i = 0; i < headers.length; i++) headers[i].classList.remove(‘open’);
-for (var i = 0; i < bodies.length;  i++) bodies[i].classList.remove(‘open’);
-}
-if (!isOpen) {
-btn.classList.add(‘open’);
-body.classList.add(‘open’);
-}
-}
-
-// ── Vitals Age Filter ──
-function filterVitals(group, el) {
-document.querySelectorAll(’.age-tab’).forEach(function(t){ t.classList.remove(‘active’); });
-el.classList.add(‘active’);
-document.querySelectorAll(’#vitalsTbody tr’).forEach(function(r){
-r.style.display = (group === ‘all’ || r.dataset.group === group) ? ‘’ : ‘none’;
-});
-}
-
-// ── Fluid Calculator (Holliday-Segar) ──
-function calcFluids() {
-var wt = parseFloat(document.getElementById(‘fluidWeight’).value);
-var dehy = document.getElementById(‘fluidType’).value;
-if (!wt || wt <= 0) { alert(‘กรุณาใส่น้ำหนักผู้ป่วย’); return; }
-var maint = wt <= 10 ? wt * 100 : wt <= 20 ? 1000 + (wt - 10) * 50 : 1500 + (wt - 20) * 20;
-var mhr = maint / 24;
-var formula = wt <= 10 ? (wt + ‘x100=’ + maint + ’ ml/day’)
-: wt <= 20 ? (‘1000+(’ + wt + ‘-10)x50=’ + maint + ’ ml/day’)
-: (‘1500+(’ + wt + ‘-20)x20=’ + maint + ’ ml/day’);
-document.getElementById(‘res-maint-day’).textContent = Math.round(maint) + ’ ml’;
-document.getElementById(‘res-maint-hr’).textContent  = mhr.toFixed(1) + ’ ml/hr’;
-var dR = document.getElementById(‘row-deficit’);
-var tR = document.getElementById(‘row-total’);
-var tH = document.getElementById(‘row-totalhr’);
-if (dehy !== ‘none’) {
-var p   = dehy === ‘mild’ ? 0.05 : dehy === ‘moderate’ ? 0.10 : 0.15;
-var def = wt * 1000 * p;
-var tot = maint + def;
-document.getElementById(‘res-deficit’).textContent  = Math.round(def) + ’ ml’;
-document.getElementById(‘res-total’).textContent    = Math.round(tot) + ’ ml’;
-document.getElementById(‘res-total-hr’).textContent = (tot / 24).toFixed(1) + ’ ml/hr’;
-dR.style.display = tR.style.display = tH.style.display = ‘flex’;
-} else {
-dR.style.display = tR.style.display = tH.style.display = ‘none’;
-}
-document.getElementById(‘fluidFormula’).innerHTML =
-’<i class="fa-solid fa-function" style="margin-right:4px;"></i><strong>Formula:</strong> ’ + formula;
-document.getElementById(‘fluidResult’).classList.add(‘show’);
-}
-
-// ── Drug Database & Calculator ──
-var drugs = {
-paracetamol: { name:‘Paracetamol’, dosePerKg:15, freq:‘q4-6h’, fpd:4, maxD:4000,
-preps:‘Syrup 120mg/5ml | Syrup 250mg/5ml | Tab 500mg | Suppository 60/125/250mg’,
-syrupFn: function(d){ return ‘Syrup 120mg/5ml = <strong>’+((d/120)*5).toFixed(1)+‘ml/dose</strong> | Syrup 250mg/5ml = <strong>’+((d/250)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘10-15mg/kg/dose | Max 5 doses/24h | Caution in liver disease’,
-must: ‘Safest antipyretic for all ages including dengue | Overdose >150mg/kg: NAC immediately’,
-good: ‘Can alternate with Ibuprofen (not simultaneously) for better fever control’ },
-ibuprofen: { name:‘Ibuprofen’, dosePerKg:7.5, freq:‘q6-8h’, fpd:3, maxD:2400,
-preps:‘Syrup 100mg/5ml | Tab 200mg, 400mg’,
-syrupFn: function(d){ return ‘Syrup 100mg/5ml = <strong>’+((d/100)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘Use >=6 months | Give after food | AVOID: dengue, GI ulcer, renal impairment, dehydration’,
-must: ‘CONTRAINDICATED in dengue and dehydrated patients’,
-good: ‘Longer duration (6-8h) vs paracetamol (4-6h) | Anti-inflammatory effect’ },
-amoxicillin: { name:‘Amoxicillin’, dosePerKg:40, freq:‘TID (divided 3)’, fpd:3, maxD:3000,
-preps:‘Syrup 125mg/5ml | Syrup 250mg/5ml | Drop 50mg/ml | Cap 250/500mg’,
-syrupFn: function(d){ var dose=d/3; return ‘Syrup 125mg/5ml = <strong>’+((dose/125)*5).toFixed(1)+‘ml/dose</strong> | Syrup 250mg/5ml = <strong>’+((dose/250)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘Standard 40mg/kg/day | High-dose 80-90mg/kg/day for AOM/resistant’,
-must: ‘High-dose (80-90mg/kg/day) is now standard for AOM per AAP 2022’,
-good: ‘Better GI absorption than Ampicillin’ },
-augmentin: { name:‘Augmentin (Amox/Clav)’, dosePerKg:45, freq:‘BID’, fpd:2, maxD:3000,
-preps:‘Syrup 228mg/5ml (4:1) | Tab 625mg | Tab 1g (BD)’,
-syrupFn: function(d){ var dose=d/2; return ‘Syrup 228mg/5ml = <strong>’+((dose/228)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘Calculate by Amoxicillin component | AOM fail, animal bite, SSTI’,
-must: ‘Animal bite: Augmentin ALWAYS 1st line (covers Pasteurella + anaerobes)’,
-good: ‘BID dosing improves compliance vs TID’ },
-azithromycin: { name:‘Azithromycin’, dosePerKg:10, freq:‘OD x5 days’, fpd:1, maxD:500,
-preps:‘Syrup 200mg/5ml | Tab 250mg, 500mg’,
-syrupFn: function(d){ return ‘Syrup 200mg/5ml = <strong>’+((d/200)*5).toFixed(1)+‘ml/dose (Day 1)</strong>’; },
-note: ‘Day1: 10mg/kg | Day2-5: 5mg/kg OD | Max 500mg/dose’,
-must: ‘1st line: atypical pneumonia (Mycoplasma), pertussis, Chlamydia’,
-good: ‘Check ECG if cardiac risk — can prolong QT’ },
-ceftriaxone: { name:‘Ceftriaxone’, dosePerKg:75, freq:‘OD or q12h’, fpd:1, maxD:4000,
-preps:‘Vial 250mg | 500mg | 1g’,
-syrupFn: function(d){ return ‘IV/IM dose: <strong>’+Math.round(d)+‘mg/day</strong>’; },
-note: ‘Meningitis: 100mg/kg/day q12h | Bacteremia/CAP: 50-75mg OD | Max 4g/day’,
-must: ‘NEVER mix with Ca-containing IV in neonates <28 days — FATAL precipitation’,
-good: ‘Excellent for H.influenzae, S.pneumoniae, N.meningitidis | IM with 1% lidocaine’ },
-ondansetron: { name:‘Ondansetron’, dosePerKg:0.15, freq:‘q8h PRN’, fpd:3, maxD:24,
-preps:‘Syrup 4mg/5ml | Tab 4mg, 8mg ODT | IV 2mg/ml’,
-syrupFn: function(d){ var cap=Math.min(d, d<40?4:8); return ‘Syrup 4mg/5ml = <strong>’+((cap/4)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘0.15mg/kg | Max 4mg (<40kg) or 8mg (>=40kg) | Helps ORT success in AGE’,
-must: ‘Level I evidence for acute vomiting in AGE — reduces IV use and admissions’,
-good: ‘ODT ideal for vomiting children | Caution: QT prolongation in LQTS’ },
-domperidone: { name:‘Domperidone’, dosePerKg:0.25, freq:‘TID-QID before meals’, fpd:3, maxD:30,
-preps:‘Syrup 5mg/5ml | Tab 10mg | Suppository 30mg’,
-syrupFn: function(d){ return ‘Syrup 5mg/5ml = <strong>’+((d/5)*5).toFixed(1)+‘ml/dose</strong>’; },
-note: ‘0.2-0.4mg/kg/dose TID-QID | Max 2.4mg/kg/day | EMA caution <35kg’,
-must: ‘EMA: use only when benefit outweighs QT risk in children <35kg’,
-good: ‘Peripheral dopamine antagonist — does not cross BBB (less EPS)’ },
-cetirizine: { name:‘Cetirizine’, dosePerKg:0.25, freq:‘OD bedtime’, fpd:1, maxD:10,
-preps:‘Syrup 5mg/5ml | Tab 10mg’,
-syrupFn: function(d){ return ‘Syrup 5mg/5ml = <strong>’+((d/5)*5).toFixed(1)+‘ml/day</strong>’; },
-note: ‘0.25mg/kg/day OD | 2-5yr: 2.5-5mg | >=6yr: 5-10mg | Max 10mg/day’,
-must: ‘2nd gen antihistamine — less sedating than chlorpheniramine | No anticholinergic effect’,
-good: ‘Levocetirizine = half dose, same effect | Can use from 6 months (Levo)’ }
+// Override showSection to handle all 9 sections
+window.showSection=function(name,btn){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  var el=document.getElementById('sec-'+name);
+  if(el) el.classList.add('active');
+  var mainMap={vitals:'nb-vitals',fluids:'nb-fluids',drugs:'nb-drugs',emerg:'nb-emerg'};
+  if(mainMap[name]){var nb=document.getElementById(mainMap[name]);if(nb)nb.classList.add('active');}
+  else{var nb=document.getElementById('nb-more');if(nb)nb.classList.add('active');}
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 };
-
-function calcDrug() {
-var wt  = parseFloat(document.getElementById(‘drugWeight’).value);
-var key = document.getElementById(‘drugSelect’).value;
-if (!wt || wt <= 0) { alert(‘กรุณาใส่น้ำหนักผู้ป่วย’); return; }
-if (!key) { alert(‘กรุณาเลือกยา’); return; }
-var d      = drugs[key];
-var perDay = Math.min(wt * d.dosePerKg, d.maxD);
-var perDose = perDay / d.fpd;
-document.getElementById(‘drugResultName’).textContent = d.name;
-document.getElementById(‘drugResultTbody’).innerHTML =
-‘<tr><td>ขนาดยา/ครั้ง</td><td style="font-weight:700;color:#7c3aed;">’ + perDose.toFixed(2) + ’ mg</td></tr>’ +
-‘<tr><td>ขนาดยา/วัน</td><td style="font-weight:700;color:#7c3aed;">’  + perDay.toFixed(1)  + ’ mg</td></tr>’ +
-‘<tr><td>ความถี่</td><td>’ + d.freq + ‘</td></tr>’ +
-‘<tr><td>Max dose/day</td><td>’ + d.maxD + ’ mg</td></tr>’ +
-‘<tr><td>การเตรียมยา</td><td style="font-size:.71rem;">’ + d.preps + ‘</td></tr>’;
-document.getElementById(‘drugNote’).innerHTML =
-’<i class="fa-solid fa-circle-info" style="color:#7c3aed;margin-right:4px;"></i><strong>Note:</strong> ’ + d.note + ‘<br>’ + d.syrupFn(perDose);
-document.getElementById(‘drugMustGood’).innerHTML =
-‘<div class="must-box" style="margin-top:8px;"><div class="box-head"><i class="fa-solid fa-star" style="color:var(--must-bdr);"></i> Must Know</div><ul><li>’ + d.must + ‘</li></ul></div>’ +
-‘<div class="good-box"><div class="box-head"><i class="fa-solid fa-lightbulb" style="color:var(--good-bdr);"></i> Good to Know</div><ul><li>’ + d.good + ‘</li></ul></div>’;
-document.getElementById(‘drugResult’).classList.add(‘show’);
+// APGAR
+function calcApgar(){
+  var a=parseInt(document.getElementById('apgar-a').value)||0;
+  var p=parseInt(document.getElementById('apgar-p').value)||0;
+  var g=parseInt(document.getElementById('apgar-g').value)||0;
+  var act=parseInt(document.getElementById('apgar-act').value)||0;
+  var r=parseInt(document.getElementById('apgar-r').value)||0;
+  var tot=a+p+g+act+r;
+  document.getElementById('apgarScore').textContent=tot;
+  var lbl,act2,col;
+  if(tot>=7){lbl='Normal';act2='Routine newborn care — Dry, warm, stimulate';col='#22c55e';}
+  else if(tot>=4){lbl='Moderate Depression';act2='Stimulation + O2 + BVM if needed — Notify neonatologist';col='#f59e0b';}
+  else{lbl='Severe Depression';act2='Immediate NRP resuscitation — Call NICU STAT';col='#e11d48';}
+  document.getElementById('apgarLabel').textContent=lbl;
+  document.getElementById('apgarLabel').style.color=col;
+  document.getElementById('apgarAction').textContent=act2;
+  document.getElementById('apgarResult').style.borderColor=col;
+  document.getElementById('apgarScore').style.color=col;
 }
-
-// ── Emergency Calculator ──
-function calcEmerg() {
-var wt  = parseFloat(document.getElementById(‘emergWeight’).value);
-var age = parseFloat(document.getElementById(‘emergAge’).value) || 0;
-if (!wt || wt <= 0) { alert(‘กรุณาใส่น้ำหนักผู้ป่วย’); return; }
-var items = [];
-var epiDose = wt * 0.01;
-items.push({ icon:‘fa-syringe’, label:‘Epinephrine (Adrenaline) IV/IO’,
-val: epiDose.toFixed(3) + ’ mg’,
-sub: ‘= ’ + (epiDose/0.1).toFixed(2) + ’ ml of 1:10,000 | = ’ + epiDose.toFixed(3) + ’ ml of 1:1,000 | repeat q3-5min’ });
-items.push({ icon:‘fa-bolt’, label:‘Defibrillation’,
-val: (wt*2) + ’ - ’ + (wt*4) + ’ J’,
-sub: ‘Initial 2 J/kg then 4 J/kg | Max 10 J/kg (360 J)’ });
-items.push({ icon:‘fa-wave-square’, label:‘Synchronized Cardioversion’,
-val: (wt*0.5).toFixed(0) + ’ - ’ + (wt*1).toFixed(0) + ’ J’,
-sub: ‘0.5-1 J/kg initial then 2 J/kg | SVT, VT with pulse’ });
-var ettUC = age > 0 ? (age/4 + 4).toFixed(1) : ‘-’;
-var ettC  = age > 0 ? (age/4 + 3).toFixed(1) : ‘-’;
-var dep   = age > 0 ? (age/2 + 12).toFixed(1) : ‘-’;
-items.push({ icon:‘fa-lungs’, label:‘ETT Size’,
-val: age > 0 ? ‘Uncuffed: ’ + ettUC + ’ mm | Cuffed: ’ + ettC + ’ mm’ : ‘Enter age to calculate’,
-sub: age > 0 ? ‘Oral depth: ’ + dep + ’ cm | Prepare +/- 0.5 mm’ : ‘’ });
-var atrop = Math.max(0.1, Math.min(wt * 0.02, 0.5));
-items.push({ icon:‘fa-heart’, label:‘Atropine (Bradycardia)’,
-val: atrop.toFixed(3) + ’ mg IV’,
-sub: ‘0.02 mg/kg | Min 0.1 mg | Max 0.5 mg (child) 1 mg (adol)’ });
-items.push({ icon:‘fa-clock-rotate-left’, label:‘Adenosine (SVT)’,
-val: (wt*0.1).toFixed(2) + ’ then ’ + (wt*0.2).toFixed(2) + ’ mg’,
-sub: ‘0.1 mg/kg 1st then 0.2 mg/kg | Max 6mg then 12mg | Rapid IV push + flush’ });
-items.push({ icon:‘fa-cube’, label:‘Glucose (Hypoglycemia)’,
-val: ‘D10W: ’ + (wt*2.5).toFixed(0) + ’ ml’,
-sub: ‘2-4 ml/kg D10W = 0.2-0.4 g/kg | Slow IV over 5 min’ });
-items.push({ icon:‘fa-droplet’, label:‘IV Fluid Bolus’,
-val: (wt*20).toFixed(0) + ’ ml NSS/LRS’,
-sub: ‘20 ml/kg over 5-20 min | Repeat up to 3x | Reassess after each’ });
-items.push({ icon:‘fa-bone’, label:‘IO Access’,
-val: ‘Consider immediately’,
-sub: ‘If IV fails in 90 sec go IO | Proximal tibia 1st choice’ });
-items.push({ icon:‘fa-pills’, label:‘Midazolam (Seizure/Sedation)’,
-val: (wt*0.1).toFixed(2) + ’ mg IV/IO’,
-sub: ‘0.05-0.1 mg/kg | Buccal/Intranasal: 0.2 mg/kg | Max 5 mg/dose’ });
-document.getElementById(‘emergItems’).innerHTML = items.map(function(it){
-return ‘<div style="display:flex;flex-direction:column;gap:2px;padding:9px 0;border-bottom:1px dashed #fecdd3;">’ +
-‘<div style="display:flex;align-items:center;gap:7px;">’ +
-‘<i class="fa-solid ' + it.icon + '" style="color:#e11d48;width:15px;text-align:center;font-size:.8rem;flex-shrink:0;"></i>’ +
-‘<span style="font-family:Prompt,sans-serif;font-size:.79rem;font-weight:700;color:#be123c;">’ + it.label + ‘</span></div>’ +
-‘<div style="font-family:Prompt,sans-serif;font-size:.92rem;font-weight:700;color:#e11d48;margin-left:22px;">’ + it.val + ‘</div>’ +
-(it.sub ? ‘<div style="margin-left:22px;font-size:.68rem;color:#9f1239;">’ + it.sub + ‘</div>’ : ‘’) +
-‘</div>’;
-}).join(’’);
-document.getElementById(‘emergResult’).classList.add(‘show’);
+// NB Checklist
+var nbItems=['General: color, tone, cry, posture',
+  'Vital signs: HR, RR, Temp, SpO2',
+  'Head: fontanelles, sutures, shape, caput/cephalohematoma',
+  'Eyes: red reflex bilaterally (R/O cataract/retinoblastoma)',
+  'Ears: position, ear pits/tags, hearing screen done',
+  'Nose: patency (occlude each nostril individually)',
+  'Mouth: palate intact (hard+soft), cleft lip, tongue-tie',
+  'Neck: masses, torticollis, cystic hygroma',
+  'Chest: breath sounds bilateral equal, no retractions',
+  'Heart: murmur, pulses all 4 limbs, capillary refill',
+  'Abdomen: cord (3 vessels), organomegaly, distension, hernia',
+  'Genitalia: testes descended (M) | labia, vaginal opening (F)',
+  'Anus: patent (confirm visually)',
+  'Spine: sacral dimple, spina bifida, hair tuft',
+  'Extremities: digits, palmar creases, polydactyly/syndactyly',
+  'Hips: Ortolani + Barlow test (DDH screening)',
+  'Clavicles: crepitus, asymmetry (R/O fracture)',
+  'Neuro: Moro, Grasp, Rooting, Sucking reflex',
+  'Skin: jaundice extent, petechiae, birthmarks',
+  'Weight / Length / HC — measured and plotted on chart'];
+var nbChecked={};
+function renderNbChecklist(){
+  var c=document.getElementById('nbChecklist');
+  if(!c)return;
+  c.innerHTML=nbItems.map(function(item,i){
+    var ok=nbChecked[i]||false;
+    return '<div onclick="toggleNbItem('+i+')" style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:'+(ok?'#f0fdf4':'#fafafa')+';border-radius:10px;border:1.5px solid '+(ok?'#86efac':'#e2e8f0')+';cursor:pointer;transition:all .15s;">'+
+      '<div style="width:20px;height:20px;border-radius:6px;border:2px solid '+(ok?'#22c55e':'#cbd5e1')+';background:'+(ok?'#22c55e':'#fff')+';display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">'+(ok?'<i class="fa-solid fa-check" style="font-size:.6rem;color:#fff;"></i>':'')+'</div>'+
+      '<span style="font-size:.74rem;line-height:1.5;color:'+(ok?'#166534':'#374151')+';'+(ok?'text-decoration:line-through;':'')+'">'+item+'</span></div>';
+  }).join('');
+  var done=Object.keys(nbChecked).filter(function(k){return nbChecked[k];}).length;
+  var prog=document.getElementById('nbCheckProgress');
+  if(prog) prog.textContent=done+'/'+nbItems.length+' completed';
 }
-
-// ── APGAR Calculator ──
-function calcApgar() {
-var a   = parseInt(document.getElementById(‘apgar-a’).value)   || 0;
-var p   = parseInt(document.getElementById(‘apgar-p’).value)   || 0;
-var g   = parseInt(document.getElementById(‘apgar-g’).value)   || 0;
-var act = parseInt(document.getElementById(‘apgar-act’).value) || 0;
-var r   = parseInt(document.getElementById(‘apgar-r’).value)   || 0;
-var tot = a + p + g + act + r;
-document.getElementById(‘apgarScore’).textContent = tot;
-var lbl, act2, col;
-if (tot >= 7) {
-lbl=‘Normal’; act2=‘Routine newborn care — Dry, warm, stimulate’; col=’#22c55e’;
-} else if (tot >= 4) {
-lbl=‘Moderate Depression’; act2=‘Stimulation + O2 + BVM if needed — Notify neonatologist’; col=’#f59e0b’;
+function toggleNbItem(i){nbChecked[i]=!nbChecked[i];renderNbChecklist();}
+function resetNbChecklist(){nbChecked={};renderNbChecklist();}
+// Extend searchIndex
+if(typeof searchIndex!=='undefined'){
+  [{term:'vaccine EPI BCG HBV DTP MMR schedule วัคซีน',section:'wbc',target:'card-vaccine',label:'Thai EPI Vaccine Schedule'},
+   {term:'growth weight fontanelle head circumference FTT',section:'wbc',target:'card-growth',label:'Growth Monitoring'},
+   {term:'apgar score newborn resuscitation NRP',section:'nursery',target:'card-apgar',label:'APGAR Score Calculator'},
+   {term:'jaundice neonatal phototherapy bilirubin exchange transfusion',section:'nursery',target:'card-neo-jaundice',label:'Neonatal Jaundice Guide'},
+   {term:'newborn exam red reflex ortolani barlow DDH moro reflex checklist',section:'nursery',target:'card-nbexam',label:'Newborn Physical Exam Checklist'},
+   {term:'history taking CC PI birth nutrition immunization development template',section:'yr4',target:'card-hx',label:'Pediatric History Taking Template'},
+   {term:'case presentation noon report SOAP ward round attending',section:'yr4',target:'card-presentation',label:'Case Presentation Structure'},
+   {term:'ward survival tips SBAR handover daily routine',section:'yr4',target:'card-wardtips',label:'Ward Survival Tips'},
+   {term:'links Thai Pediatric Society UpToDate GINA WHO guidelines',section:'links',target:'card-links',label:'Official Quick Links'}
+  ].forEach(function(item){searchIndex.push(item);});
+}
+// Init on load
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){renderNbChecklist();calcApgar();});
 } else {
-lbl=‘Severe Depression’; act2=‘Immediate NRP resuscitation — Call NICU STAT’; col=’#e11d48’;
+  renderNbChecklist();calcApgar();
 }
-document.getElementById(‘apgarLabel’).textContent  = lbl;
-document.getElementById(‘apgarLabel’).style.color  = col;
-document.getElementById(‘apgarAction’).textContent = act2;
-document.getElementById(‘apgarResult’).style.borderColor = col;
-document.getElementById(‘apgarScore’).style.color  = col;
-}
-
-// ── Newborn Checklist ──
-var nbItems = [
-‘General: color, tone, cry, posture’,
-‘Vital signs: HR, RR, Temp, SpO2’,
-‘Head: fontanelles, sutures, shape, caput/cephalohematoma’,
-‘Eyes: red reflex bilaterally (R/O cataract/retinoblastoma)’,
-‘Ears: position, ear pits/tags, hearing screen done’,
-‘Nose: patency (occlude each nostril individually)’,
-‘Mouth: palate intact (hard+soft), cleft lip, tongue-tie’,
-‘Neck: masses, torticollis, cystic hygroma’,
-‘Chest: breath sounds bilateral equal, no retractions’,
-‘Heart: murmur, pulses all 4 limbs, capillary refill’,
-‘Abdomen: cord (3 vessels), organomegaly, distension, hernia’,
-‘Genitalia: testes descended (M) | labia, vaginal opening (F)’,
-‘Anus: patent (confirm visually)’,
-‘Spine: sacral dimple, spina bifida, hair tuft’,
-‘Extremities: digits, palmar creases, polydactyly/syndactyly’,
-‘Hips: Ortolani + Barlow test (DDH screening)’,
-‘Clavicles: crepitus, asymmetry (R/O fracture)’,
-‘Neuro: Moro, Grasp, Rooting, Sucking reflex’,
-‘Skin: jaundice extent, petechiae, birthmarks’,
-‘Weight / Length / HC — measured and plotted’
-];
-var nbChecked = {};
-
-function renderNbChecklist() {
-var c = document.getElementById(‘nbChecklist’);
-if (!c) return;
-c.innerHTML = nbItems.map(function(item, i){
-var ok = nbChecked[i] || false;
-return ‘<div onclick="toggleNbItem(' + i + ')" style="display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:' +
-(ok ? '#f0fdf4' : '#fafafa') + ';border-radius:10px;border:1.5px solid ' + (ok ? '#86efac' : '#e2e8f0') +
-';cursor:pointer;transition:all .15s;">’ +
-‘<div style="width:20px;height:20px;border-radius:6px;border:2px solid ' + (ok ? '#22c55e' : '#cbd5e1') +
-';background:' + (ok ? '#22c55e' : '#fff') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">’ +
-(ok ? ‘<i class="fa-solid fa-check" style="font-size:.6rem;color:#fff;"></i>’ : ‘’) + ‘</div>’ +
-‘<span style="font-size:.74rem;line-height:1.5;color:' + (ok ? '#166534' : '#374151') + ';' +
-(ok ? 'text-decoration:line-through;' : '') + '">’ + item + ‘</span></div>’;
-}).join(’’);
-var done = Object.keys(nbChecked).filter(function(k){ return nbChecked[k]; }).length;
-var prog = document.getElementById(‘nbCheckProgress’);
-if (prog) prog.textContent = done + ‘/’ + nbItems.length + ’ completed’;
-}
-
-function toggleNbItem(i) { nbChecked[i] = !nbChecked[i]; renderNbChecklist(); }
-function resetNbChecklist() { nbChecked = {}; renderNbChecklist(); }
-
-// ── Search ──
-var searchIndex = [
-{term:‘vital signs HR RR BP fever temperature tachycardia’,section:‘vitals’,target:‘card-vitals’,label:‘Normal Vital Signs’},
-{term:‘milestone development gross motor fine language social red flag autism’,section:‘vitals’,target:‘card-milestones’,label:‘Developmental Milestones + Red Flags’},
-{term:‘fluid holliday segar maintenance dehydration deficit’,section:‘fluids’,target:‘card-vitals’,label:‘IV Fluid Calculator’},
-{term:‘fluid type NSS LRS dextrose D10W potassium KCl selection’,section:‘fluids’,target:‘card-fluidtypes’,label:‘IV Fluid Types & Indications’},
-{term:‘paracetamol acetaminophen fever pain antipyretic’,section:‘drugs’,target:‘card-drugref’,label:‘Paracetamol Dosing’},
-{term:‘ibuprofen brufen NSAID anti-inflammatory pain dengue’,section:‘drugs’,target:‘card-drugref’,label:‘Ibuprofen Dosing’},
-{term:‘amoxicillin penicillin antibiotic AOM pneumonia’,section:‘drugs’,target:‘card-drugref’,label:‘Amoxicillin Dosing’},
-{term:‘augmentin amoxicillin clavulanate animal bite SSTI’,section:‘drugs’,target:‘card-drugref’,label:‘Augmentin Dosing’},
-{term:‘azithromycin atypical mycoplasma pertussis whooping cough’,section:‘drugs’,target:‘card-drugref’,label:‘Azithromycin Dosing’},
-{term:‘ceftriaxone rocephin IV antibiotic meningitis bacteremia’,section:‘drugs’,target:‘card-drugref’,label:‘Ceftriaxone Dosing’},
-{term:‘ondansetron zofran vomiting antiemetic AGE’,section:‘drugs’,target:‘card-drugref’,label:‘Ondansetron Dosing’},
-{term:‘domperidone motilium nausea GERD’,section:‘drugs’,target:‘card-drugref’,label:‘Domperidone Dosing’},
-{term:‘cetirizine zyrtec antihistamine allergy urticaria’,section:‘drugs’,target:‘card-drugref’,label:‘Cetirizine Dosing’},
-{term:‘CPR resuscitation cardiac arrest BLS compression PALS’,section:‘emerg’,target:‘card-cpr’,label:‘Pediatric CPR (BLS)’},
-{term:‘epinephrine adrenaline defibrillation shock emergency calculator’,section:‘emerg’,target:‘card-cpr’,label:‘PALS Emergency Calculator’},
-{term:‘ETT intubation airway tube size depth RSI ketamine’,section:‘emerg’,target:‘card-ett’,label:‘ETT & Airway Management’},
-{term:‘shock septic hypovolemic cardiogenic obstructive vasopressor’,section:‘emerg’,target:‘card-shock’,label:‘Pediatric Shock Recognition’},
-{term:‘dengue DHF warning signs plasma leakage fluid’,section:‘guide’,target:‘card-dengue’,label:‘Dengue Infection Management’},
-{term:‘asthma wheeze salbutamol nebulizer silent chest severity’,section:‘guide’,target:‘card-asthma’,label:‘Acute Asthma Exacerbation’},
-{term:‘gastroenteritis diarrhea AGE ORS dehydration zinc’,section:‘guide’,target:‘card-age’,label:‘AGE — Dehydration & ORS’},
-{term:‘jaundice neonatal phototherapy bilirubin G6PD’,section:‘guide’,target:‘card-jaundice’,label:‘Neonatal Jaundice (CPG section)’},
-{term:‘vaccine EPI BCG HBV DTP MMR schedule วัคซีน’,section:‘wbc’,target:‘card-vaccine’,label:‘Thai EPI Vaccine Schedule’},
-{term:‘growth weight fontanelle head circumference FTT failure thrive’,section:‘wbc’,target:‘card-growth’,label:‘Growth Monitoring’},
-{term:‘apgar score newborn resuscitation NRP’,section:‘nursery’,target:‘card-apgar’,label:‘APGAR Score Calculator’},
-{term:‘jaundice neonatal phototherapy bilirubin exchange transfusion nursery’,section:‘nursery’,target:‘card-neo-jaundice’,label:‘Neonatal Jaundice Phototherapy Guide’},
-{term:‘newborn exam red reflex ortolani barlow DDH moro checklist’,section:‘nursery’,target:‘card-nbexam’,label:‘Newborn Physical Exam Checklist’},
-{term:‘history taking CC PI birth nutrition immunization development template OLDCART’,section:‘yr4’,target:‘card-hx’,label:‘Pediatric History Taking Template’},
-{term:‘case presentation noon report SOAP ward round attending’,section:‘yr4’,target:‘card-presentation’,label:‘Case Presentation Structure’},
-{term:‘ward survival tips SBAR handover daily routine year 4’,section:‘yr4’,target:‘card-wardtips’,label:‘Ward Survival Tips’},
-{term:‘links Thai Pediatric Society UpToDate GINA WHO guidelines’,section:‘links’,target:‘card-links’,label:‘Official Quick Links’}
-];
-
-var sTO = null;
-document.getElementById(‘globalSearch’).addEventListener(‘input’, function(){
-clearTimeout(sTO);
-var q = this.value.trim();
-if (q.length < 2) { closeSearch(); return; }
-sTO = setTimeout(function(){ doSearch(q); }, 180);
-});
-document.getElementById(‘globalSearch’).addEventListener(‘keydown’, function(e){
-if (e.key === ‘Escape’) closeSearch();
-});
-
-function doSearch(q) {
-var terms = q.toLowerCase().split(’ ‘).filter(function(t){ return t.length > 0; });
-var results = searchIndex.filter(function(item){
-return terms.some(function(t){
-return item.term.toLowerCase().indexOf(t) >= 0 || item.label.toLowerCase().indexOf(t) >= 0;
-});
-});
-var secNames = ALL_SECTIONS;
-if (!results.length) {
-document.getElementById(‘searchResults’).innerHTML =
-‘<div style="color:#94a3b8;font-size:.82rem;text-align:center;padding:16px;">No results found for “’ + q + ‘”</div>’;
-} else {
-document.getElementById(‘searchResults’).innerHTML = results.map(function(r){
-var sIdx = secNames.indexOf(r.section);
-return ‘<div onclick="goTo(\'' + r.section + '\',\'' + r.target + '\')" style="padding:10px 12px;background:#f8fafc;border-radius:12px;margin-bottom:6px;cursor:pointer;border:1.5px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px;">’ +
-‘<div>’ +
-‘<div style="font-family:Prompt,sans-serif;font-size:.82rem;font-weight:700;color:#1e293b;">’ + r.label + ‘</div>’ +
-‘<div style="font-size:.68rem;color:#94a3b8;margin-top:2px;">S’ + (sIdx+1) + ’ — ’ + r.section.charAt(0).toUpperCase() + r.section.slice(1) + ‘</div>’ +
-‘</div><i class="fa-solid fa-arrow-right" style="color:#0ea5e9;font-size:.78rem;flex-shrink:0;"></i></div>’;
-}).join(’’);
-}
-document.getElementById(‘searchOverlay’).style.display = ‘block’;
-document.getElementById(‘searchPanel’).style.display   = ‘block’;
-}
-
-function goTo(section, cardId) {
-closeSearch();
-showSection(section, null);
-setTimeout(function(){
-var card = document.getElementById(cardId);
-if (card) card.scrollIntoView({ behavior: ‘smooth’, block: ‘start’ });
-}, 150);
-}
-
-function closeSearch() {
-document.getElementById(‘searchOverlay’).style.display = ‘none’;
-document.getElementById(‘searchPanel’).style.display   = ‘none’;
-}
-
-// ── navToSection: single call for More menu buttons ──
-function navToSection(name) {
-closeMoreMenu();
-showSection(name, null);
-}
-
-// ── Init ──
-(function init(){
-renderNbChecklist();
-calcApgar();
-})();
-
 </script>
+
 </body>
 </html>
